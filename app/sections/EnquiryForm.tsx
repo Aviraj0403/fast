@@ -1,12 +1,11 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useToast } from "@/app/hooks/use-toast";
 import { Send } from "lucide-react";
 
-// Form schema
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Invalid email address" }),
@@ -19,7 +18,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export const EnquiryForm = () => {
-  const { toast } = useToast();
+  const [toast, setToast] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -28,6 +27,14 @@ export const EnquiryForm = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
+
+  // Auto hide toast after 3s
+  useEffect(() => {
+    if (toast) {
+      const timeout = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [toast]);
 
   const onSubmit = (data: FormValues) => {
     const { name, email, phone, courseInterest, location, message } = data;
@@ -48,16 +55,12 @@ export const EnquiryForm = () => {
 
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
 
-    toast({
-      title: "Redirecting to WhatsApp...",
-      description: "You’ll be redirected to WhatsApp to send your enquiry.",
-    });
-
+    setToast("Redirecting to WhatsApp...");
     reset();
   };
 
   return (
-    <section id="enquiry" className="py-20 bg-gradient-to-b from-blue-50 to-white">
+    <section id="enquiry" className="py-20 bg-gradient-to-b from-blue-50 to-white relative">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Enquire Now</h2>
@@ -67,6 +70,7 @@ export const EnquiryForm = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-lg rounded-lg p-6 space-y-6">
+          {/* Form fields here (same as your original) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block mb-1 font-medium text-gray-700">Full Name</label>
@@ -117,7 +121,9 @@ export const EnquiryForm = () => {
                 <option value="abroad">Study Abroad</option>
                 <option value="other">Other Courses</option>
               </select>
-              {errors.courseInterest && <p className="text-red-500 text-sm mt-1">{errors.courseInterest.message}</p>}
+              {errors.courseInterest && (
+                <p className="text-red-500 text-sm mt-1">{errors.courseInterest.message}</p>
+              )}
             </div>
           </div>
 
@@ -149,6 +155,40 @@ export const EnquiryForm = () => {
           </button>
         </form>
       </div>
+
+      {/* Toast notification */}
+      {toast && (
+        <div
+          className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-md shadow-lg animate-fade-in-out"
+          role="alert"
+        >
+          {toast}
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes fade-in-out {
+          0% {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+          }
+          10% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+          }
+          90% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+          }
+        }
+        .animate-fade-in-out {
+          animation: fade-in-out 3s ease forwards;
+        }
+      `}</style>
     </section>
   );
 };
