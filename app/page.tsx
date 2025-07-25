@@ -1,49 +1,54 @@
+// app/page.tsx
+import SEO from "@/components/Seo";
+import { Navbar } from "@/components/ui/Navbar";
 import Image from "next/image";
-
-export const metadata = {
-  title: 'Home Page | Your Site Name',
-  description: 'This is the homepage of your Next.js app.',
-  openGraph: {
-    title: 'Home Page | Your Site Name',
-    description: 'This is the homepage of your Next.js app.',
-    url: 'https://your-domain.com',
-    siteName: 'Your Site Name',
-    images: [
-      {
-        url: 'https://your-domain.com/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Open Graph Image',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Home Page | Your Site Name',
-    description: 'This is the homepage of your Next.js app.',
-    images: ['https://your-domain.com/og-image.jpg'],
-    creator: '@yourtwitterhandle',
-  },
-};
+import { Hero } from "./sections/Hero";
+import { About } from "./sections/About";
+import { CounterSection } from "./sections/CounterSection";
+import { Services } from "./sections/Services";
+import { Colleges } from "./sections/Colleges";
+import { RegionalSuccess } from "./sections/RegionalSuccess";
+import { Testimonials } from "./sections/Testimonials";
+import { EnquiryForm } from "./sections/EnquiryForm";
+import { Contact } from "./sections/Contact";
+import { Footer } from "@/components/ui/Footer";
 
 export default function HomePage() {
   return (
-    <main>
-      <h1>Hello, this is the homepage!</h1>
-      <p>Using App Router with layout and SEO metadata.</p>
-      
-      {/* Example using next/image */}
-      {/* 
-      <Image 
-        src="/images/sample.jpg" 
-        alt="Sample image" 
-        width={600} 
-        height={400} 
-        priority 
-      /> 
-      */}
-    </main>
+    <>
+      <SEO
+        title="Home Page"
+        description="Welcome to the homepage of your Next.js app."
+        url="https://your-domain.com"
+        image="https://your-domain.com/og-image-home.jpg"
+        twitterHandle="@yourtwitterhandle"
+      />
+      <main>
+        <Navbar />
+        <Hero />
+        <About />
+        <CounterSection />
+        <Services />
+        <Colleges />
+        <RegionalSuccess />
+        <Testimonials />
+        <EnquiryForm />
+        <Contact />
+        <Footer />
+
+     
+
+        {/* Example of next/image */}
+        {/* 
+        <Image
+          src="/images/sample.jpg"
+          alt="Sample image"
+          width={600}
+          height={400}
+          priority
+        /> 
+        */}
+      </main>
+    </>
   );
 }
