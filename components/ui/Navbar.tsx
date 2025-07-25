@@ -1,9 +1,10 @@
+"use client";
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Menu, X, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useToast } from "@/app/hooks/use-toast";
+import { useIsMobile } from "@/app/hooks/use-mobile";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

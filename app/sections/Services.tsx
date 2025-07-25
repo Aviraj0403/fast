@@ -1,3 +1,4 @@
+"use client";
 import { ServiceCard } from "@/components/ui/ServiceCard";
 import { Book, Stethoscope, Scale, Building, GraduationCap, Globe } from "lucide-react";
 

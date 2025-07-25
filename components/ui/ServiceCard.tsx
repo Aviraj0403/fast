@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";

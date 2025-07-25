@@ -1,3 +1,4 @@
+"use client";
 import { RegionCard } from "@/components/ui/RegionCard";
 
 export const RegionalSuccess = () => {

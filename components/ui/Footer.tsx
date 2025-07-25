@@ -1,3 +1,4 @@
+"use client";
 import { Link } from "wouter";
 import { 
   Facebook, 
