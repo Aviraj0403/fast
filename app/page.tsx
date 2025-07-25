@@ -1,54 +1,50 @@
 // app/page.tsx
-import SEO from "@/components/Seo";
-import { Navbar } from "@/components/ui/Navbar";
-import Image from "next/image";
+
+import { Metadata } from "next";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+
 import { Hero } from "./sections/Hero";
-import { About } from "./sections/About";
-import { CounterSection } from "./sections/CounterSection";
-import { Services } from "./sections/Services";
-import { Colleges } from "./sections/Colleges";
-import { RegionalSuccess } from "./sections/RegionalSuccess";
-import { Testimonials } from "./sections/Testimonials";
+// Uncomment these as you develop
+// import { About } from "./sections/About";
+// import { CounterSection } from "./sections/CounterSection";
+// import { Services } from "./sections/Services";
+// import { Colleges } from "./sections/Colleges";
+// import { RegionalSuccess } from "./sections/RegionalSuccess";
+// import { Testimonials } from "./sections/Testimonials";
 import { EnquiryForm } from "./sections/EnquiryForm";
 import { Contact } from "./sections/Contact";
-import { Footer } from "@/components/ui/Footer";
+
+// Optional: define page metadata (if not using SEO component)
+export const metadata: Metadata = {
+  title: "Home Page",
+  description: "Welcome to the homepage of your Next.js app.",
+  openGraph: {
+    images: ["https://your-domain.com/og-image-home.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@yourtwitterhandle",
+  },
+};
 
 export default function HomePage() {
   return (
-    <>
-      <SEO
-        title="Home Page"
-        description="Welcome to the homepage of your Next.js app."
-        url="https://your-domain.com"
-        image="https://your-domain.com/og-image-home.jpg"
-        twitterHandle="@yourtwitterhandle"
-      />
-      <main>
-        <Navbar />
-        <Hero />
-        <About />
-        <CounterSection />
-        <Services />
-        <Colleges />
-        <RegionalSuccess />
-        <Testimonials />
-        <EnquiryForm />
-        <Contact />
-        <Footer />
+    <main>
+      <Navbar />
+      <Hero />
 
-     
+      {/* Uncomment as needed */}
+      {/* <About /> */}
+      {/* <CounterSection /> */}
+      {/* <Services /> */}
+      {/* <Colleges /> */}
+      {/* <RegionalSuccess /> */}
+      {/* <Testimonials /> */}
+      <EnquiryForm />
+      <Contact /> 
 
-        {/* Example of next/image */}
-        {/* 
-        <Image
-          src="/images/sample.jpg"
-          alt="Sample image"
-          width={600}
-          height={400}
-          priority
-        /> 
-        */}
-      </main>
-    </>
+      <Footer />
+    </main>
   );
 }

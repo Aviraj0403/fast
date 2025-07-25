@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL("https://your-domain.com"),
   title: {
-    default: "Your Site Name",
+    default: "Future Advice For Successful Tomorrow",
     template: "%s | Your Site Name",
   },
   description: "Default description of your awesome Next.js app.",
