@@ -1,5 +1,6 @@
 "use client";
-import { RegionCard } from "@/components/ui/RegionCard";
+
+import { useState } from "react";
 
 export const RegionalSuccess = () => {
   const regions = [
@@ -56,18 +57,11 @@ export const RegionalSuccess = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-            data-aos="fade-up"
-          >
+        <div className="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Regional Success Stories
           </h2>
-          <p 
-            className="text-lg text-gray-600"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <p className="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
             Our success spans across multiple regions in India, helping students from diverse backgrounds
           </p>
         </div>
@@ -78,14 +72,30 @@ export const RegionalSuccess = () => {
           data-aos-delay="200"
         >
           {regions.map((region, index) => (
-            <RegionCard
+            <div
               key={index}
-              name={region.name}
-              successCount={region.successCount}
-              topInstitutions={region.topInstitutions}
-              image={region.image}
-              delay={index * 50}
-            />
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden"
+              data-aos="fade-up"
+              data-aos-delay={index * 50}
+            >
+              <div className="relative h-40 overflow-hidden">
+                <img
+                  src={region.image + "?auto=format&fit=crop&w=400&q=80"}
+                  alt={`${region.name} landscape`}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">{region.name}</h3>
+                <p className="text-primary font-bold mb-2">{region.successCount}+ Success Stories</p>
+                <p className="text-gray-600 text-sm">
+                  Top Institutions:
+                  <br />
+                  {region.topInstitutions.join(", ")}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

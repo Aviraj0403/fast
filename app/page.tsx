@@ -6,12 +6,12 @@ import { Footer } from "@/components/Footer";
 
 import { Hero } from "./sections/Hero";
 // Uncomment these as you develop
-// import { About } from "./sections/About";
-// import { CounterSection } from "./sections/CounterSection";
-// import { Services } from "./sections/Services";
-// import { Colleges } from "./sections/Colleges";
-// import { RegionalSuccess } from "./sections/RegionalSuccess";
-// import { Testimonials } from "./sections/Testimonials";
+import { About } from "./sections/About";
+import { CounterSection } from "./sections/CounterSection";
+import { Services } from "./sections/Services";
+import { Colleges } from "./sections/Colleges";
+import { RegionalSuccess } from "./sections/RegionalSuccess";
+import { Testimonials } from "./sections/Testimonials";
 import { EnquiryForm } from "./sections/EnquiryForm";
 import { Contact } from "./sections/Contact";
 
@@ -35,12 +35,12 @@ export default function HomePage() {
       <Hero />
 
       {/* Uncomment as needed */}
-      {/* <About /> */}
-      {/* <CounterSection /> */}
-      {/* <Services /> */}
-      {/* <Colleges /> */}
-      {/* <RegionalSuccess /> */}
-      {/* <Testimonials /> */}
+      <About />
+      <CounterSection />
+      <Services />
+      <Colleges />
+      <RegionalSuccess />
+      <Testimonials />
       <EnquiryForm />
       <Contact /> 
 
