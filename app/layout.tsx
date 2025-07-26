@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
 
@@ -14,42 +15,54 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 // === Metadata ===
 export const metadata: Metadata = {
-  metadataBase: new URL("https://your-domain.com"),
+  metadataBase: new URL("https://fastadmission.in"),
   title: {
-    default: "Future Advice For Successful Tomorrow",
-    template: "%s | Your Site Name",
+    default: "FastAdmission – Best Career & College Admission Counsellor",
+    template: "%s | FastAdmission",
   },
-  description: "Default description of your awesome Next.js app.",
-  keywords: ["nextjs", "portfolio", "developer", "react", "web performance"],
-  authors: [{ name: "Your Name", url: "https://your-domain.com/about" }],
-  creator: "Your Name",
+  description: "Get expert career guidance and college admission counselling from India's trusted education advisors at FastAdmission.",
+  keywords: [
+    "college admission",
+    "career counsellor",
+    "best admission consultant",
+    "study guidance",
+    "education advisor",
+    "FastAdmission",
+    "admission help",
+    "top colleges",
+    "career counseling",
+    "college application support"
+  ],
+  authors: [{ name: "FastAdmission Team", url: "https://fastadmission.in" }],
+  creator: "FastAdmission Team",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://your-domain.com",
-    title: "Your Site Name",
-    description: "Default description of your awesome Next.js app.",
+    url: "https://fastadmission.in",
+    title: "FastAdmission – Best Career & College Admission Counsellor",
+    description: "Expert advice for college admissions and career decisions. FastAdmission helps students secure seats in top institutions.",
     images: [
       {
-        url: "https://your-domain.com/og-image.jpg",
+        url: "https://fastadmission.in/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Default OG Image",
+        alt: "FastAdmission - Your Gateway to Top Colleges",
       },
     ],
-    siteName: "Your Site Name",
+    siteName: "FastAdmission",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your Site Name",
-    description: "Default description of your awesome Next.js app.",
-    images: ["https://your-domain.com/og-image.jpg"],
-    creator: "@yourtwitterhandle",
+    title: "FastAdmission – College Admission & Career Counselling",
+    description: "FastAdmission offers expert counselling for college admissions and career planning in India.",
+    images: ["https://fastadmission.in/og-image.jpg"],
+    creator: "@fastadmission",
   },
   icons: {
     icon: "/favicon.ico",
   },
 };
+
 
 // === Layout ===
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -76,6 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AOSInit/>
         {children}
          <SpeedInsights />
+         <Analytics />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}
       </body>
