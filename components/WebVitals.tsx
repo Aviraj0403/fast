@@ -8,15 +8,17 @@ export default function WebVitals() {
       if (typeof window !== "undefined" && window.webVitals) {
         const { getCLS, getFID, getFCP, getLCP, getTTFB } = window.webVitals;
 
-        function sendToGoogleAnalytics({ name, delta, id }: { name: string; delta: number; id: string }) {
-          window.gtag?.("event", name, {
+        // Proper type narrowing for the metric argument
+        function sendToGoogleAnalytics(metric: { name: string; delta: number; id: string }) {
+          window.gtag?.("event", metric.name, {
             event_category: "Web Vitals",
-            value: Math.round(name === "CLS" ? delta * 1000 : delta),
-            event_label: id,
+            value: Math.round(metric.name === "CLS" ? metric.delta * 1000 : metric.delta),
+            event_label: metric.id,
             non_interaction: true,
           });
         }
 
+        // Call the web vitals functions and send data to Google Analytics
         getCLS(sendToGoogleAnalytics);
         getFID(sendToGoogleAnalytics);
         getFCP(sendToGoogleAnalytics);

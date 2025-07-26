@@ -3,11 +3,11 @@ export {};
 
 declare global {
   interface WebVitals {
-    getCLS: (onReport: (metric: unknown) => void) => void;
-    getFID: (onReport: (metric: unknown) => void) => void;
-    getFCP: (onReport: (metric: unknown) => void) => void;
-    getLCP: (onReport: (metric: unknown) => void) => void;
-    getTTFB: (onReport: (metric: unknown) => void) => void;
+    getCLS: (onReport: (metric: { name: string; delta: number; id: string }) => void) => void;
+    getFID: (onReport: (metric: { name: string; delta: number; id: string }) => void) => void;
+    getFCP: (onReport: (metric: { name: string; delta: number; id: string }) => void) => void;
+    getLCP: (onReport: (metric: { name: string; delta: number; id: string }) => void) => void;
+    getTTFB: (onReport: (metric: { name: string; delta: number; id: string }) => void) => void;
   }
 
   interface Window {
