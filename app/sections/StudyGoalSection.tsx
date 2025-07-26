@@ -3,42 +3,43 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
+
 const studyGoals = [
   {
     title: 'Engineering',
     subtitle: 'B.Tech | M.Tech | Diploma | Bachelors+Masters',
     colleges: 37,
-    image: '/images/engineering.png',
+    image: '/image/engineer.webp',
   },
   {
     title: 'Arts Courses',
     subtitle: 'BA | B.ED | DFD | 3D-Animation | BA+LLB | MA',
     colleges: 43,
-    image: '/images/arts.png',
+    image: '/image/Art.webp',
   },
   {
     title: 'Management',
     subtitle: 'BBA | BMS | BBM | BHMCT | BALLB | MHM | EMBA',
-    colleges: 0,
-    image: '/images/management.png',
+    colleges: 38,
+    image: '/image/mangement.webp',
   },
   {
     title: 'Commerce Courses',
     subtitle: 'B.Com | LLB | DCA | CA | CS | CFP | M.COM',
-    colleges: 0,
-    image: '/images/commerce.png',
+    colleges: 28,
+    image: '/image/commerce.webp',
   },
   {
     title: 'Medical',
     subtitle: 'MBBS | BAMS | BUMS | BDS | MS | MD | PG-YOGA',
-    colleges: 0,
-    image: '/images/medical.png',
+    colleges: 34,
+    image: '/image/medical.webp',
   },
   {
     title: 'Mass Communication',
     subtitle: 'BJMC | BHJMC | DJMC | MJMC | BAFMC | BMMMC',
-    colleges: 0,
-    image: '/images/masscomm.png',
+    colleges: 26,
+    image: '/image/masscomm.webp',
   },
 ];
 
@@ -61,14 +62,15 @@ export const StudyGoalSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-lg shadow-md flex items-center gap-6"
+              className="bg-white p-6 rounded-lg shadow-md flex items-start gap-6"
             >
               <Image
                 src={item.image}
                 alt={item.title}
-                width={80}
-                height={80}
+                width={150}
+                height={150}
                 className="object-contain"
+                unoptimized
               />
               <div className="flex-1">
                 <div className="flex items-center justify-between">

@@ -21,8 +21,8 @@ const indianCities = [
 //   { name: 'Ahmedabad', img: '/image/ahmedabad-city.jpg' },
   { name: 'Bhopal', img: '/image/bhopal-city.jpg' },
 //   { name: 'Surat', img: '/image/surat-city.jpg' },
-  { name: 'Chandigarh', img: '/image/chandigarh-city.jpg' },
-  { name: 'Patna', img: '/image/patna-city.jpg' },
+  { name: 'Chandigarh', img: '/image/chandigarh.jpeg' },
+  { name: 'Patna', img: '/image/patna.jpeg' },
 ];
 
 const StudyPlacesSection = () => {

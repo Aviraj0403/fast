@@ -14,21 +14,21 @@ const blogPosts = [
     title: 'Top 5 Law Professions in India',
     excerpt:
       'A large number of students are choosing Career Consultant in Delhi to pursue LLB after finishing high school. In the past, students with an inclination towards LLB programmes were bombarded...',
-    image: '/image/blog2.png',
+    image: '/image/lawim.jpeg',
     date: 'Dec 22, 2022',
   },
   {
     title: 'What are the Career Options in Physiotherapy?',
     excerpt:
       'Physiotherapy is the treatment of disease, injury or deformity in any outer organ of the body through massages, heat treatment, and exercise rather than any medicines or drugs...',
-    image: '/image/blog3.png',
+    image: '/image/careeroption.jpeg',
     date: 'Dec 21, 2022',
   },
   {
     title: 'Architect Vs. Civil Engineer: What is the Difference?',
     excerpt:
       'An architect is a professional involved in designing and planning every construction element and is responsible for the project’s aesthetic appeal along with operations and safety...',
-    image: '/image/blog4.png',
+    image: '/image',
     date: 'Dec 20, 2022',
   },
 ];
