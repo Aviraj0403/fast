@@ -1,7 +1,7 @@
 "use client";
 
 import { BookOpen, Target, Users, Award } from "lucide-react";
-
+import Image from "next/image";
 // Simple reusable Button component
 const Button = ({
   children,
@@ -16,9 +16,8 @@ const Button = ({
     <button
       type="button"
       onClick={onClick}
-      className={`px-6 py-3 rounded-md font-medium transition ${
-        className || "bg-primary text-white hover:bg-primary/90"
-      }`}
+      className={`px-6 py-3 rounded-md font-medium transition ${className || "bg-primary text-white hover:bg-primary/90"
+        }`}
     >
       {children}
     </button>
@@ -79,10 +78,13 @@ export const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="relative" data-aos="fade-right">
             <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1588873281272-14886ba1f737"
                 alt="Counseling session"
                 className="w-full h-auto object-cover"
+                width={800} // adjust as needed
+                height={600} // adjust as needed
+                unoptimized // optional if you don't want Next.js to optimize it
               />
             </div>
             <div className="absolute -bottom-5 -right-5 w-40 h-40 bg-primary/20 rounded-full z-0"></div>
@@ -94,12 +96,9 @@ export const About = () => {
               Your Path to Success Since 2015
             </h3>
             <p className="text-gray-600 mb-6">
-              FAST (Future Advice for Successful Tomorrow) has been dedicated
-              to guiding students toward their academic goals since 2015. With
-              a rich history of success and expertise in educational counseling,
-              we've helped over 1700 students secure admissions in their dream
-              institutions.
+              FAST (Future Advice for Successful Tomorrow) has been dedicated to guiding students toward their academic goals since 2015. With a rich history of success and expertise in educational counseling, we&apos;ve helped over 1700 students secure admissions in their dream institutions.
             </p>
+
             <p className="text-gray-600 mb-8">
               Our team of experienced counselors specializes in admissions
               across various disciplines, including Engineering, Medical, Law,

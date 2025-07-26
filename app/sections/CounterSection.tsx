@@ -3,81 +3,81 @@
 import { useEffect, useState, useRef } from "react";
 import { GraduationCap, Building, Users, Clock } from "lucide-react";
 
-// Animate counter helper function
+// Counter animation helper
 const animateCounter = (
   start: number,
   end: number,
   duration: number,
-  setValue: (value: number) => void
+  setValue: (val: number) => void
 ) => {
-  let startTimestamp: number | null = null;
+  let startTime: number | null = null;
+
   const step = (timestamp: number) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    if (!startTime) startTime = timestamp;
+    const progress = Math.min((timestamp - startTime) / duration, 1);
     setValue(Math.floor(progress * (end - start) + start));
     if (progress < 1) {
-      window.requestAnimationFrame(step);
+      requestAnimationFrame(step);
     }
   };
-  window.requestAnimationFrame(step);
+
+  requestAnimationFrame(step);
 };
 
 export const CounterSection = () => {
-  const [studentsCount, setStudentsCount] = useState(0);
-  const [collegesCount, setCollegesCount] = useState(0);
-  const [experienceCount, setExperienceCount] = useState(0);
-  const [regionsCount, setRegionsCount] = useState(0);
+  const [students, setStudents] = useState(0);
+  const [colleges, setColleges] = useState(0);
+  const [experience, setExperience] = useState(0);
+  const [regions, setRegions] = useState(0);
 
   const sectionRef = useRef<HTMLDivElement>(null);
-  const animatedRef = useRef(false);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !animatedRef.current) {
-          animatedRef.current = true;
-          animateCounter(0, 1700, 2000, setStudentsCount);
-          animateCounter(0, 600, 2000, setCollegesCount);
-          animateCounter(0, new Date().getFullYear() - 2015, 2000, setExperienceCount);
-          animateCounter(0, 8, 2000, setRegionsCount);
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+
+          animateCounter(0, 1700, 2000, setStudents);
+          animateCounter(0, 600, 2000, setColleges);
+          animateCounter(0, new Date().getFullYear() - 2015, 2000, setExperience);
+          animateCounter(0, 8, 2000, setRegions);
         }
       },
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const target = sectionRef.current;
+    if (target) observer.observe(target);
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      if (target) observer.unobserve(target);
     };
   }, []);
 
   const stats = [
     {
       icon: <Users className="h-10 w-10 text-primary" />,
-      count: studentsCount,
+      count: students,
       label: "Students Guided",
       suffix: "+",
     },
     {
       icon: <Building className="h-10 w-10 text-primary" />,
-      count: collegesCount,
+      count: colleges,
       label: "Partner Colleges",
       suffix: "+",
     },
     {
       icon: <Clock className="h-10 w-10 text-primary" />,
-      count: experienceCount,
+      count: experience,
       label: "Years of Experience",
       suffix: "+",
     },
     {
       icon: <GraduationCap className="h-10 w-10 text-primary" />,
-      count: regionsCount,
+      count: regions,
       label: "Regional Success",
       suffix: "",
     },
@@ -95,7 +95,7 @@ export const CounterSection = () => {
             Our Impact in Numbers
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Since 2015, we've been making a significant difference in the educational journey of students across India.
+            Since 2015, we&apos;ve been making a significant difference in the educational journey of students across India.
           </p>
         </div>
 

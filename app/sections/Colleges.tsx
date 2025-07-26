@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Native Button component
@@ -25,7 +26,7 @@ const Button = ({
   </button>
 );
 
-// Native CollegeCard component
+// Updated CollegeCard with <Image />
 const CollegeCard = ({
   name,
   location,
@@ -38,7 +39,14 @@ const CollegeCard = ({
   category: string;
 }) => (
   <div className="min-w-[280px] bg-white rounded-lg shadow-lg overflow-hidden flex-shrink-0">
-    <img src={image} alt={`${name} image`} className="w-full h-44 object-cover" />
+    <Image
+      src={image}
+      alt={`${name} image`}
+      width={400}
+      height={176}
+      className="w-full h-44 object-cover"
+      unoptimized
+    />
     <div className="p-4">
       <h3 className="font-semibold text-lg text-gray-900">{name}</h3>
       <p className="text-gray-600 text-sm">{location}</p>
@@ -130,8 +138,8 @@ export const Colleges = () => {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            We've partnered with over 600 top colleges across India to provide the
-            best opportunities for our students
+            We&apos;ve partnered with over 600 top colleges across India to
+            provide the best opportunities for our students
           </p>
         </div>
 

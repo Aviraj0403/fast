@@ -1,17 +1,17 @@
-// types/window.d.ts (or global.d.ts)
-interface WebVitals {
-  getCLS: (onReport: (metric: any) => void) => void;
-  getFID: (onReport: (metric: any) => void) => void;
-  getFCP: (onReport: (metric: any) => void) => void;
-  getLCP: (onReport: (metric: any) => void) => void;
-  getTTFB: (onReport: (metric: any) => void) => void;
-}
+// global.d.ts or window.d.ts
+export {};
 
 declare global {
+  interface WebVitals {
+    getCLS: (onReport: (metric: unknown) => void) => void;
+    getFID: (onReport: (metric: unknown) => void) => void;
+    getFCP: (onReport: (metric: unknown) => void) => void;
+    getLCP: (onReport: (metric: unknown) => void) => void;
+    getTTFB: (onReport: (metric: unknown) => void) => void;
+  }
+
   interface Window {
     webVitals?: WebVitals;
-    gtag?: (...args: any[]) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
-
-export {};

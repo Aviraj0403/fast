@@ -1,6 +1,7 @@
 "use client";
 
 import { Phone, Mail, Clock } from "lucide-react";
+import Image from "next/image";
 
 export const Contact = () => {
   return (
@@ -62,7 +63,7 @@ export const Contact = () => {
               <Mail className="h-6 w-6 text-blue-600" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Email Us</h3>
-            <p className="text-gray-600 mb-4">Send us an email and we'll get back to you</p>
+            <p className="text-gray-600 mb-4">Send us an email and we&apos;ll get back to you</p>
             <div className="space-y-2 text-gray-800 font-medium">
               <div>
                 General Enquiries:{" "}
@@ -122,10 +123,13 @@ export const Contact = () => {
             {/* Rajnish Singh */}
             <article className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full overflow-hidden mb-4 bg-gray-200">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2"
                   alt="Rajnish Singh"
+                  width={96}
+                  height={96}
                   className="w-full h-full object-cover"
+                  unoptimized
                 />
               </div>
               <h4 className="text-xl font-semibold">Rajnish Singh</h4>
@@ -144,10 +148,13 @@ export const Contact = () => {
             {/* Rahul Singh */}
             <article className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full overflow-hidden mb-4 bg-gray-200">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1523240795612-9a054b0db644"
                   alt="Rahul Singh"
+                  width={96}
+                  height={96}
                   className="w-full h-full object-cover"
+                  unoptimized
                 />
               </div>
               <h4 className="text-xl font-semibold">Rahul Singh</h4>
