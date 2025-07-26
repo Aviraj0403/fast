@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-slot": "^1.2.3",
     "@tanstack/react-query": "^5.83.0",
+    "@vercel/speed-insights": "^1.2.0",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
 
@@ -74,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AOSInit/>
         {children}
-
+         <SpeedInsights />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}
       </body>
