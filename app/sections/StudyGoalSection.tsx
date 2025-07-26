@@ -7,13 +7,13 @@ const studyGoals = [
   {
     title: 'Engineering',
     subtitle: 'B.Tech | M.Tech | Diploma | Bachelors+Masters',
-    colleges: 0,
+    colleges: 37,
     image: '/images/engineering.png',
   },
   {
     title: 'Arts Courses',
     subtitle: 'BA | B.ED | DFD | 3D-Animation | BA+LLB | MA',
-    colleges: 0,
+    colleges: 43,
     image: '/images/arts.png',
   },
   {
