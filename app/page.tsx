@@ -14,10 +14,12 @@ import { Hero } from "./sections/Hero";
 // import { Testimonials } from "./sections/Testimonials";
 import { EnquiryForm } from "./sections/EnquiryForm";
 import { Contact } from "./sections/Contact";
-import { AdmissionSection } from "./sections/AdmissionSection";
+import { AdmissionSection } from "./sections/AdmissionSection"; 
 import { StudyGoalSection } from './sections/StudyGoalSection';
 import StudyPlacesSection from "./sections/StudyPlacesSection";
-
+import CareerAssessmentSection from './sections/CareerAssessmentSection';
+import BlogSection from './sections/BlogSection';
+import { FixedButtons } from "./sections/FixedButtons";
 
 // Optional: define page metadata (if not using SEO component)
 export const metadata: Metadata = {
@@ -40,6 +42,8 @@ export default function HomePage() {
  <AdmissionSection />
 <StudyGoalSection />
 <StudyPlacesSection />
+  <CareerAssessmentSection />
+   <BlogSection />
 
       {/* Uncomment as needed */}
       {/* <About />
@@ -52,6 +56,7 @@ export default function HomePage() {
       <Contact /> 
 
       <Footer />
+         <FixedButtons />
     </main>
   );
 }
