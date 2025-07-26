@@ -1,7 +1,7 @@
 declare global {
   interface Window {
     AOS: {
-      init: (options: any) => void;
+      init: (options: Record<string, unknown>) => void;
       refresh: () => void;
     };
   }
@@ -33,7 +33,10 @@ export const zoomInAnimation = {
 };
 
 // Add animation delay
-export const withDelay = (animation: any, delay: number) => ({
+export const withDelay = (
+  animation: Record<string, string>,
+  delay: number
+): Record<string, string> => ({
   ...animation,
   'data-aos-delay': delay.toString(),
 });
