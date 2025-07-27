@@ -79,27 +79,26 @@ export const Hero = () => {
             data-aos-delay="400"
           >
             <p className="font-medium">Trusted by students across India</p>
-           <div className="mt-2 overflow-x-auto sm:overflow-visible">
-  <div className="flex items-center space-x-4 w-max sm:w-auto">
-    <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
-      <span className="text-lg font-semibold">1700+</span>
-      <span className="ml-2">Students</span>
-    </div>
-    <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
-      <span className="text-lg font-semibold">600+</span>
-      <span className="ml-2">Colleges</span>
-    </div>
-     <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
-      <span className="text-lg font-semibold">439+</span>
-      <span className="ml-2">Universities</span>
-    </div>
-    <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
-      <span className="text-lg font-semibold">Since</span>
-      <span className="ml-2">2015</span>
-    </div>
-  </div>
-</div>
-
+            <div className="mt-2 overflow-x-auto sm:overflow-visible">
+              <div className="flex items-center space-x-4 w-max sm:w-auto">
+                <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
+                  <span className="text-lg font-semibold">1700+</span>
+                  <span className="ml-2">Students</span>
+                </div>
+                <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
+                  <span className="text-lg font-semibold">600+</span>
+                  <span className="ml-2">Colleges</span>
+                </div>
+                <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
+                  <span className="text-lg font-semibold">439+</span>
+                  <span className="ml-2">Universities</span>
+                </div>
+                <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
+                  <span className="text-lg font-semibold">Since</span>
+                  <span className="ml-2">2015</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
