@@ -204,7 +204,7 @@ const MergedContactSection = () => {
               name: "Rajnish Singh",
               title: "Founder",
               phone: "+91 85818 41853",
-              img: "https://images.unsplash.com/photo-1472289065668-ce650ac443d2",
+              img: "/image/contact.jpeg",
               desc:
                 "With over a decade of experience in educational counseling, Rajnish has helped thousands of students achieve their academic dreams.",
             },
@@ -212,7 +212,7 @@ const MergedContactSection = () => {
               name: "Rahul Singh",
               title: "Director",
               phone: "+91 70790 05999",
-              img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644",
+              img: "/image/contact.jpeg",
               desc:
                 "Rahul specializes in strategic partnerships with educational institutions, ensuring our students have access to the best opportunities.",
             },

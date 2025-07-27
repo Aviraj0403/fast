@@ -20,7 +20,8 @@ export const Contact = () => {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Reach out to our team for any questions or to schedule a counseling session
+            Reach out to our team for any questions or to schedule a counseling
+            session
           </p>
         </div>
 
@@ -36,17 +37,25 @@ export const Contact = () => {
               <Phone className="h-6 w-6 text-blue-600" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Call Us</h3>
-            <p className="text-gray-600 mb-4">Our team is here to help you with your queries</p>
+            <p className="text-gray-600 mb-4">
+              Our team is here to help you with your queries
+            </p>
             <div className="space-y-2 text-gray-800 font-medium">
               <div>
                 Founder:{" "}
-                <a href="tel:+918581841853" className="text-blue-600 hover:underline">
+                <a
+                  href="tel:+918581841853"
+                  className="text-blue-600 hover:underline"
+                >
                   +91 85818 41853
                 </a>
               </div>
               <div>
                 Director:{" "}
-                <a href="tel:+917079005999" className="text-blue-600 hover:underline">
+                <a
+                  href="tel:+917079005999"
+                  className="text-blue-600 hover:underline"
+                >
                   +91 70790 05999
                 </a>
               </div>
@@ -63,17 +72,25 @@ export const Contact = () => {
               <Mail className="h-6 w-6 text-blue-600" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Email Us</h3>
-            <p className="text-gray-600 mb-4">Send us an email and we&apos;ll get back to you</p>
+            <p className="text-gray-600 mb-4">
+              Send us an email and we&apos;ll get back to you
+            </p>
             <div className="space-y-2 text-gray-800 font-medium">
               <div>
                 General Enquiries:{" "}
-                <a href="mailto:info@fastadmission.com" className="text-blue-600 hover:underline">
+                <a
+                  href="mailto:info@fastadmission.com"
+                  className="text-blue-600 hover:underline"
+                >
                   info@fastadmission.com
                 </a>
               </div>
               <div>
                 Counseling Requests:{" "}
-                <a href="mailto:counseling@fastadmission.com" className="text-blue-600 hover:underline">
+                <a
+                  href="mailto:counseling@fastadmission.com"
+                  className="text-blue-600 hover:underline"
+                >
                   counseling@fastadmission.com
                 </a>
               </div>
@@ -90,15 +107,21 @@ export const Contact = () => {
               <Clock className="h-6 w-6 text-blue-600" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Office Hours</h3>
-            <p className="text-gray-600 mb-4">Visit us during our working hours</p>
+            <p className="text-gray-600 mb-4">
+              Visit us during our working hours
+            </p>
             <div className="space-y-2 font-medium text-gray-800">
               <div>
                 Monday to Saturday{" "}
-                <span className="block text-gray-600 mt-1">10:00 AM - 7:00 PM</span>
+                <span className="block text-gray-600 mt-1">
+                  10:00 AM - 7:00 PM
+                </span>
               </div>
               <div>
                 Sunday{" "}
-                <span className="block text-gray-600 mt-1">By appointment only</span>
+                <span className="block text-gray-600 mt-1">
+                  By appointment only
+                </span>
               </div>
             </div>
             <p className="text-sm text-gray-500 mt-4">
@@ -124,18 +147,20 @@ export const Contact = () => {
             <article className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
               <div className="w-24 h-24 rounded-full overflow-hidden mb-4 bg-gray-200">
                 <Image
-                  src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2"
+                  src="/image/contact.jpeg"
                   alt="Rajnish Singh"
-                  width={96}
-                  height={96}
+                  width={128}
+                  height={128}
                   className="w-full h-full object-cover"
-                  unoptimized
+                  priority
                 />
               </div>
               <h4 className="text-xl font-semibold">Rajnish Singh</h4>
               <p className="text-blue-600 font-medium mb-3">Founder</p>
               <p className="text-gray-600 text-center mb-4">
-                With over a decade of experience in educational counseling, Rajnish has helped thousands of students achieve their academic dreams.
+                With over a decade of experience in educational counseling,
+                Rajnish has helped thousands of students achieve their academic
+                dreams.
               </p>
               <a
                 href="tel:+918581841853"
@@ -147,20 +172,23 @@ export const Contact = () => {
 
             {/* Rahul Singh */}
             <article className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
-              <div className="w-24 h-24 rounded-full overflow-hidden mb-4 bg-gray-200">
+              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 bg-gray-200">
                 <Image
-                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644"
+                  src="/image/contact.jpeg"
                   alt="Rahul Singh"
-                  width={96}
-                  height={96}
+                  width={160}
+                  height={160}
                   className="w-full h-full object-cover"
-                  unoptimized
+                  priority
                 />
               </div>
+
               <h4 className="text-xl font-semibold">Rahul Singh</h4>
               <p className="text-blue-600 font-medium mb-3">Director</p>
               <p className="text-gray-600 text-center mb-4">
-                Rahul specializes in strategic partnerships with educational institutions, ensuring our students have access to the best opportunities.
+                Rahul specializes in strategic partnerships with educational
+                institutions, ensuring our students have access to the best
+                opportunities.
               </p>
               <a
                 href="tel:+917079005999"
