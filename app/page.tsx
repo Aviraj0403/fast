@@ -44,11 +44,11 @@ export default function HomePage() {
   <CareerAssessmentSection />
    <BlogSection />
 <MergedContactSection />
-      <AdmissionSection />
+      {/* <AdmissionSection />
       <StudyGoalSection />
       <StudyPlacesSection />
       <CareerAssessmentSection />
-      <BlogSection />
+      <BlogSection /> */}
 
       {/* Uncomment as needed */}
       {/* <About />
