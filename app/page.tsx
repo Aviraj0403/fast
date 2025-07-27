@@ -29,7 +29,7 @@ import { metadata as layoutMetadata } from './layout';
 // Merge the metadata from layout and add specific page-level metadata here
 export const metadata: Metadata = {
   ...layoutMetadata,
-  title: " Fast Admission Expert | FastAdmission",
+  title: "Home Page | FastAdmission",
   description: "Explore your career goals, get guidance, and start your journey with FastAdmission.",
 };
 
@@ -44,6 +44,12 @@ export default function HomePage() {
   <CareerAssessmentSection />
    <BlogSection />
 <MergedContactSection />
+      <AdmissionSection />
+      <StudyGoalSection />
+      <StudyPlacesSection />
+      <CareerAssessmentSection />
+      <BlogSection />
+
       {/* Uncomment as needed */}
       {/* <About />
       <CounterSection />
