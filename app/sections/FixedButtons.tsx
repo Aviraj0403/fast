@@ -19,7 +19,7 @@ export const FixedButtons = () => {
     >
       {/* WhatsApp */}
       <a
-        href="https://wa.me/919212271699"
+        href="https://wa.me/918581841853"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl animate-float hover:scale-110 transition-all duration-300 ease-in-out"
@@ -30,7 +30,7 @@ export const FixedButtons = () => {
 
       {/* Call */}
       <a
-        href="tel:+919212271699"
+        href="tel:+918581841853"
         className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl animate-float-alt hover:scale-110 transition-all duration-300 ease-in-out"
         aria-label="Call"
       >

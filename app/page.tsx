@@ -14,23 +14,23 @@ import { Hero } from "./sections/Hero";
 // import { Testimonials } from "./sections/Testimonials";
 // import { EnquiryForm } from "./sections/EnquiryForm";
 // import { Contact } from "./sections/Contact";
-import { AdmissionSection } from "./sections/AdmissionSection"; 
-import { StudyGoalSection } from './sections/StudyGoalSection';
+import { AdmissionSection } from "./sections/AdmissionSection";
+import { StudyGoalSection } from "./sections/StudyGoalSection";
 import StudyPlacesSection from "./sections/StudyPlacesSection";
-import CareerAssessmentSection from './sections/CareerAssessmentSection';
-import BlogSection from './sections/BlogSection';
+import CareerAssessmentSection from "./sections/CareerAssessmentSection";
+import BlogSection from "./sections/BlogSection";
 import { FixedButtons } from "./sections/FixedButtons";
 import MergedContactSection from "./sections/MergedContactSection";
 
-
 // Importing metadata from layout.tsx
-import { metadata as layoutMetadata } from './layout';
+import { metadata as layoutMetadata } from "./layout";
 
 // Merge the metadata from layout and add specific page-level metadata here
 export const metadata: Metadata = {
   ...layoutMetadata,
   title: "Fast Admission Expert | FastAdmission",
-  description: "Explore your career goals, get guidance, and start your journey with FastAdmission.",
+  description:
+    "Explore your career goals, get guidance, and start your journey with FastAdmission.",
 };
 
 export default function HomePage() {
@@ -38,17 +38,12 @@ export default function HomePage() {
     <main>
       <Navbar />
       <Hero />
- <AdmissionSection />
-<StudyGoalSection />
-<StudyPlacesSection />
-  <CareerAssessmentSection />
-   <BlogSection />
-<MergedContactSection />
       <AdmissionSection />
       <StudyGoalSection />
       <StudyPlacesSection />
       <CareerAssessmentSection />
       <BlogSection />
+      <MergedContactSection />
 
       {/* Uncomment as needed */}
       {/* <About />
