@@ -21,17 +21,14 @@ import CareerAssessmentSection from './sections/CareerAssessmentSection';
 import BlogSection from './sections/BlogSection';
 import { FixedButtons } from "./sections/FixedButtons";
 
-// Optional: define page metadata (if not using SEO component)
+// Importing metadata from layout.tsx
+import { metadata as layoutMetadata } from './layout';
+
+// Merge the metadata from layout and add specific page-level metadata here
 export const metadata: Metadata = {
-  title: "Home Page",
-  description: "Welcome to the homepage of your Next.js app.",
-  openGraph: {
-    images: ["https://your-domain.com/og-image-home.jpg"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@yourtwitterhandle",
-  },
+  ...layoutMetadata,
+  title: "Home Page | FastAdmission",
+  description: "Explore your career goals, get guidance, and start your journey with FastAdmission.",
 };
 
 export default function HomePage() {
@@ -39,11 +36,11 @@ export default function HomePage() {
     <main>
       <Navbar />
       <Hero />
- <AdmissionSection />
-<StudyGoalSection />
-<StudyPlacesSection />
-  <CareerAssessmentSection />
-   <BlogSection />
+      <AdmissionSection />
+      <StudyGoalSection />
+      <StudyPlacesSection />
+      <CareerAssessmentSection />
+      <BlogSection />
 
       {/* Uncomment as needed */}
       {/* <About />
@@ -56,7 +53,7 @@ export default function HomePage() {
       <Contact /> 
 
       <Footer />
-         <FixedButtons />
+      <FixedButtons />
     </main>
   );
 }
