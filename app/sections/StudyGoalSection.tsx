@@ -1,45 +1,44 @@
-'use client';
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-
+"use client";
+import React from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 const studyGoals = [
   {
-    title: 'Engineering',
-    subtitle: 'B.Tech | M.Tech | Diploma | Bachelors+Masters',
-    colleges: 37,
-    image: '/image/engineer.webp',
+    title: "Engineering",
+    subtitle: "B.Tech | M.Tech | Diploma | Bachelors+Masters",
+    colleges: 147,
+    image: "/image/engineer.webp",
   },
   {
-    title: 'Arts Courses',
-    subtitle: 'BA | B.ED | DFD | 3D-Animation | BA+LLB | MA',
-    colleges: 43,
-    image: '/image/Art.webp',
+    title: "Arts Courses",
+    subtitle: "BA | B.ED | DFD | 3D-Animation | BA+LLB | MA",
+    colleges: 92,
+    image: "/image/Art.webp",
   },
   {
-    title: 'Management',
-    subtitle: 'BBA | BMS | BBM | BHMCT | BALLB | MHM | EMBA',
-    colleges: 38,
-    image: '/image/mangement.webp',
+    title: "Management",
+    subtitle: "BBA | BMS | BBM | BHMCT | BALLB | MHM | EMBA",
+    colleges: 118,
+    image: "/image/mangement.webp",
   },
   {
-    title: 'Commerce Courses',
-    subtitle: 'B.Com | LLB | DCA | CA | CS | CFP | M.COM',
-    colleges: 28,
-    image: '/image/commerce.webp',
+    title: "Commerce Courses",
+    subtitle: "B.Com | LLB | DCA | CA | CS | CFP | M.COM",
+    colleges: 228,
+    image: "/image/commerce.webp",
   },
   {
-    title: 'Medical',
-    subtitle: 'MBBS | BAMS | BUMS | BDS | MS | MD | PG-YOGA',
-    colleges: 34,
-    image: '/image/medical.webp',
+    title: "Medical",
+    subtitle: "MBBS | BAMS | BUMS | BDS | MS | MD | PG-YOGA",
+    colleges: 194,
+    image: "/image/medical.webp",
   },
   {
-    title: 'Mass Communication',
-    subtitle: 'BJMC | BHJMC | DJMC | MJMC | BAFMC | BMMMC',
-    colleges: 26,
-    image: '/image/masscomm.webp',
+    title: "Mass Communication",
+    subtitle: "BJMC | BHJMC | DJMC | MJMC | BAFMC | BMMMC",
+    colleges: 67,
+    image: "/image/masscomm.webp",
   },
 ];
 
@@ -51,7 +50,9 @@ export const StudyGoalSection = () => {
           Select Your <span className="text-lime-600">Study Goal</span>
         </h2>
         <p className="mt-4 text-gray-700 max-w-3xl mx-auto">
-          Reset your research strategy with top admission consultancy in Patna by browsing through our lists of top colleges, exams, courses and careers based on your area of interest!
+          Reset your research strategy with top admission consultancy in Patna
+          by browsing through our lists of top colleges, exams, courses and
+          careers based on your area of interest!
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
@@ -62,7 +63,7 @@ export const StudyGoalSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-lg shadow-md flex items-start gap-6"
+              className="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 text-center md:text-left"
             >
               <Image
                 src={item.image}
@@ -74,8 +75,12 @@ export const StudyGoalSection = () => {
               />
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                  <span className="bg-lime-600 text-white text-sm px-2 py-1 rounded">{item.colleges} College</span>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {item.title}
+                  </h3>
+                  <span className="bg-lime-600 text-white text-sm px-2 py-1 rounded">
+                    {item.colleges} College
+                  </span>
                 </div>
                 <p className="text-gray-600 mt-2 text-sm">{item.subtitle}</p>
 

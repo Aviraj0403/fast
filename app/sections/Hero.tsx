@@ -90,7 +90,7 @@ export const Hero = () => {
       <span className="ml-2">Colleges</span>
     </div>
      <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
-      <span className="text-lg font-semibold">600+</span>
+      <span className="text-lg font-semibold">439+</span>
       <span className="ml-2">Universities</span>
     </div>
     <div className="bg-blue-500/30 px-4 py-2 rounded-lg whitespace-nowrap min-w-[140px] text-center">
