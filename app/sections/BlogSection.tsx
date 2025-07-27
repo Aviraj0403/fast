@@ -28,7 +28,7 @@ const blogPosts = [
     title: 'Architect Vs. Civil Engineer: What is the Difference?',
     excerpt:
       'An architect is a professional involved in designing and planning every construction element and is responsible for the project’s aesthetic appeal along with operations and safety...',
-    image: '/image',
+    image: '/image/civil.jpeg',
     date: 'Dec 20, 2022',
   },
 ];

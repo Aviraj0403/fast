@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const navItems = [
   { name: "Home", id: "home" },
@@ -54,13 +55,21 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <nav className="flex justify-between items-center">
           {/* Logo */}
-          <Link
-            href="/"
-            className={`text-2xl md:text-3xl font-bold transition-colors ${
-              scrolled ? "text-blue-600" : "text-white"
-            }`}
-          >
-            FAST
+          <Link href="/" className="flex items-center space-x-2">
+            <Image
+              src="/image/contact.jpeg"
+              alt="Logo"
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
+            <span
+              className={`text-2xl md:text-3xl font-bold transition-colors ${
+                scrolled ? "text-blue-600" : "text-white"
+              }`}
+            >
+              FAST
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -105,7 +114,11 @@ export const Navbar = () => {
             aria-label="Toggle Menu"
             aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </nav>
 
@@ -118,7 +131,9 @@ export const Navbar = () => {
                   <button
                     onClick={() => scrollToSection(id)}
                     className={`w-full text-left py-2 transition-colors ${
-                      activeSection === id ? "text-blue-600 font-semibold" : "text-gray-800"
+                      activeSection === id
+                        ? "text-blue-600 font-semibold"
+                        : "text-gray-800"
                     }`}
                   >
                     {name}
