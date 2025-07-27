@@ -20,6 +20,8 @@ import StudyPlacesSection from "./sections/StudyPlacesSection";
 import CareerAssessmentSection from './sections/CareerAssessmentSection';
 import BlogSection from './sections/BlogSection';
 import { FixedButtons } from "./sections/FixedButtons";
+import MergedContactSection from "./sections/MergedContactSection";
+
 
 // Optional: define page metadata (if not using SEO component)
 export const metadata: Metadata = {
@@ -44,7 +46,7 @@ export default function HomePage() {
 <StudyPlacesSection />
   <CareerAssessmentSection />
    <BlogSection />
-
+<MergedContactSection />
       {/* Uncomment as needed */}
       {/* <About />
       <CounterSection />
@@ -52,8 +54,8 @@ export default function HomePage() {
       <Colleges />
       <RegionalSuccess /> */}
       {/* <Testimonials /> */}
-      <EnquiryForm />
-      <Contact /> 
+      {/* <EnquiryForm />
+      <Contact />  */}
 
       <Footer />
          <FixedButtons />

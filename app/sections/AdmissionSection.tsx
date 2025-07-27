@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  FaUniversity,
+  FaBuilding,
+  FaBookOpen,
+  FaClipboardCheck,
+  FaPenFancy,
+  FaBriefcase,
+} from "react-icons/fa";
 
 export const AdmissionSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -12,32 +20,66 @@ export const AdmissionSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const gridItems = [
+    {
+      label: "COLLEGES",
+      icon: <FaBuilding className="text-2xl mb-2" />,
+      gradient: "from-purple-500 to-indigo-600",
+    },
+    {
+      label: "UNIVERSITY",
+      icon: <FaUniversity className="text-2xl mb-2" />,
+      gradient: "from-pink-500 to-rose-600",
+    },
+    {
+      label: "COURSES",
+      icon: <FaBookOpen className="text-2xl mb-2" />,
+      gradient: "from-green-500 to-emerald-600",
+    },
+    {
+      label: "ADMISSION",
+      icon: <FaClipboardCheck className="text-2xl mb-2" />,
+      gradient: "from-yellow-500 to-amber-600",
+    },
+    {
+      label: "EXAM",
+      icon: <FaPenFancy className="text-2xl mb-2" />,
+      gradient: "from-red-500 to-pink-600",
+    },
+    {
+      label: "PLACEMENTS",
+      icon: <FaBriefcase className="text-2xl mb-2" />,
+      gradient: "from-cyan-500 to-blue-600",
+    },
+  ];
+
   return (
     <section className="bg-white -mt-8 pt-0 px-4 relative overflow-hidden">
-
-      {/* SVG Blue Curved Top - only for mobile */}
+      {/* Mobile-only blue SVG curve (optional) */}
       {isMobile && (
         <div className="absolute top-0 left-0 w-full z-0">
-          {/* <svg viewBox="0 0 1440 320" className="w-full h-28">
-            <path
-              fill="#1E40AF"
-              fillOpacity="1"
-              d="M0,224L48,192C96,160,192,96,288,85.3C384,75,480,117,576,138.7C672,160,768,160,864,165.3C960,171,1056,181,1152,176C1248,171,1344,149,1392,138.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-            />
-          </svg> */}
+          {/* Optional SVG curve */}
         </div>
       )}
 
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-10 relative z-10 pt-12">
-        {/* Left Info */}
+        {/* LEFT INFO */}
         <div className="flex-1 space-y-8">
           {/* Features */}
           <div className="grid md:grid-cols-2 gap-6 text-gray-800">
             {[
               { icon: "🏫", title: "Top Engineering", desc: "College In India" },
               { icon: "🎓", title: "Top Medical", desc: "College In India" },
-              { icon: "🪪", title: "Get Admission", desc: "Bihar Students Credit Card" },
-              { icon: "📝", title: "Top EXAM", desc: "WBJEE / NEET / JEE MAIN" },
+              {
+                icon: "🪪",
+                title: "Get Admission",
+                desc: "Bihar Students Credit Card",
+              },
+              {
+                icon: "📝",
+                title: "Top EXAM",
+                desc: "WBJEE / NEET / JEE MAIN",
+              },
             ].map((item, i) => (
               <div key={i} className="flex gap-3 items-start">
                 <div className="text-2xl">{item.icon}</div>
@@ -49,28 +91,32 @@ export const AdmissionSection = () => {
             ))}
           </div>
 
-          {/* Blue Animated Cards */}
-         <div className="w-full md:w-auto mx-auto md:mx-0 pt-8">
-  <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-4">
-    {["COLLEGES", "UNIVERSITY", "COURSES", "ADMISSION", "EXAM", "PLACEMENTS"].map((label, i) => (
-      <div
-        key={i}
-        className="group flex flex-col items-center justify-center p-4 aspect-square rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg transition transform hover:scale-105 hover:shadow-2xl animate-pulse hover:animate-none"
-      >
-        <div className="text-3xl mb-2 transition-transform duration-300 group-hover:rotate-6">🎓</div>
-        <p className="text-sm font-semibold tracking-wide uppercase">{label}</p>
-      </div>
-    ))}
-  </div>
-</div>
-
-
+          {/* Blue Animated Cards with Icons */}
+          <div className="w-full md:w-auto mx-auto md:mx-0 pt-8">
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-4">
+              {gridItems.map(({ label, gradient, icon }, i) => (
+                <div
+                  key={i}
+                  className={`group flex flex-col items-center justify-center p-4 aspect-square rounded-lg bg-gradient-to-br ${gradient} text-white shadow-lg transition transform hover:scale-105 hover:shadow-2xl animate-pulse hover:animate-none`}
+                >
+                  <div className="transition-transform duration-300 group-hover:rotate-6">
+                    {icon}
+                  </div>
+                  <p className="text-sm font-semibold tracking-wide uppercase mt-1">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Form Card */}
+        {/* FORM SECTION */}
         <div className="flex-1 bg-white shadow-xl border border-gray-200 p-8 rounded-2xl max-w-lg w-full transition-all duration-300 hover:shadow-2xl mt-8 lg:mt-0">
-          <p className="text-sm font-semibold text-gray-600 uppercase">Register for the</p>
-          <h2 className="text-4xl font-bold text-orange-500 mb-2">ADMISSIONS</h2>
+          <p className="text-sm font-semibold text-gray-600 uppercase">
+            Register for the
+          </p>
+          <h2 className="text-4xl font-bold text-orange-500 mb-2">
+            ADMISSIONS
+          </h2>
           <p className="text-gray-600 mb-6">Fill below details</p>
 
           <form className="space-y-4">
