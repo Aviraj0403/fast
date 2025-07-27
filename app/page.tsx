@@ -29,7 +29,7 @@ import { metadata as layoutMetadata } from './layout';
 // Merge the metadata from layout and add specific page-level metadata here
 export const metadata: Metadata = {
   ...layoutMetadata,
-  title: "Home Page | FastAdmission",
+  title: "Fast Admission Expert | FastAdmission",
   description: "Explore your career goals, get guidance, and start your journey with FastAdmission.",
 };
 
