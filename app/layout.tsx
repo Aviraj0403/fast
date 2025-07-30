@@ -8,6 +8,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 // === Fonts ===
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -88,10 +90,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body>
+        <Navbar />
         <AOSInit />
+        
         {children}
         <SpeedInsights />
         <Analytics />
+
+        <Footer />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}
       </body>
