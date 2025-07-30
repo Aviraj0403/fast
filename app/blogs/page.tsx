@@ -5,7 +5,8 @@ import Confetti from 'react-confetti';
 
 export default function BirthdayPage() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Start muted
+  const [hasStarted, setHasStarted] = useState(false); // User has interacted
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Handle window size for Confetti
@@ -21,32 +22,28 @@ export default function BirthdayPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Handle autoplay on mobile
- useEffect(() => {
-  const audio = audioRef.current;
-  const tryPlay = () => {
+  // Attempt to play audio muted on mount
+  useEffect(() => {
+    const audio = audioRef.current;
     if (audio) {
-      audio.play().catch(() => {});
+      audio.muted = true;
+      audio.loop = true;
+      audio.play().catch(() => {}); // Suppress autoplay error silently
     }
-    window.removeEventListener('click', tryPlay);
-    window.removeEventListener('touchstart', tryPlay);
-  };
+  }, []);
 
-  if (audio) {
-    audio.play().catch(() => {
-      window.addEventListener('click', tryPlay);
-      window.addEventListener('touchstart', tryPlay);
-    });
-  }
-}, []);
-
-
-  // Toggle mute
   const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
+    setIsMuted(prev => {
+      const next = !prev;
+      if (audioRef.current) {
+        audioRef.current.muted = next;
+        if (!hasStarted && !next) {
+          audioRef.current.play().catch(() => {});
+          setHasStarted(true);
+        }
+      }
+      return next;
+    });
   };
 
   return (
@@ -56,16 +53,19 @@ export default function BirthdayPage() {
         backgroundImage: "url('/birthday-bg.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundColor: '#ffdce0', // fallback color
       }}
     >
+      {/* Audio */}
       <audio ref={audioRef} src="/image/birthday.mp3" autoPlay loop playsInline />
 
+      {/* Confetti */}
       <Confetti width={windowSize.width} height={windowSize.height} />
 
       {/* Header */}
       <div className="z-10 px-4 py-6 mt-10 md:mt-20 backdrop-blur-md bg-white/50 rounded-xl shadow-lg w-[90%] max-w-2xl animate-fade-in-up">
         <h1 className="text-3xl md:text-5xl font-extrabold text-pink-600 drop-shadow-lg mb-4 leading-snug">
-          🎉 Happy Birthday Rajnish ! 🎂
+          Happy Birthday Rajnish! 🎂
         </h1>
         <p className="text-base md:text-xl text-gray-800 font-medium leading-relaxed">
           Wishing you joy, health, and happiness always! 🥳
@@ -87,6 +87,7 @@ export default function BirthdayPage() {
         <p className="text-sm md:text-lg text-white bg-black/60 px-4 py-2 rounded-lg max-w-xs md:max-w-md">
           🎂 Let’s celebrate Rajnish Singh’s special day together! 💖
         </p>
+   
         <button
           onClick={toggleMute}
           className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-full text-sm shadow-md transition focus:outline-none focus:ring focus:ring-pink-300"
@@ -94,8 +95,22 @@ export default function BirthdayPage() {
           {isMuted ? '🔇 Unmute Music' : '🔊 Mute Music'}
         </button>
       </footer>
+        <p className="text-xs md:text-sm text-gray-700">
+          Love you Bhaiji ❤️ ~ AviRaj
+          </p>
+      {/* Tap-to-Start Overlay */}
+      {!hasStarted && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/70">
+          <button
+            onClick={toggleMute}
+            className="text-white text-lg md:text-xl bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-full shadow-lg"
+          >
+            👉 Tap to Start Music
+          </button>
+        </div>
+      )}
 
-      {/* Styles for Balloons and Animation */}
+      {/* Styles */}
       <style jsx>{`
         .balloon {
           position: absolute;
