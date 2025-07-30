@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronRight } from "lucide-react";
 import Image from "next/image";
+// import { useRouter } from "next/navigation";
+
 
 const navItems = [
   { name: "Home", id: "home" },
@@ -12,6 +14,8 @@ const navItems = [
   { name: "Success Stories", id: "success-stories" },
   { name: "Contact", id: "contact" },
 ];
+// const router = useRouter();
+
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

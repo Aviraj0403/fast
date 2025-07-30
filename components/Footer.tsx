@@ -33,10 +33,10 @@ export const Footer = () => {
   ];
 
   const services = [
-    "Engineering Counseling",
-    "Medical Counseling",
-    "Law Counseling",
-    "Management Counseling",
+    "Engineering counselling",
+    "Medical counselling",
+    "Law counselling",
+    "Management counselling",
     "Study Abroad Programs",
     "Career Guidance",
   ];
@@ -50,7 +50,7 @@ export const Footer = () => {
             <h2 className="text-2xl font-bold text-primary">FAST</h2>
             <p className="text-gray-300">
               Future Advice for Successful Tomorrow - Professional admission
-              counseling since 2015, helping students achieve their dreams.
+              counselling since 2015, helping students achieve their dreams.
             </p>
             <div className="flex space-x-4">
               {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (

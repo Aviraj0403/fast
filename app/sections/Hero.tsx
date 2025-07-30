@@ -48,7 +48,7 @@ export const Hero = () => {
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Professional admission counseling for Engineering, Medical, Law, and
+            Professional admission counselling for Engineering, Medical, Law, and
             more. Guiding students to their dream colleges since 2015.
           </p>
 
