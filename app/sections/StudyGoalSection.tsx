@@ -84,17 +84,18 @@ export const StudyGoalSection = () => {
                 </div>
                 <p className="text-gray-600 mt-2 text-sm">{item.subtitle}</p>
 
-                <div className="flex items-center gap-4 mt-4 flex-wrap">
-                  <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded text-sm font-semibold hover:scale-105 transition">
-                    APPLY HERE
-                  </button>
-                  <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-200 flex items-center gap-1">
-                    👁 COURSES
-                  </button>
-                  <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-200 flex items-center gap-1">
-                    🔗 Share
-                  </button>
-                </div>
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 mt-4">
+  <button className="bg-gradient-to-r from-red-600 to-red-700 text-white px-3 py-1.5 rounded text-sm font-semibold hover:scale-105 transition">
+    APPLY HERE
+  </button>
+  <button className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded text-sm hover:bg-gray-200 flex items-center gap-1">
+    👁 COURSES
+  </button>
+  <button className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded text-sm hover:bg-gray-200 flex items-center gap-1">
+    🔗 Share
+  </button>
+</div>
+
               </div>
             </motion.div>
           ))}

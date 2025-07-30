@@ -58,6 +58,7 @@ const MergedContactSection = () => {
   }, [toast]);
 
   return (
+
     <section className="py-20 bg-white" id="contact">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-12">
@@ -179,7 +180,7 @@ const MergedContactSection = () => {
                 <a href="mailto:info@fastadmission.com" className="text-blue-600 hover:underline">info@fastadmission.com</a>
               </p>
               <p className="font-medium">
-                <a href="mailto:counseling@fastadmission.com" className="text-blue-600 hover:underline">counseling@fastadmission.com</a>
+                <a href="mailto:counseling@fastadmission.com" className="text-blue-600 hover:underline">counselling@fastadmission.com</a>
               </p>
             </article>
 
@@ -206,7 +207,7 @@ const MergedContactSection = () => {
               phone: "+91 85818 41853",
               img: "/image/contact.jpeg",
               desc:
-                "With over a decade of experience in educational counseling, Rajnish has helped thousands of students achieve their academic dreams.",
+                "With over a decade of experience in educational counselling, Rajnish has helped thousands of students achieve their academic dreams.",
             },
             {
               name: "Rahul Singh",
