@@ -55,7 +55,7 @@ export default function HomePage() {
       {/* <EnquiryForm />
       <Contact />  */}
 
-{/*       <Footer /> */}
+      <Footer />
       <FixedButtons />
     </main>
   );
