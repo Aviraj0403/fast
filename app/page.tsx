@@ -2,7 +2,7 @@
 
 import { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+// import { Footer } from "@/components/Footer";
 
 import { Hero } from "./sections/Hero";
 // Uncomment these as you develop
