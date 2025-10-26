@@ -19,6 +19,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export const EnquiryForm = () => {
   const [toast, setToast] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -29,7 +30,9 @@ export const EnquiryForm = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
+    setLoading(true); // Start loading state
+
     const message = `
 📝 *New Enquiry Received!*
 
@@ -42,12 +45,14 @@ export const EnquiryForm = () => {
 `.trim();
 
     const encoded = encodeURIComponent(message);
-   const phoneNumber = "918581841853";
+    const phoneNumber = "918581841853";
 
+    // Open WhatsApp link for submission
     window.open(`https://wa.me/${phoneNumber}?text=${encoded}`, "_blank");
 
     setToast("Redirecting to WhatsApp...");
     reset();
+    setLoading(false); // End loading state
   };
 
   useEffect(() => {
@@ -142,9 +147,16 @@ export const EnquiryForm = () => {
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700 transition"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Submit Enquiry <Send className="h-4 w-4" />
+            {loading ? (
+              <div className="animate-spin h-5 w-5 border-4 border-t-4 border-white rounded-full"></div>
+            ) : (
+              <>
+                Submit Enquiry <Send className="h-4 w-4" />
+              </>
+            )}
           </button>
         </form>
 

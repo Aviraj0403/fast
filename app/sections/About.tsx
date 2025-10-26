@@ -2,6 +2,7 @@
 
 import { BookOpen, Target, Users, Award } from "lucide-react";
 import Image from "next/image";
+
 // Simple reusable Button component
 const Button = ({
   children,
@@ -16,8 +17,7 @@ const Button = ({
     <button
       type="button"
       onClick={onClick}
-      className={`px-6 py-3 rounded-md font-medium transition ${className || "bg-primary text-white hover:bg-primary/90"
-        }`}
+      className={`px-6 py-3 rounded-md font-medium transition ${className || "bg-primary text-white hover:bg-primary/90"}`}
     >
       {children}
     </button>
@@ -33,9 +33,7 @@ const Card = ({
   className?: string;
 }) => {
   return (
-    <div
-      className={`bg-gray-50 rounded-lg shadow-sm border border-transparent ${className}`}
-    >
+    <div className={`bg-gray-50 rounded-lg shadow-sm border border-transparent ${className}`}>
       {children}
     </div>
   );
@@ -60,17 +58,10 @@ export const About = () => {
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-            data-aos="fade-up"
-          >
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">
             About FAST
           </h2>
-          <p
-            className="text-lg text-gray-600"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <p className="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
             Future Advice for Successful Tomorrow
           </p>
         </div>
@@ -82,9 +73,9 @@ export const About = () => {
                 src="https://images.unsplash.com/photo-1588873281272-14886ba1f737"
                 alt="Counseling session"
                 className="w-full h-auto object-cover"
-                width={800} // adjust as needed
-                height={600} // adjust as needed
-                unoptimized // optional if you don't want Next.js to optimize it
+                width={800}
+                height={600}
+                layout="responsive" // Added to make the image responsive
               />
             </div>
             <div className="absolute -bottom-5 -right-5 w-40 h-40 bg-primary/20 rounded-full z-0"></div>
@@ -100,11 +91,7 @@ export const About = () => {
             </p>
 
             <p className="text-gray-600 mb-8">
-              Our team of experienced counselors specializes in admissions
-              across various disciplines, including Engineering, Medical, Law,
-              and more. We take pride in our strong network of 600+ partner
-              colleges across India, ensuring that our students have access to
-              the best educational opportunities.
+              Our team of experienced counselors specializes in admissions across various disciplines, including Engineering, Medical, Law, and more. We take pride in our strong network of 600+ partner colleges across India, ensuring that our students have access to the best educational opportunities.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
