@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <AdmissionSection />
       <StudyGoalSection />
@@ -55,7 +55,7 @@ export default function HomePage() {
       {/* <EnquiryForm />
       <Contact />  */}
 
-      <Footer />
+      {/* <Footer /> */}
       <FixedButtons />
     </main>
   );
