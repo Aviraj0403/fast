@@ -166,7 +166,7 @@ const MergedContactSection = () => {
                 <a href="tel:+918581841853" className="text-blue-600 hover:underline">+91 85818 41853</a>
               </p>
               <p className="font-medium">
-                <a href="tel:+917079005999" className="text-blue-600 hover:underline">+91 70790 05999</a>
+                <a href="tel:+917079005999" className="text-blue-600 hover:underline">+91 62020 00340</a>
               </p>
             </article>
 
@@ -212,7 +212,7 @@ const MergedContactSection = () => {
             {
               name: "Rahul Singh",
               title: "Director",
-              phone: "+91 70790 05999",
+              phone: "+91 62020 00340",
               img: "/image/contact.jpeg",
               desc:
                 "Rahul specializes in strategic partnerships with educational institutions, ensuring our students have access to the best opportunities.",
