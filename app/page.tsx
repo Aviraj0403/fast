@@ -36,7 +36,9 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
-      <Navbar />
+      {/* Uncomment to add Navbar */}
+      {/* <Navbar /> */}
+      
       <Hero />
       <AdmissionSection />
       <StudyGoalSection />
@@ -44,13 +46,13 @@ export default function HomePage() {
       <CareerAssessmentSection />
       <BlogSection />
       <MergedContactSection />
-
+      
       {/* Uncomment as needed */}
-      {/* <About />
-      <CounterSection />
-      <Services />
-      <Colleges />
-      <RegionalSuccess /> */}
+      {/* <About /> */}
+      {/* <CounterSection /> */}
+      {/* <Services /> */}
+      {/* <Colleges /> */}
+      {/* <RegionalSuccess /> */}
       {/* <Testimonials /> */}
       {/* <EnquiryForm />
       <Contact />  */}

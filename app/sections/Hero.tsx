@@ -59,15 +59,17 @@ export const Hero = () => {
           >
             <Button
               onClick={scrollToEnquiry}
-              className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6"
+              className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 focus:ring-4 focus:ring-blue-500"
+              aria-label="Scroll to Enquiry Section"
             >
               Enquire Now <ChevronRight className="ml-2 h-5 w-5" />
             </Button>
 
             <Button
               variant="outline"
-              className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6"
+              className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 focus:ring-4 focus:ring-blue-500"
               onClick={scrollToAbout}
+              aria-label="Scroll to About Section"
             >
               Learn More
             </Button>

@@ -38,19 +38,20 @@ export default function BlogSection() {
     <section className="py-20 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-16">Blogs</h2>
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {blogPosts.map((post, idx) => (
-            <div key={idx} className="flex gap-6">
+            <div key={idx} className="flex flex-col gap-6">
               {/* Blog Image with Date Overlay */}
-              <div className="relative w-[160px] h-[120px] shrink-0">
+              <div className="relative w-full h-[200px]">
                 <Image
                   src={post.image}
                   alt={post.title}
-                  width={160}
-                  height={120}
+                  layout="responsive"
+                  width={500}
+                  height={375}
                   className="object-cover rounded"
                 />
-                <div className="absolute top-0 right-0 bg-blue-800 text-white text-xs px-2 py-1">
+                <div className="absolute top-2 right-2 bg-blue-800 text-white text-xs px-2 py-1 rounded-md">
                   {post.date}
                 </div>
               </div>
@@ -61,6 +62,12 @@ export default function BlogSection() {
                 <p className="text-gray-600 text-sm leading-relaxed">
                   {post.excerpt} <span className="text-blue-600">[...]</span>
                 </p>
+                <a
+                  href="#"
+                  className="text-blue-600 font-medium mt-2 inline-block hover:underline"
+                >
+                  Read More
+                </a>
               </div>
             </div>
           ))}

@@ -22,54 +22,61 @@ export const AdmissionSection = () => {
 
   const gridItems = [
     {
-      label: "COLLEGES",
-      icon: <FaBuilding className="text-2xl mb-2" />,
+      label: "Colleges",
+      icon: <FaBuilding className="text-3xl mb-4" />,
       gradient: "from-purple-500 to-indigo-600",
     },
     {
-      label: "UNIVERSITY",
-      icon: <FaUniversity className="text-2xl mb-2" />,
+      label: "University",
+      icon: <FaUniversity className="text-3xl mb-4" />,
       gradient: "from-pink-500 to-rose-600",
     },
     {
-      label: "COURSES",
-      icon: <FaBookOpen className="text-2xl mb-2" />,
+      label: "Courses",
+      icon: <FaBookOpen className="text-3xl mb-4" />,
       gradient: "from-green-500 to-emerald-600",
     },
     {
-      label: "ADMISSION",
-      icon: <FaClipboardCheck className="text-2xl mb-2" />,
+      label: "Admission",
+      icon: <FaClipboardCheck className="text-3xl mb-4" />,
       gradient: "from-yellow-500 to-amber-600",
     },
     {
-      label: "EXAM",
-      icon: <FaPenFancy className="text-2xl mb-2" />,
+      label: "Exam",
+      icon: <FaPenFancy className="text-3xl mb-4" />,
       gradient: "from-red-500 to-pink-600",
     },
     {
-      label: "PLACEMENTS",
-      icon: <FaBriefcase className="text-2xl mb-2" />,
+      label: "Placements",
+      icon: <FaBriefcase className="text-3xl mb-4" />,
       gradient: "from-cyan-500 to-blue-600",
     },
   ];
 
   return (
-    <section className="bg-white -mt-8 pt-0 px-4 relative overflow-hidden">
-      {/* Mobile-only blue SVG curve (optional) */}
+    <section className="bg-white pt-16 pb-12 px-6 relative overflow-hidden">
+      {/* Optional SVG Curve */}
       {isMobile && (
         <div className="absolute top-0 left-0 w-full z-0">
-          {/* Optional SVG curve */}
+          {/* Optional SVG Curve */}
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-10 relative z-10 pt-12">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-24 relative z-10 pt-6">
         {/* LEFT INFO */}
-        <div className="flex-1 space-y-8">
+        <div className="flex-1 space-y-10">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+            Explore Your Future
+          </h2>
+          <p className="text-lg text-gray-600">
+            Find the best colleges, courses, and opportunities to kickstart your career.
+          </p>
+
           {/* Features */}
-          <div className="grid md:grid-cols-2 gap-6 text-gray-800">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-gray-800">
             {[
-              { icon: "🏫", title: "Top Engineering", desc: "College In India" },
-              { icon: "🎓", title: "Top Medical", desc: "College In India" },
+              { icon: "🏫", title: "Top Engineering", desc: "Colleges in India" },
+              { icon: "🎓", title: "Top Medical", desc: "Colleges in India" },
               {
                 icon: "🪪",
                 title: "Get Admission",
@@ -81,28 +88,31 @@ export const AdmissionSection = () => {
                 desc: "WBJEE / NEET / JEE MAIN",
               },
             ].map((item, i) => (
-              <div key={i} className="flex gap-3 items-start">
-                <div className="text-2xl">{item.icon}</div>
+              <div
+                key={i}
+                className="flex gap-4 items-center hover:scale-105 transition duration-300 ease-in-out"
+              >
+                <div className="text-3xl">{item.icon}</div>
                 <div>
-                  <h4 className="font-bold text-lg">{item.title}</h4>
-                  <p>{item.desc}</p>
+                  <h4 className="font-semibold text-xl">{item.title}</h4>
+                  <p className="text-gray-600">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Blue Animated Cards with Icons */}
-          <div className="w-full md:w-auto mx-auto md:mx-0 pt-8">
-            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          {/* Simple Cards with Icons */}
+          <div className="w-full mt-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
               {gridItems.map(({ label, gradient, icon }, i) => (
                 <div
                   key={i}
-                  className={`group flex flex-col items-center justify-center p-4 aspect-square rounded-lg bg-gradient-to-br ${gradient} text-white shadow-lg transition transform hover:scale-105 hover:shadow-2xl animate-pulse hover:animate-none`}
+                  className={`group flex flex-col items-center justify-center p-6 aspect-square rounded-lg bg-gradient-to-br ${gradient} text-white shadow-lg transition duration-200 ease-in-out hover:shadow-xl`}
                 >
-                  <div className="transition-transform duration-300 group-hover:rotate-6">
-                    {icon}
-                  </div>
-                  <p className="text-sm font-semibold tracking-wide uppercase mt-1">{label}</p>
+                  <div>{icon}</div>
+                  <p className="text-sm font-semibold tracking-wide uppercase mt-3">
+                    {label}
+                  </p>
                 </div>
               ))}
             </div>
@@ -110,43 +120,41 @@ export const AdmissionSection = () => {
         </div>
 
         {/* FORM SECTION */}
-        <div className="flex-1 bg-white shadow-xl border border-gray-200 p-8 rounded-2xl max-w-lg w-full transition-all duration-300 hover:shadow-2xl mt-8 lg:mt-0">
-          <p className="text-sm font-semibold text-gray-600 uppercase">
-            Register for the
+        <div className="flex-1 bg-white shadow-2xl border border-gray-200 p-10 rounded-2xl max-w-lg w-full transition-all duration-300 hover:shadow-3xl mt-10 lg:mt-0">
+          <p className="text-sm font-semibold text-gray-600 uppercase">Register for the</p>
+          <h2 className="text-4xl font-extrabold text-orange-500 mb-4">ADMISSIONS</h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Fill in your details below to start the registration process.
           </p>
-          <h2 className="text-4xl font-bold text-orange-500 mb-2">
-            ADMISSIONS
-          </h2>
-          <p className="text-gray-600 mb-6">Fill below details</p>
 
-          <form className="space-y-4">
-            <div className="flex gap-3">
+          <form className="space-y-6">
+            <div className="grid grid-cols-2 gap-6">
               <input
                 type="text"
                 placeholder="Name"
-                className="w-1/2 p-3 rounded border border-gray-300 focus:outline-orange-400"
+                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
               />
               <input
                 type="email"
                 placeholder="Email ID"
-                className="w-1/2 p-3 rounded border border-gray-300 focus:outline-orange-400"
+                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
               />
             </div>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 gap-6">
               <input
                 type="tel"
                 placeholder="Phone number"
-                className="w-1/2 p-3 rounded border border-gray-300 focus:outline-orange-400"
+                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
               />
               <input
                 type="text"
                 placeholder="Courses"
-                className="w-1/2 p-3 rounded border border-gray-300 focus:outline-orange-400"
+                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded font-semibold transition"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-lg font-semibold transition"
             >
               REGISTER NOW
             </button>
