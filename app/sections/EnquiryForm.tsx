@@ -31,28 +31,42 @@ export const EnquiryForm = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    setLoading(true); // Start loading state
+    setLoading(true);
 
-    const message = `
-📝 *New Enquiry Received!*
+    try {
+      // POST to external backend (NestJS) configured via env
+      const apiBase = process.env.NEXT_PUBLIC_BACKEND_URL;
+      if (!apiBase) {
+        setToast('Backend URL not configured. Set NEXT_PUBLIC_BACKEND_URL.');
+        setLoading(false);
+        return;
+      }
 
-👤 *Name:* ${data.name}
-📧 *Email:* ${data.email}
-📱 *Phone:* ${data.phone}
-🎓 *Course:* ${data.courseInterest}
-📍 *Location:* ${data.location}
-💬 *Message:* ${data.message || "No message"}
-`.trim();
+      const endpoint = `${apiBase.replace(/\/$/, '')}/leads`;
 
-    const encoded = encodeURIComponent(message);
-    const phoneNumber = "918581841853";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    // Open WhatsApp link for submission
-    window.open(`https://wa.me/${phoneNumber}?text=${encoded}`, "_blank");
+      if (!res.ok) throw new Error("Failed to submit lead");
 
-    setToast("Redirecting to WhatsApp...");
-    reset();
-    setLoading(false); // End loading state
+      setToast("Enquiry submitted — redirecting to WhatsApp...");
+
+      // also open WhatsApp for counselor if desired
+      const message = `Hi, I am ${data.name}. Interested in ${data.courseInterest}. Email: ${data.email}, Phone: ${data.phone}, Location: ${data.location}. Message: ${data.message || "-"}`;
+      const encoded = encodeURIComponent(message);
+      const phoneNumber = "918581841853";
+      window.open(`https://wa.me/${phoneNumber}?text=${encoded}`, "_blank");
+
+      reset();
+    } catch (err) {
+      console.error(err);
+      setToast("Submission failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {

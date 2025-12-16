@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { colleges } from "../data/colleges";
 
 // Native Button component
 const Button = ({
@@ -60,6 +63,29 @@ const CollegeCard = ({
 export const Colleges = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [areaFilter, setAreaFilter] = useState<string>("");
+
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    colleges.forEach((c) => c.category && set.add(c.category));
+    return Array.from(set);
+  }, []);
+
+  const areas = useMemo(() => {
+    const set = new Set<string>();
+    colleges.forEach((c) => c.location && set.add(c.location));
+    return Array.from(set);
+  }, []);
+
+  const filtered = useMemo(() => {
+    return colleges.filter((c) => {
+      if (categoryFilter !== "all" && categoryFilter !== c.category) return false;
+      if (areaFilter && !c.location.toLowerCase().includes(areaFilter.toLowerCase())) return false;
+      return true;
+    });
+  }, [categoryFilter, areaFilter]);
+
   const scroll = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;
     const { current } = scrollContainerRef;
@@ -72,56 +98,7 @@ export const Colleges = () => {
     }
   };
 
-  const colleges = [
-    {
-      name: "Engineering Excellence Institute",
-      location: "New Delhi",
-      image: "https://images.unsplash.com/photo-1562774053-701939374585",
-      category: "Engineering",
-    },
-    {
-      name: "Medical Sciences University",
-      location: "Mumbai",
-      image: "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd",
-      category: "Medical",
-    },
-    {
-      name: "National Law School",
-      location: "Bangalore",
-      image: "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b",
-      category: "Law",
-    },
-    {
-      name: "Business Management Institute",
-      location: "Hyderabad",
-      image: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952",
-      category: "Management",
-    },
-    {
-      name: "Technical University",
-      location: "Vellore",
-      image: "https://images.unsplash.com/photo-1562774053-701939374585",
-      category: "Engineering",
-    },
-    {
-      name: "Health Sciences College",
-      location: "Kolkata",
-      image: "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd",
-      category: "Medical",
-    },
-    {
-      name: "Institute of Legal Studies",
-      location: "Pune",
-      image: "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b",
-      category: "Law",
-    },
-    {
-      name: "College of Future Technologies",
-      location: "Noida",
-      image: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952",
-      category: "Engineering",
-    },
-  ];
+import { colleges } from "../data/colleges";
 
   return (
     <section className="py-20 bg-blue-50">
@@ -143,7 +120,40 @@ export const Colleges = () => {
           </p>
         </div>
 
-        <div className="relative" data-aos="fade-up" data-aos-delay="200">
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 justify-center">
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="border rounded-md px-3 py-2"
+              >
+                <option value="all">All Categories</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+
+              <select
+                value={areaFilter}
+                onChange={(e) => setAreaFilter(e.target.value)}
+                className="border rounded-md px-3 py-2"
+              >
+                <option value="">All Areas</option>
+                {areas.map((a) => (
+                  <option key={a} value={a}>{a}</option>
+                ))}
+              </select>
+
+              <input
+                value={areaFilter}
+                onChange={(e) => setAreaFilter(e.target.value)}
+                placeholder="Search area (city, state)"
+                className="border rounded-md px-3 py-2 w-full md:w-64"
+              />
+            </div>
+          </div>
+
+          <div className="relative" data-aos="fade-up" data-aos-delay="200">
           {/* Navigation Buttons for md+ */}
           <div className="absolute -left-5 top-1/2 transform -translate-y-1/2 z-10 hidden md:block">
             <Button onClick={() => scroll("left")} ariaLabel="Scroll left">
@@ -163,14 +173,15 @@ export const Colleges = () => {
             className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide"
             style={{ scrollbarWidth: "none" }}
           >
-            {colleges.map((college, index) => (
-              <CollegeCard
-                key={index}
-                name={college.name}
-                location={college.location}
-                image={college.image}
-                category={college.category}
-              />
+            {filtered.map((college) => (
+              <Link key={college.slug} href={`/colleges/${college.slug}`} className="inline-block">
+                <CollegeCard
+                  name={college.name}
+                  location={college.location}
+                  image={college.image}
+                  category={college.category}
+                />
+              </Link>
             ))}
           </div>
 
