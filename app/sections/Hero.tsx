@@ -25,7 +25,7 @@ export const Hero = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [dynamicTexts.length]);
 
   const scrollToEnquiry = () => {
     const element = document.getElementById("enquiry");

@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -21,9 +22,11 @@ const TestimonialCard = ({
   return (
     <div className="bg-white rounded-lg shadow-md p-6 w-72 flex flex-col">
       <div className="flex items-center mb-4">
-        <img
+        <Image
           src={image}
           alt={`${name}'s photo`}
+          width={56}
+          height={56}
           className="w-14 h-14 rounded-full object-cover mr-4"
           loading="lazy"
         />

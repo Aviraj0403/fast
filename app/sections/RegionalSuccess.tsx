@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export const RegionalSuccess = () => {
   const regions = [
     {
@@ -77,9 +79,11 @@ export const RegionalSuccess = () => {
               data-aos-delay={index * 50}
             >
               <div className="relative h-40 overflow-hidden">
-                <img
+                <Image
                   src={region.image + "?auto=format&fit=crop&w=400&q=80"}
                   alt={`${region.name} landscape`}
+                  width={400}
+                  height={160}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   loading="lazy"
                 />
