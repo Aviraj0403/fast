@@ -21,7 +21,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 100);
       const scrollY = window.scrollY;
 
       navItems.forEach(({ id }) => {
@@ -58,7 +58,7 @@ export const Navbar = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-100"
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/20"
             : "bg-transparent"
         }`}
       >

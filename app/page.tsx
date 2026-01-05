@@ -102,7 +102,7 @@ const faqSchema = {
   ]
 };
 
-export default function HomePage() {
+function HomePage() {
   return (
     <>
       {/* Structured Data */}
@@ -146,3 +146,5 @@ export default function HomePage() {
     </>
   );
 }
+
+export default HomePage;
