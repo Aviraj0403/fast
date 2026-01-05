@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 
 export const AIAssessmentSection = () => {
-  const [currentStep, setCurrentStep] = useState(0);
   const [isAssessmentStarted, setIsAssessmentStarted] = useState(false);
 
   const assessmentFeatures = [

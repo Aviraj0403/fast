@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   FaUniversity,
   FaBuilding,
@@ -13,15 +12,6 @@ import { Brain, Sparkles, ArrowRight, Users, Award, TrendingUp } from "lucide-re
 import { Button } from "@/components/ui/button";
 
 export const AdmissionSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const gridItems = [
     {
       label: "Colleges",

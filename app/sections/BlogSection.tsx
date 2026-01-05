@@ -44,7 +44,13 @@ export default function BlogSection() {
             {colleges.map((college) => (
               <div key={college.slug} className="bg-white rounded-lg shadow-sm hover:shadow-lg overflow-hidden transition-shadow duration-200">
                 <div className="w-full h-44 bg-gray-100 overflow-hidden">
-                  <img src={college.image} alt={college.name} className="w-full h-full object-cover" />
+                  <Image 
+                    src={college.image} 
+                    alt={college.name} 
+                    width={400}
+                    height={176}
+                    className="w-full h-full object-cover" 
+                  />
                 </div>
                 <div className="p-4">
                   <h4 className="text-lg font-semibold">{college.name}</h4>
