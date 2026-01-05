@@ -1,4 +1,72 @@
+# FastAdmission AI - Robots.txt
+# AI-Powered Career Counseling Platform
+
 User-agent: *
 Allow: /
 
-Sitemap: https://fastadmission.com/sitemap.xml
+# Priority pages for AI career counseling
+Allow: /
+Allow: /ai-assessment
+Allow: /services
+Allow: /about
+Allow: /contact
+Allow: /blogs
+Allow: /colleges
+Allow: /careers
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Allow search engines to access important resources
+Allow: /favicon.ico
+Allow: /logo.png
+Allow: /og-image.jpg
+Allow: /*.css
+Allow: /*.js
+
+# Sitemap location
+Sitemap: https://fastadmission.in/sitemap.xml
+Sitemap: https://fastadmission.in/sitemap-0.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Block unwanted bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Allow social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Host directive (helps with canonicalization)
+Host: https://fastadmission.in

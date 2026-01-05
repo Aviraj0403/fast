@@ -2,20 +2,17 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronRight } from "lucide-react";
-import Image from "next/image";
-// import { useRouter } from "next/navigation";
-
+import { Menu, X, ChevronRight, Brain, Sparkles, Phone, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { name: "Home", id: "home" },
-  { name: "About", id: "about" },
+  { name: "AI Assessment", id: "assessment" },
   { name: "Services", id: "services" },
-  { name: "Success Stories", id: "success-stories" },
+  { name: "Success Stories", id: "testimonials" },
+  { name: "About", id: "about" },
   { name: "Contact", id: "contact" },
 ];
-// const router = useRouter();
-
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,7 +39,7 @@ export const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // navItems moved outside, no need to add here
+  }, []);
 
   const scrollToSection = (id: string) => {
     setIsMenuOpen(false);
@@ -50,112 +47,164 @@ export const Navbar = () => {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToEnquiry = () => {
+    setIsMenuOpen(false);
+    const el = document.getElementById("enquiry");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <nav className="flex justify-between items-center">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/image/contact.jpeg"
-              alt="Logo"
-              width={50}
-              height={50}
-              className="rounded-full"
-            />
-            <span
-              className={`text-2xl md:text-3xl font-bold transition-colors ${
-                scrolled ? "text-blue-600" : "text-white"
-              }`}
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/20"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            {/* Logo */}
+            <Link
+              href="/"
+              className="flex items-center space-x-3 group"
+              onClick={() => scrollToSection("home")}
             >
-              FAST
-            </span>
-          </Link>
+              <div className="relative">
+                <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                  <Brain className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                  <Sparkles className="w-2 h-2 text-white" />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className={`text-xl font-bold transition-colors ${
+                  scrolled ? "text-gray-900" : "text-white"
+                }`}>
+                  FastAdmission
+                </span>
+                <span className={`text-xs font-medium transition-colors ${
+                  scrolled ? "text-blue-600" : "text-blue-200"
+                }`}>
+                  AI Career Counselor
+                </span>
+              </div>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-6">
-              {navItems.map(({ name, id }) => (
-                <li key={id} className="relative group">
-                  <button
-                    onClick={() => scrollToSection(id)}
-                    className={`font-medium transition-colors ${
-                      scrolled ? "text-gray-800" : "text-white"
-                    } ${activeSection === id ? "text-blue-600" : ""}`}
-                  >
-                    {name}
-                    <span
-                      className={`absolute left-0 bottom-0 h-[2px] w-full bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left ${
-                        activeSection === id ? "scale-x-100" : ""
-                      }`}
-                    />
-                  </button>
-                </li>
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${
+                    activeSection === item.id
+                      ? scrolled
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-white/20 text-white backdrop-blur-sm"
+                      : scrolled
+                      ? "text-gray-700 hover:bg-gray-100 hover:text-blue-700"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  {item.name}
+                </button>
               ))}
-            </ul>
+            </div>
 
+            {/* Desktop CTA Buttons */}
+            <div className="hidden lg:flex items-center space-x-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open("tel:+919876543210", "_self")}
+                className={`border-2 transition-all duration-300 hover:scale-105 ${
+                  scrolled
+                    ? "border-blue-200 text-blue-700 hover:bg-blue-50"
+                    : "border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+                }`}
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                Call Now
+              </Button>
+              
+              <Button
+                onClick={scrollToEnquiry}
+                size="sm"
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 btn-hover group"
+              >
+                <MessageCircle className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" />
+                Get Started
+                <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
             <button
-              onClick={() => scrollToSection("enquiry")}
-              className={`ml-4 flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
                 scrolled
-                  ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-white text-blue-600 hover:bg-gray-100"
+                  ? "text-gray-700 hover:bg-gray-100"
+                  : "text-white hover:bg-white/10"
               }`}
             >
-              Enquire Now
-              <ChevronRight className="w-4 h-4" />
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden ${scrolled ? "text-gray-800" : "text-white"}`}
-            aria-label="Toggle Menu"
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
-        </nav>
+        </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white shadow-lg rounded-lg mt-4 p-4 absolute left-4 right-4 z-50 animate-in slide-in-from-top-5 duration-300">
-            <ul className="space-y-4">
-              {navItems.map(({ name, id }) => (
-                <li key={id}>
+        <div
+          className={`lg:hidden transition-all duration-300 overflow-hidden ${
+            isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="bg-white/95 backdrop-blur-md border-t border-gray-200/20 shadow-lg">
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex flex-col space-y-2">
+                {navItems.map((item) => (
                   <button
-                    onClick={() => scrollToSection(id)}
-                    className={`w-full text-left py-2 transition-colors ${
-                      activeSection === id
-                        ? "text-blue-600 font-semibold"
-                        : "text-gray-800"
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      activeSection === item.id
+                        ? "bg-blue-100 text-blue-700"
+                        : "text-gray-700 hover:bg-gray-100 hover:text-blue-700"
                     }`}
                   >
-                    {name}
+                    {item.name}
                   </button>
-                </li>
-              ))}
-              <li>
-                <button
-                  onClick={() => scrollToSection("enquiry")}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 transition"
-                >
-                  Enquire Now <ChevronRight className="h-4 w-4" />
-                </button>
-              </li>
-            </ul>
+                ))}
+                
+                {/* Mobile CTA Buttons */}
+                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+                  <Button
+                    variant="outline"
+                    onClick={() => window.open("tel:+919876543210", "_self")}
+                    className="w-full border-2 border-blue-200 text-blue-700 hover:bg-blue-50"
+                  >
+                    <Phone className="w-4 h-4 mr-2" />
+                    Call Now
+                  </Button>
+                  
+                  <Button
+                    onClick={scrollToEnquiry}
+                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold"
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Get Started
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-    </header>
+        </div>
+      </nav>
+
+      {/* Spacer to prevent content from hiding behind fixed navbar */}
+      <div className="h-16 lg:h-20"></div>
+    </>
   );
 };
