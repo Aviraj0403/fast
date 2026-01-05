@@ -9,6 +9,8 @@ import {
   FaPenFancy,
   FaBriefcase,
 } from "react-icons/fa";
+import { Brain, Sparkles, ArrowRight, Users, Award, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const AdmissionSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,142 +25,199 @@ export const AdmissionSection = () => {
   const gridItems = [
     {
       label: "Colleges",
-      icon: <FaBuilding className="text-3xl mb-4" />,
+      icon: <FaBuilding className="text-4xl mb-4" />,
       gradient: "from-purple-500 to-indigo-600",
+      description: "Top-ranked institutions",
+      count: "500+"
     },
     {
       label: "University",
-      icon: <FaUniversity className="text-3xl mb-4" />,
+      icon: <FaUniversity className="text-4xl mb-4" />,
       gradient: "from-pink-500 to-rose-600",
+      description: "Premier universities",
+      count: "200+"
     },
     {
       label: "Courses",
-      icon: <FaBookOpen className="text-3xl mb-4" />,
+      icon: <FaBookOpen className="text-4xl mb-4" />,
       gradient: "from-green-500 to-emerald-600",
+      description: "Diverse programs",
+      count: "1000+"
     },
     {
       label: "Admission",
-      icon: <FaClipboardCheck className="text-3xl mb-4" />,
+      icon: <FaClipboardCheck className="text-4xl mb-4" />,
       gradient: "from-yellow-500 to-amber-600",
+      description: "Success rate",
+      count: "95%"
     },
     {
       label: "Exam",
-      icon: <FaPenFancy className="text-3xl mb-4" />,
+      icon: <FaPenFancy className="text-4xl mb-4" />,
       gradient: "from-red-500 to-pink-600",
+      description: "Entrance exams",
+      count: "50+"
     },
     {
       label: "Placements",
-      icon: <FaBriefcase className="text-3xl mb-4" />,
-      gradient: "from-cyan-500 to-blue-600",
+      icon: <FaBriefcase className="text-4xl mb-4" />,
+      gradient: "from-blue-500 to-cyan-600",
+      description: "Career opportunities",
+      count: "10K+"
     },
   ];
 
-  return (
-    <section className="bg-white pt-16 pb-12 px-6 relative overflow-hidden">
-      {/* Optional SVG Curve */}
-      {isMobile && (
-        <div className="absolute top-0 left-0 w-full z-0">
-          {/* Optional SVG Curve */}
-        </div>
-      )}
+  const stats = [
+    { icon: Users, value: "50,000+", label: "Students Guided" },
+    { icon: Award, value: "95%", label: "Success Rate" },
+    { icon: TrendingUp, value: "9+ Years", label: "Experience" },
+  ];
 
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-24 relative z-10 pt-6">
-        {/* LEFT INFO */}
-        <div className="flex-1 space-y-10">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
-            Explore Your Future
+  return (
+    <section id="admission" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div 
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-6 py-2 mb-6"
+            data-aos="fade-up"
+          >
+            <Sparkles className="w-5 h-5 text-blue-600" />
+            <span className="text-sm font-semibold text-blue-700">Admission Excellence</span>
+          </div>
+          
+          <h2 
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Your Gateway to{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Top Institutions
+            </span>
           </h2>
-          <p className="text-lg text-gray-600">
-            Find the best colleges, courses, and opportunities to kickstart your career.
+          
+          <p 
+            className="text-xl text-gray-600 max-w-3xl mx-auto mb-12"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            Discover endless possibilities with our comprehensive admission guidance 
+            and AI-powered college matching system.
           </p>
 
-          {/* Features */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-gray-800">
-            {[
-              { icon: "🏫", title: "Top Engineering", desc: "Colleges in India" },
-              { icon: "🎓", title: "Top Medical", desc: "Colleges in India" },
-              {
-                icon: "🪪",
-                title: "Get Admission",
-                desc: "Bihar Students Credit Card",
-              },
-              {
-                icon: "📝",
-                title: "Top EXAM",
-                desc: "WBJEE / NEET / JEE MAIN",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="flex gap-4 items-center hover:scale-105 transition duration-300 ease-in-out"
-              >
-                <div className="text-3xl">{item.icon}</div>
-                <div>
-                  <h4 className="font-semibold text-xl">{item.title}</h4>
-                  <p className="text-gray-600">{item.desc}</p>
+          {/* Stats */}
+          <div 
+            className="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-16"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="w-8 h-8 text-white" />
                 </div>
+                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-gray-600">{stat.label}</div>
               </div>
             ))}
           </div>
-
-          {/* Simple Cards with Icons */}
-          <div className="w-full mt-10">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-              {gridItems.map(({ label, gradient, icon }, i) => (
-                <div
-                  key={i}
-                  className={`group flex flex-col items-center justify-center p-6 aspect-square rounded-lg bg-gradient-to-br ${gradient} text-white shadow-lg transition duration-200 ease-in-out hover:shadow-xl`}
-                >
-                  <div>{icon}</div>
-                  <p className="text-sm font-semibold tracking-wide uppercase mt-3">
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* FORM SECTION */}
-        <div className="flex-1 bg-white shadow-2xl border border-gray-200 p-10 rounded-2xl max-w-lg w-full transition-all duration-300 hover:shadow-3xl mt-10 lg:mt-0">
-          <p className="text-sm font-semibold text-gray-600 uppercase">Register for the</p>
-          <h2 className="text-4xl font-extrabold text-orange-500 mb-4">ADMISSIONS</h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Fill in your details below to start the registration process.
-          </p>
-
-          <form className="space-y-6">
-            <div className="grid grid-cols-2 gap-6">
-              <input
-                type="text"
-                placeholder="Name"
-                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-              />
-              <input
-                type="email"
-                placeholder="Email ID"
-                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-6">
-              <input
-                type="tel"
-                placeholder="Phone number"
-                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-              />
-              <input
-                type="text"
-                placeholder="Courses"
-                className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-lg font-semibold transition"
+        {/* Grid Items */}
+        <div 
+          className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          {gridItems.map((item, index) => (
+            <div 
+              key={index}
+              className="group relative bg-white rounded-3xl p-8 shadow-soft hover:shadow-large transition-all duration-500 card-hover overflow-hidden"
             >
-              REGISTER NOW
-            </button>
-          </form>
+              {/* Background Gradient */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`}></div>
+              
+              {/* Content */}
+              <div className="relative z-10 text-center">
+                <div className={`text-transparent bg-gradient-to-r ${item.gradient} bg-clip-text group-hover:scale-110 transition-transform duration-300`}>
+                  {item.icon}
+                </div>
+                
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
+                  {item.label}
+                </h3>
+                
+                <p className="text-gray-600 text-sm mb-3 group-hover:text-gray-700 transition-colors">
+                  {item.description}
+                </p>
+                
+                <div className={`text-2xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                  {item.count}
+                </div>
+              </div>
+
+              {/* Hover Effect */}
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <ArrowRight className="w-5 h-5 text-gray-400" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <div 
+          className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-32 h-32 border border-white rounded-full"></div>
+            <div className="absolute bottom-10 right-10 w-24 h-24 border border-white rounded-full"></div>
+            <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-white rounded-full"></div>
+          </div>
+
+          <div className="relative z-10">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Brain className="w-8 h-8 text-cyan-300" />
+              <h3 className="text-3xl md:text-4xl font-bold">
+                Ready to Start Your Journey?
+              </h3>
+            </div>
+            
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Let our AI-powered platform guide you to the perfect college and course 
+              that matches your dreams and aspirations.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 btn-hover group"
+                onClick={() => {
+                  const element = document.getElementById("assessment");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                <Brain className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                Start AI Assessment
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-semibold px-8 py-4 rounded-full transition-all duration-300 btn-hover"
+                onClick={() => {
+                  const element = document.getElementById("contact");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Talk to Expert
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
