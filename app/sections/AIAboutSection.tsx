@@ -10,11 +10,9 @@ import {
   CheckCircle,
   ArrowRight,
   Calendar,
-  MapPin,
   Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 export const AIAboutSection = () => {
   const achievements = [
@@ -120,7 +118,7 @@ export const AIAboutSection = () => {
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Since 2015, we've been revolutionizing career guidance with cutting-edge AI technology, 
+            Since 2015, we&apos;ve been revolutionizing career guidance with cutting-edge AI technology, 
             helping students make informed decisions about their future.
           </p>
         </div>
@@ -168,7 +166,7 @@ export const AIAboutSection = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">2024 - Industry Leader</h4>
-                  <p className="text-gray-600">Recognized as India's most advanced AI-powered career counseling platform with 95% success rate.</p>
+                  <p className="text-gray-600">Recognized as India&apos;s most advanced AI-powered career counseling platform with 95% success rate.</p>
                 </div>
               </div>
             </div>

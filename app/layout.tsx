@@ -10,7 +10,6 @@ import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { AIChatbot } from "@/components/AIChatbot";
 
 // === Fonts ===
 const inter = Inter({ 

@@ -98,8 +98,6 @@ export const Colleges = () => {
     }
   };
 
-import { colleges } from "../data/colleges";
-
   return (
     <section className="py-20 bg-blue-50">
       <div className="container mx-auto px-4">

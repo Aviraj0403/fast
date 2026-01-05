@@ -2,12 +2,14 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getCollegeBySlug } from '../../data/colleges';
 
+import { Metadata } from "next";
+
 type Props = { params: { slug: string } };
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const college = getCollegeBySlug(params.slug);
   if (!college) return { title: 'College not found' };
-  return { title: college.name, description: college.description } as any;
+  return { title: college.name, description: college.description };
 }
 
 export default function CollegePage({ params }: Props) {
