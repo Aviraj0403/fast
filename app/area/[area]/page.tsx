@@ -3,27 +3,26 @@ import { colleges } from '../../data/colleges';
 import SEO from '../../../components/Seo';
 import { Metadata } from 'next';
 
-interface AreaPageProps {
-  params: { [key: string]: string }; // <-- flexible, matches PageProps
-}
-
-// Optional: dynamic metadata
-export function generateMetadata({ params }: AreaPageProps): Metadata {
-  const area = decodeURIComponent(params.area || '');
+// Dynamic metadata function
+export async function generateMetadata({ params }: { params: Promise<{ area: string }> }): Promise<Metadata> {
+  const { area } = await params;
+  const decodedArea = decodeURIComponent(area);
   return {
-    title: `Colleges in ${area}`,
-    description: `Discover colleges and programs in ${area}. Find top colleges by category, apply, and get counselling assistance.`,
+    title: `Colleges in ${decodedArea}`,
+    description: `Discover colleges and programs in ${decodedArea}. Find top colleges by category, apply, and get counselling assistance.`,
   };
 }
 
-export default function AreaPage({ params }: AreaPageProps) {
-  const area = decodeURIComponent(params.area || '');
+// Make the page async
+export default async function AreaPage({ params }: { params: Promise<{ area: string }> }) {
+  const { area } = await params;
+  const decodedArea = decodeURIComponent(area || '');
   const matches = colleges.filter((c) =>
-    c.location.toLowerCase().includes(area.toLowerCase())
+    c.location.toLowerCase().includes(decodedArea.toLowerCase())
   );
 
-  const title = `Colleges in ${area}`;
-  const description = `Discover colleges and programs in ${area}. Find top colleges by category, apply, and get counselling assistance.`;
+  const title = `Colleges in ${decodedArea}`;
+  const description = `Discover colleges and programs in ${decodedArea}. Find top colleges by category, apply, and get counselling assistance.`;
 
   return (
     <>

@@ -4,14 +4,15 @@ import Image from "next/image";
 import { getPostBySlug } from "@/app/data/posts";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 /* ---------------- SEO Metadata ---------------- */
-export function generateMetadata({ params }: PageProps): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -40,8 +41,9 @@ export function generateMetadata({ params }: PageProps): Metadata {
 }
 
 /* ---------------- Page ---------------- */
-export default function BlogPostPage({ params }: PageProps) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();

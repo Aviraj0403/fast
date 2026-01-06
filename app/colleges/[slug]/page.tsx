@@ -4,16 +4,18 @@ import { getCollegeBySlug } from '../../data/colleges';
 
 import { Metadata } from "next";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const college = getCollegeBySlug(params.slug);
+  const { slug } = await params;
+  const college = getCollegeBySlug(slug);
   if (!college) return { title: 'College not found' };
   return { title: college.name, description: college.description };
 }
 
-export default function CollegePage({ params }: Props) {
-  const college = getCollegeBySlug(params.slug);
+export default async function CollegePage({ params }: Props) {
+  const { slug } = await params;
+  const college = getCollegeBySlug(slug);
   if (!college) return notFound();
 
   return (

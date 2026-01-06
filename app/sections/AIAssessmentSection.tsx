@@ -17,6 +17,7 @@ import {
 
 export const AIAssessmentSection = () => {
   const [isAssessmentStarted, setIsAssessmentStarted] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   const assessmentFeatures = [
     {
