@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { getPostBySlug } from '../../data/posts';
 
 type Props = { params: { slug: string } };
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(params.slug);
   if (!post) {
     return { title: 'Post not found' };
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
       description: post.excerpt,
       images: [post.image],
     },
-  } as any;
+  };
 }
 
 export default function BlogPostPage({ params }: Props) {

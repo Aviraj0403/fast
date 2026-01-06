@@ -70,13 +70,13 @@ export const Colleges = () => {
     const set = new Set<string>();
     colleges.forEach((c) => c.category && set.add(c.category));
     return Array.from(set);
-  }, [colleges]);
+  }, []);
 
   const areas = useMemo(() => {
     const set = new Set<string>();
     colleges.forEach((c) => c.location && set.add(c.location));
     return Array.from(set);
-  }, [colleges]);
+  }, []);
 
   const filtered = useMemo(() => {
     return colleges.filter((c) => {
@@ -84,7 +84,7 @@ export const Colleges = () => {
       if (areaFilter && !c.location.toLowerCase().includes(areaFilter.toLowerCase())) return false;
       return true;
     });
-  }, [colleges, categoryFilter, areaFilter]);
+  }, [categoryFilter, areaFilter]);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;

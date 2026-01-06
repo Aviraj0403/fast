@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { colleges } from '../../data/colleges';
 import SEO from '../../../components/Seo';
 
@@ -26,7 +27,13 @@ export default function AreaPage({ params }: Params) {
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {matches.map((c) => (
                 <div key={c.slug} className="bg-white rounded shadow p-4">
-                  <img src={c.image} alt={c.name} className="w-full h-36 object-cover rounded" />
+                  <Image 
+                    src={c.image} 
+                    alt={c.name} 
+                    width={400}
+                    height={144}
+                    className="w-full h-36 object-cover rounded" 
+                  />
                   <h3 className="mt-3 font-semibold">{c.name}</h3>
                   <p className="text-sm text-gray-500">{c.location} • {c.category}</p>
                   <p className="text-gray-600 mt-2">{c.description}</p>

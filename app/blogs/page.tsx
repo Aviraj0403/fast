@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import Image from 'next/image';
 import Confetti from 'react-confetti';
 
 export default function BirthdayPage() {
@@ -79,9 +80,11 @@ export default function BirthdayPage() {
 
       {/* Footer */}
       <footer className="z-10 w-full px-4 pb-10 flex flex-col items-center gap-4 mt-10">
-        <img
+        <Image
           src="/image/rajnish.jpg"
           alt="Rajnish Singh smiling on his birthday"
+          width={160}
+          height={160}
           className="rounded-full w-28 h-28 md:w-40 md:h-40 object-cover border-4 border-pink-400 shadow-lg"
         />
         <p className="text-sm md:text-lg text-white bg-black/60 px-4 py-2 rounded-lg max-w-xs md:max-w-md">
