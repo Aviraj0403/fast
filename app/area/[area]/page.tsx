@@ -2,13 +2,15 @@ import Image from 'next/image';
 import { colleges } from '../../data/colleges';
 import SEO from '../../../components/Seo';
 
-interface Params {
-  params: { area: string };
-}
-
-export default function AreaPage({ params }: Params) {
+export default function AreaPage({
+  params,
+}: {
+  params: { area: string }; // <-- Correct type for dynamic route
+}) {
   const area = decodeURIComponent(params.area || '');
-  const matches = colleges.filter((c) => c.location.toLowerCase().includes(area.toLowerCase()));
+  const matches = colleges.filter((c) =>
+    c.location.toLowerCase().includes(area.toLowerCase())
+  );
 
   const title = `Colleges in ${area}`;
   const description = `Discover colleges and programs in ${area}. Find top colleges by category, apply, and get counselling assistance.`;
@@ -27,15 +29,17 @@ export default function AreaPage({ params }: Params) {
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {matches.map((c) => (
                 <div key={c.slug} className="bg-white rounded shadow p-4">
-                  <Image 
-                    src={c.image} 
-                    alt={c.name} 
+                  <Image
+                    src={c.image}
+                    alt={c.name}
                     width={400}
                     height={144}
-                    className="w-full h-36 object-cover rounded" 
+                    className="w-full h-36 object-cover rounded"
                   />
                   <h3 className="mt-3 font-semibold">{c.name}</h3>
-                  <p className="text-sm text-gray-500">{c.location} • {c.category}</p>
+                  <p className="text-sm text-gray-500">
+                    {c.location} • {c.category}
+                  </p>
                   <p className="text-gray-600 mt-2">{c.description}</p>
                 </div>
               ))}
