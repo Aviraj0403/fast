@@ -1,12 +1,22 @@
 import Image from 'next/image';
 import { colleges } from '../../data/colleges';
 import SEO from '../../../components/Seo';
+import { Metadata } from 'next';
 
-export default function AreaPage({
-  params,
-}: {
-  params: { area: string }; // <-- Correct type for dynamic route
-}) {
+interface AreaPageProps {
+  params: { area: string };
+}
+
+// Optional: generate dynamic metadata
+export function generateMetadata({ params }: AreaPageProps): Metadata {
+  const area = decodeURIComponent(params.area);
+  return {
+    title: `Colleges in ${area}`,
+    description: `Discover colleges and programs in ${area}. Find top colleges by category, apply, and get counselling assistance.`,
+  };
+}
+
+export default function AreaPage({ params }: AreaPageProps) {
   const area = decodeURIComponent(params.area || '');
   const matches = colleges.filter((c) =>
     c.location.toLowerCase().includes(area.toLowerCase())
