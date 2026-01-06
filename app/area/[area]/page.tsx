@@ -4,12 +4,12 @@ import SEO from '../../../components/Seo';
 import { Metadata } from 'next';
 
 interface AreaPageProps {
-  params: { area: string };
+  params: { [key: string]: string }; // <-- flexible, matches PageProps
 }
 
-// Optional: generate dynamic metadata
+// Optional: dynamic metadata
 export function generateMetadata({ params }: AreaPageProps): Metadata {
-  const area = decodeURIComponent(params.area);
+  const area = decodeURIComponent(params.area || '');
   return {
     title: `Colleges in ${area}`,
     description: `Discover colleges and programs in ${area}. Find top colleges by category, apply, and get counselling assistance.`,
