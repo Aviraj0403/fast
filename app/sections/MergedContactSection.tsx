@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, Phone, Mail, Clock } from "lucide-react";
+import { Send, Phone, Mail, Clock, MapPin, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -58,204 +59,217 @@ const MergedContactSection = () => {
   }, [toast]);
 
   return (
+    <section className="py-24 bg-white relative" id="contact">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50 -z-10 skew-x-12 origin-top transform translate-x-20"></div>
 
-    <section className="py-20 bg-white" id="contact">
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">Get in Touch</h2>
-          <p className="text-lg text-gray-600 mt-2">
-            Fill the form or reach out to us directly
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-semibold text-sm mb-6">
+            <MessageCircle className="w-4 h-4" />
+            <span>We're Here to Help</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Have questions about your career? Fill out the form or reach out to us directly
+            to start your journey towards success.
           </p>
         </div>
 
         {/* Enquiry + Contact Side by Side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
           {/* Enquiry Form */}
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="bg-blue-50 shadow-md rounded-lg p-6 space-y-6"
-          >
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-              Enquire Now
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block mb-1 font-medium">Full Name</label>
-                <input
-                  {...register("name")}
-                  className="w-full border px-4 py-2 rounded-md"
-                  placeholder="Your Name"
-                />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
-              </div>
-              <div>
-                <label className="block mb-1 font-medium">Email</label>
-                <input
-                  {...register("email")}
-                  className="w-full border px-4 py-2 rounded-md"
-                  placeholder="you@example.com"
-                />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-              </div>
-            </div>
+          <div className="lg:col-span-7">
+            <div className="bg-white shadow-xl shadow-blue-900/5 rounded-3xl p-8 md:p-10 border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+                <Send className="w-6 h-6 text-blue-600" />
+                Send Enquiry
+              </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block mb-1 font-medium">Phone</label>
-                <input
-                  {...register("phone")}
-                  className="w-full border px-4 py-2 rounded-md"
-                  placeholder="Phone Number"
-                />
-                {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
-              </div>
-              <div>
-                <label className="block mb-1 font-medium">Interested In</label>
-                <select
-                  {...register("courseInterest")}
-                  className="w-full border px-4 py-2 rounded-md"
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700">Full Name</label>
+                    <input
+                      {...register("name")}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50"
+                      placeholder="John Doe"
+                    />
+                    {errors.name && <p className="text-red-500 text-xs font-medium">{errors.name.message}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700">Email Address</label>
+                    <input
+                      {...register("email")}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50"
+                      placeholder="you@company.com"
+                    />
+                    {errors.email && <p className="text-red-500 text-xs font-medium">{errors.email.message}</p>}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700">Phone Number</label>
+                    <input
+                      {...register("phone")}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50"
+                      placeholder="+91 99999 99999"
+                    />
+                    {errors.phone && <p className="text-red-500 text-xs font-medium">{errors.phone.message}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700">Interested Course</label>
+                    <select
+                      {...register("courseInterest")}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50"
+                    >
+                      <option value="">Select a course</option>
+                      <option value="engineering">Engineering</option>
+                      <option value="medical">Medical</option>
+                      <option value="law">Law</option>
+                      <option value="management">Management</option>
+                      <option value="abroad">Study Abroad</option>
+                      <option value="other">Other</option>
+                    </select>
+                    {errors.courseInterest && <p className="text-red-500 text-xs font-medium">{errors.courseInterest.message}</p>}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-gray-700">Location</label>
+                  <input
+                    {...register("location")}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50"
+                    placeholder="City, State"
+                  />
+                  {errors.location && <p className="text-red-500 text-xs font-medium">{errors.location.message}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-gray-700">Message (Optional)</label>
+                  <textarea
+                    {...register("message")}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-gray-50/50 min-h-[120px]"
+                    placeholder="How can we help you?"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 rounded-xl text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
-                  <option value="">Select a course</option>
-                  <option value="engineering">Engineering</option>
-                  <option value="medical">Medical</option>
-                  <option value="law">Law</option>
-                  <option value="management">Management</option>
-                  <option value="abroad">Study Abroad</option>
-                  <option value="other">Other</option>
-                </select>
-                {errors.courseInterest && <p className="text-red-500 text-sm">{errors.courseInterest.message}</p>}
-              </div>
+                  Submit Enquiry <Send className="w-5 h-5 ml-2" />
+                </Button>
+              </form>
             </div>
-
-            <div>
-              <label className="block mb-1 font-medium">Location</label>
-              <input
-                {...register("location")}
-                className="w-full border px-4 py-2 rounded-md"
-                placeholder="City/State"
-              />
-              {errors.location && <p className="text-red-500 text-sm">{errors.location.message}</p>}
-            </div>
-
-            <div>
-              <label className="block mb-1 font-medium">Message (Optional)</label>
-              <textarea
-                {...register("message")}
-                className="w-full border px-4 py-2 rounded-md min-h-[100px]"
-                placeholder="Any specific query?"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white px-4 py-3 rounded-md flex justify-center items-center gap-2 hover:bg-blue-700 transition"
-            >
-              Submit Enquiry <Send className="w-4 h-4" />
-            </button>
-          </form>
+          </div>
 
           {/* Contact Info */}
-          <div className="grid grid-cols-1 gap-8">
-            <article className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="text-blue-600 mb-2">
-                <Phone className="mx-auto" />
-              </div>
-              <h4 className="text-xl font-semibold">Call Us</h4>
-              <p className="text-gray-600 mb-2">We’re available for all your queries</p>
-              <p className="font-medium">
-                <a href="tel:+918581841853" className="text-blue-600 hover:underline">+91 85818 41853</a>
-              </p>
-              <p className="font-medium">
-                <a href="tel:+917079005999" className="text-blue-600 hover:underline">+91 62020 00340</a>
-              </p>
-            </article>
+          <div className="lg:col-span-5 space-y-8">
+            <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Contact Information</h3>
 
-            <article className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="text-blue-600 mb-2">
-                <Mail className="mx-auto" />
-              </div>
-              <h4 className="text-xl font-semibold">Email Us</h4>
-              <p className="text-gray-600 mb-2">Send us a message anytime</p>
-              <p className="font-medium">
-                <a href="mailto:info@fastadmission.com" className="text-blue-600 hover:underline">info@fastadmission.com</a>
-              </p>
-              <p className="font-medium">
-                <a href="mailto:counseling@fastadmission.com" className="text-blue-600 hover:underline">counselling@fastadmission.com</a>
-              </p>
-            </article>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm text-blue-600 shrink-0">
+                    <Phone className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Call Us</p>
+                    <a href="tel:+918581841853" className="block text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors">+91 85818 41853</a>
+                    <a href="tel:+916202000340" className="block text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors">+91 62020 00340</a>
+                  </div>
+                </div>
 
-            <article className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="text-blue-600 mb-2">
-                <Clock className="mx-auto" />
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm text-blue-600 shrink-0">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Email Us</p>
+                    <a href="mailto:info@fastadmission.com" className="block text-gray-900 font-medium hover:text-blue-600 transition-colors">info@fastadmission.com</a>
+                    <a href="mailto:counselling@fastadmission.com" className="block text-gray-900 font-medium hover:text-blue-600 transition-colors">counselling@fastadmission.com</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm text-blue-600 shrink-0">
+                    <Clock className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Office Hours</p>
+                    <p className="text-gray-900 font-medium">Mon–Sat: 10am – 7pm</p>
+                    <p className="text-gray-600 text-sm">Sunday: By appointment</p>
+                  </div>
+                </div>
               </div>
-              <h4 className="text-xl font-semibold">Office Hours</h4>
-              <p className="text-gray-600">Mon–Sat: 10am – 7pm</p>
-              <p className="text-gray-600">Sunday: By appointment</p>
-            </article>
+            </div>
+
+            {/* Leadership Section */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-gray-900">Leadership Team</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    name: "Rajnish Singh",
+                    title: "Founder",
+                    phone: "+91 85818 41853",
+                    img: "/image/contact.jpeg",
+                  },
+                  {
+                    name: "Rahul Singh",
+                    title: "Director",
+                    phone: "+91 62020 00340",
+                    img: "/image/contact.jpeg",
+                  },
+                ].map((leader, i) => (
+                  <div key={i} className="bg-white p-4 rounded-2xl border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+                    <div className="w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-slate-100">
+                      <Image
+                        src={leader.img}
+                        alt={leader.name}
+                        width={64}
+                        height={64}
+                        className="object-cover w-full h-full"
+                        unoptimized
+                      />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm">{leader.name}</h4>
+                      <p className="text-blue-600 text-xs font-semibold mb-1">{leader.title}</p>
+                      <a href={`tel:${leader.phone.replace(/\s+/g, "")}`} className="text-xs text-gray-500 hover:text-blue-600 flex items-center gap-1">
+                        <Phone className="w-3 h-3" />
+                        Call Now
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Leadership Section */}
-        <div className="text-center mb-12">
-          <h3 className="text-3xl font-bold text-gray-800">Our Leadership Team</h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {[
-            {
-              name: "Rajnish Singh",
-              title: "Founder",
-              phone: "+91 85818 41853",
-              img: "/image/contact.jpeg",
-              desc:
-                "With over a decade of experience in educational counselling, Rajnish has helped thousands of students achieve their academic dreams.",
-            },
-            {
-              name: "Rahul Singh",
-              title: "Director",
-              phone: "+91 62020 00340",
-              img: "/image/contact.jpeg",
-              desc:
-                "Rahul specializes in strategic partnerships with educational institutions, ensuring our students have access to the best opportunities.",
-            },
-          ].map((leader, i) => (
-            <article key={i} className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="w-24 h-24 rounded-full mx-auto overflow-hidden mb-4">
-                <Image
-                  src={leader.img}
-                  alt={leader.name}
-                  width={96}
-                  height={96}
-                  className="object-cover w-full h-full"
-                  unoptimized
-                />
-              </div>
-              <h4 className="text-xl font-semibold">{leader.name}</h4>
-              <p className="text-blue-600 font-medium">{leader.title}</p>
-              <p className="text-gray-600 mb-2">{leader.desc}</p>
-              <a href={`tel:${leader.phone.replace(/\s+/g, "")}`} className="text-blue-600 hover:underline">
-                <Phone className="inline-block w-4 h-4 mr-1" />
-                {leader.phone}
-              </a>
-            </article>
-          ))}
         </div>
 
         {/* Toast Message */}
         {toast && (
-          <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-md shadow-lg animate-fade-in-out">
-            {toast}
+          <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in-up z-50">
+            <div className="bg-green-500 rounded-full p-1">
+              <MessageCircle className="w-4 h-4 text-white" />
+            </div>
+            <span className="font-medium">{toast}</span>
           </div>
         )}
       </div>
 
       <style jsx>{`
-        @keyframes fade-in-out {
-          0% { opacity: 0; transform: translateY(20px); }
-          10%, 90% { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(20px); }
+        @keyframes fade-in-up {
+          0% { opacity: 0; transform: translate(-50%, 20px); }
+          100% { opacity: 1; transform: translate(-50%, 0); }
         }
-        .animate-fade-in-out {
-          animation: fade-in-out 3s ease forwards;
+        .animate-fade-in-up {
+          animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
     </section>

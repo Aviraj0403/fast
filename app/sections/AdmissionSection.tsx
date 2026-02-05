@@ -64,147 +64,147 @@ export const AdmissionSection = () => {
   ];
 
   return (
-    <section id="admission" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+    <section id="admission" className="py-24 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 -z-20"></div>
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-200/20 rounded-full blur-[100px] -z-10 animate-pulse"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-200/20 rounded-full blur-[100px] -z-10 animate-pulse delay-1000"></div>
+
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-6 py-2 mb-6"
-            data-aos="fade-up"
+        <div className="text-center mb-20">
+          <div
+            className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-100 rounded-full px-6 py-2 mb-8 shadow-sm hover:shadow-md transition-all duration-300"
+            data-aos="fade-down"
           >
             <Sparkles className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-semibold text-blue-700">Admission Excellence</span>
+            <span className="text-sm font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent transform uppercase tracking-wider">Admission Excellence</span>
           </div>
-          
-          <h2 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+
+          <h2
+            className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-8 leading-tight"
+            data-aos="fade-up"
+          >
+            Your Gateway to <br />
+            <span className="text-gradient">Top Institutions</span>
+          </h2>
+
+          <p
+            className="text-xl text-gray-600 max-w-3xl mx-auto mb-16 leading-relaxed"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Your Gateway to{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Top Institutions
-            </span>
-          </h2>
-          
-          <p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto mb-12"
+            Unlock elite education opportunities with AI-driven insights.
+            From customized college matching to seamless admission processes,
+            we engineer your success.
+          </p>
+
+          {/* Stats Bar */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Discover endless possibilities with our comprehensive admission guidance 
-            and AI-powered college matching system.
-          </p>
-
-          {/* Stats */}
-          <div 
-            className="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-16"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="w-8 h-8 text-white" />
+              <div key={index} className="glass-card p-6 rounded-2xl flex items-center justify-center gap-4 card-hoverable">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg text-white">
+                  <stat.icon className="w-7 h-7" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-left">
+                  <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                  <div className="text-sm text-gray-600 font-medium uppercase tracking-wide">{stat.label}</div>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Grid Items */}
-        <div 
-          className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16"
+        <div
+          className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-24"
           data-aos="fade-up"
-          data-aos-delay="400"
+          data-aos-delay="300"
         >
           {gridItems.map((item, index) => (
-            <div 
+            <div
               key={index}
-              className="group relative bg-white rounded-3xl p-8 shadow-soft hover:shadow-large transition-all duration-500 card-hover overflow-hidden"
+              className="group relative glass-card p-8 rounded-3xl overflow-hidden card-hoverable h-full border-t border-white/60"
             >
-              {/* Background Gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`}></div>
-              
-              {/* Content */}
-              <div className="relative z-10 text-center">
-                <div className={`text-transparent bg-gradient-to-r ${item.gradient} bg-clip-text group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${item.gradient} opacity-10 rounded-full group-hover:scale-150 transition-transform duration-500`}></div>
+
+              <div className="relative z-10">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${item.gradient} flex items-center justify-center text-white text-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   {item.icon}
                 </div>
-                
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-600 transition-all">
                   {item.label}
                 </h3>
-                
-                <p className="text-gray-600 text-sm mb-3 group-hover:text-gray-700 transition-colors">
+
+                <p className="text-gray-600 mb-4 font-medium">
                   {item.description}
                 </p>
-                
-                <div className={`text-2xl font-bold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
-                  {item.count}
-                </div>
-              </div>
 
-              {/* Hover Effect */}
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ArrowRight className="w-5 h-5 text-gray-400" />
+                <div className="flex items-end justify-between">
+                  <span className={`text-3xl font-extrabold bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                    {item.count}
+                  </span>
+                  <ArrowRight className="w-6 h-6 text-gray-300 group-hover:text-blue-600 -translate-x-4 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                </div>
               </div>
             </div>
           ))}
         </div>
 
         {/* CTA Section */}
-        <div 
-          className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden"
-          data-aos="fade-up"
-          data-aos-delay="500"
+        <div
+          className="relative rounded-[2.5rem] p-10 md:p-16 text-center text-white overflow-hidden shadow-2xl"
+          data-aos="zoom-in"
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-10 w-32 h-32 border border-white rounded-full"></div>
-            <div className="absolute bottom-10 right-10 w-24 h-24 border border-white rounded-full"></div>
-            <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-white rounded-full"></div>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700"></div>
 
-          <div className="relative z-10">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Brain className="w-8 h-8 text-cyan-300" />
-              <h3 className="text-3xl md:text-4xl font-bold">
-                Ready to Start Your Journey?
-              </h3>
+          {/* Decorative Circles */}
+          <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-cyan-400/20 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl"></div>
+
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full mb-8 border border-white/20">
+              <Brain className="w-5 h-5 text-cyan-300 animate-pulse" />
+              <span className="text-sm font-medium text-cyan-100">AI-Powered Guidance</span>
             </div>
-            
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Let our AI-powered platform guide you to the perfect college and course 
-              that matches your dreams and aspirations.
+
+            <h3 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              Ready to Design Your Future?
+            </h3>
+
+            <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+              Leverage our advanced algorithms to match your profile with
+              institutions where you will thrive.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            <div className="flex flex-col sm:flex-row gap-5">
               <Button
                 size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 btn-hover group"
+                className="bg-white text-blue-700 hover:bg-blue-50 font-bold px-10 py-7 rounded-full text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group"
                 onClick={() => {
                   const element = document.getElementById("assessment");
                   if (element) element.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                <Brain className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                Start AI Assessment
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <span className="mr-2">Start Free Assessment</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-semibold px-8 py-4 rounded-full transition-all duration-300 btn-hover"
+                className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 font-bold px-10 py-7 rounded-full text-lg backdrop-blur-sm transition-all duration-300"
                 onClick={() => {
                   const element = document.getElementById("contact");
                   if (element) element.scrollIntoView({ behavior: "smooth" });
                 }}
               >
-                Talk to Expert
+                Chat with Counselor
               </Button>
             </div>
           </div>
