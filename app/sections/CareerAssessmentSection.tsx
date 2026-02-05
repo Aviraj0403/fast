@@ -35,7 +35,7 @@ const features = [
 
 export default function CareerAssessmentSection() {
   return (
-    <section className="relative py-24 px-4 overflow-hidden bg-black text-white">
+    <section className="relative py-12 md:py-24 px-4 overflow-hidden bg-black text-white">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -54,13 +54,13 @@ export default function CareerAssessmentSection() {
 
       {/* Content */}
       <div className="relative max-w-7xl mx-auto z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-md mb-8">
             <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
             <span className="text-sm font-semibold text-blue-200 tracking-wide uppercase">Industry Benchmark</span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h2 className="text-3xl md:text-6xl font-bold mb-6 leading-tight">
             Elevate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Career Trajectory</span>
           </h2>
 

@@ -13,9 +13,8 @@ export const FixedButtons = () => {
 
   return (
     <div
-      className={`fixed right-4 bottom-10 flex flex-col gap-4 z-50 transition-all duration-700 ease-in-out ${
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-      }`}
+      className={`fixed right-4 bottom-24 md:bottom-10 flex flex-col gap-4 z-[9999] transition-all duration-700 ease-in-out ${visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}
     >
       {/* WhatsApp */}
       <a

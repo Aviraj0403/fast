@@ -9,13 +9,13 @@ import { Button } from '@/components/ui/button';
 
 export default function BlogSection() {
   return (
-    <section className="py-24 px-4 bg-gray-50">
+    <section className="py-12 md:py-24 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
             <span className="text-blue-600 font-bold tracking-wider uppercase text-sm mb-2 block">Knowledge Hub</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
               Latest Insights & <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Featured Colleges</span>
             </h2>

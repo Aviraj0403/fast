@@ -27,14 +27,14 @@ const indianCities = [
 
 const StudyPlacesSection = () => {
   return (
-    <section className="w-full bg-[#0b0f19] py-20 px-4 relative overflow-hidden">
+    <section className="w-full bg-[#0b0f19] py-12 md:py-20 px-4 relative overflow-hidden">
       {/* Background Ambience */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(24,24,27,0)_0%,rgba(11,15,25,1)_100%)] z-10 pointer-events-none"></div>
       <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-900 to-transparent"></div>
 
       <div className="relative z-20 container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 mb-6 tracking-tight">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 mb-4 md:mb-6 tracking-tight">
             Top Educational Hubs
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-transparent mx-auto rounded-full"></div>

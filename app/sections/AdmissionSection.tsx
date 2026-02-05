@@ -64,7 +64,7 @@ export const AdmissionSection = () => {
   ];
 
   return (
-    <section id="admission" className="py-24 relative overflow-hidden">
+    <section id="admission" className="py-12 md:py-24 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 -z-20"></div>
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-200/20 rounded-full blur-[100px] -z-10 animate-pulse"></div>
@@ -72,7 +72,7 @@ export const AdmissionSection = () => {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <div
             className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-100 rounded-full px-6 py-2 mb-8 shadow-sm hover:shadow-md transition-all duration-300"
             data-aos="fade-down"
@@ -82,7 +82,7 @@ export const AdmissionSection = () => {
           </div>
 
           <h2
-            className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-8 leading-tight"
+            className="text-3xl md:text-6xl font-extrabold text-gray-900 mb-6 md:mb-8 leading-tight"
             data-aos="fade-up"
           >
             Your Gateway to <br />

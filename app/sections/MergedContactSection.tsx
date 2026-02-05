@@ -59,17 +59,17 @@ const MergedContactSection = () => {
   }, [toast]);
 
   return (
-    <section className="py-24 bg-white relative" id="contact">
+    <section className="py-12 md:py-24 bg-white relative" id="contact">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50 -z-10 skew-x-12 origin-top transform translate-x-20"></div>
 
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-semibold text-sm mb-6">
             <MessageCircle className="w-4 h-4" />
             <span>We're Here to Help</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Get in Touch</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Have questions about your career? Fill out the form or reach out to us directly
             to start your journey towards success.

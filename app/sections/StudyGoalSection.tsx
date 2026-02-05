@@ -73,14 +73,14 @@ const studyGoals = [
 
 export const StudyGoalSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-slate-50">
+    <section className="py-12 md:py-24 relative overflow-hidden bg-slate-50">
       {/* Decorative blobs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-200/30 rounded-full blur-[100px] -z-10 mix-blend-multiply animate-pulse"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-200/30 rounded-full blur-[100px] -z-10 mix-blend-multiply animate-pulse delay-700"></div>
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <div
             className="inline-flex items-center gap-2 bg-white border border-green-100 rounded-full px-6 py-2 mb-8 shadow-sm"
             data-aos="fade-down"
@@ -90,7 +90,7 @@ export const StudyGoalSection = () => {
           </div>
 
           <h2
-            className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-8"
+            className="text-3xl md:text-6xl font-extrabold text-gray-900 mb-6 md:mb-8"
             data-aos="fade-up"
             data-aos-delay="100"
           >
