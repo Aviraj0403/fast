@@ -58,22 +58,9 @@ export const Hero = () => {
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        
-        {/* Floating Particles */}
-        <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-white/20 rounded-full animate-bounce"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`,
-              }}
-            ></div>
-          ))}
-        </div>
+
+        {/* Floating Particles - Client Side Only */}
+        <ClientParticles />
       </div>
 
       {/* Content */}
@@ -82,7 +69,7 @@ export const Hero = () => {
           {/* Left Content */}
           <div className="text-center lg:text-left">
             {/* AI Badge */}
-            <div 
+            <div
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6"
               data-aos="fade-up"
               data-aos-delay="100"
@@ -110,9 +97,8 @@ export const Hero = () => {
             {/* Dynamic Subtitle */}
             <div className="h-16 mb-8">
               <p
-                className={`text-xl md:text-2xl text-blue-100 transition-all duration-300 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
+                className={`text-xl md:text-2xl text-blue-100 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
                 data-aos="fade-up"
                 data-aos-delay="300"
               >
@@ -129,7 +115,7 @@ export const Hero = () => {
               data-aos="fade-up"
               data-aos-delay="400"
             >
-              Get personalized career guidance, smart college recommendations, and AI-driven insights 
+              Get personalized career guidance, smart college recommendations, and AI-driven insights
               to make the best educational decisions for your future success.
             </p>
 
@@ -148,7 +134,7 @@ export const Hero = () => {
                 Start AI Assessment
                 <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              
+
               <Button
                 onClick={scrollToEnquiry}
                 variant="outline"
@@ -190,7 +176,7 @@ export const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full animate-pulse"></div>
                 <div className="absolute inset-4 bg-gradient-to-r from-cyan-400/30 to-blue-400/30 rounded-full animate-pulse delay-500"></div>
                 <div className="absolute inset-8 bg-gradient-to-r from-cyan-300/40 to-blue-300/40 rounded-full animate-pulse delay-1000"></div>
-                
+
                 {/* Central Icon */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-24 h-24 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl">
@@ -226,7 +212,7 @@ export const Hero = () => {
                 <div className="text-sm font-medium text-white">Smart Matching</div>
                 <div className="text-xs text-blue-200">AI Algorithm</div>
               </div>
-              
+
               <div className="absolute -bottom-4 -right-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-3 animate-fadeInRight">
                 <div className="text-sm font-medium text-white">Success Rate</div>
                 <div className="text-xs text-blue-200">95% Accuracy</div>
@@ -245,3 +231,30 @@ export const Hero = () => {
     </section>
   );
 };
+
+function ClientParticles() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <div className="absolute inset-0">
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-2 h-2 bg-white/20 rounded-full animate-bounce"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            animationDuration: `${3 + Math.random() * 2}s`,
+          }}
+        ></div>
+      ))}
+    </div>
+  );
+}

@@ -116,27 +116,25 @@ function HomePage() {
         }}
       />
 
-      <main>
-        {/* Hero Section - AI-focused landing */}
-        <Hero />
+      {/* Hero Section - AI-focused landing */}
+      <Hero />
 
-        {/* Core Services Preview */}
-        <AIServicesSection />
+      {/* Core Services Preview */}
+      <AIServicesSection />
 
-        {/* Admission & Colleges */}
-        <AdmissionSection />
-        <StudyPlacesSection />
+      {/* Admission & Colleges */}
+      <AdmissionSection />
+      <StudyPlacesSection />
 
-        {/* Blog & Study Goals */}
-        <StudyGoalSection />
-        <BlogSection />
+      {/* Blog & Study Goals */}
+      <StudyGoalSection />
+      <BlogSection />
 
-        {/* Final CTA */}
-        <MergedContactSection />
+      {/* Final CTA */}
+      <MergedContactSection />
 
-        {/* Fixed Action Buttons */}
-        <FixedButtons />
-      </main>
+      {/* Fixed Action Buttons */}
+      <FixedButtons />
     </>
   );
 }
