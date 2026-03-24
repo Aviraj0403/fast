@@ -4,9 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, Phone, Mail, Clock, MapPin, ChevronRight, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, ChevronRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -205,7 +204,7 @@ Ref: Web Apply 2026`.trim();
                <div className="text-center md:text-left">
                   <p className="text-[10px] font-black text-[#2563eb] uppercase tracking-[0.3em] mb-2">{leader.title}</p>
                   <h4 className="text-2xl font-black text-[#0f172a] mb-4">{leader.name}</h4>
-                  <p className="text-slate-500 text-sm font-medium mb-6 leading-relaxed italic">"{leader.desc}"</p>
+                  <p className="text-slate-500 text-sm font-medium mb-6 leading-relaxed italic">&quot;{leader.desc}&quot;</p>
                   <a href={`tel:${leader.phone.replace(/\s+/g, "")}`} className="inline-flex items-center gap-2 font-black text-xs text-[#0f172a] border-b-2 border-[#2563eb] pb-1 hover:text-[#2563eb] transition-colors">
                     CONNECT DIRECTLY
                   </a>

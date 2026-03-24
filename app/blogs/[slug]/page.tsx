@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { 
-  ChevronLeft, 
   ChevronRight,
   Quote, 
   Clock, 
@@ -27,26 +26,26 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-white text-[#0f172a]">
+    <div className="min-h-screen pt-24 pb-16 bg-white text-[#0f172a]">
       {/* Background Gradients for Premium Feel */}
       <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-blue-50/50 to-transparent -z-10"></div>
       
       <div className="container mx-auto px-6 max-w-6xl relative">
-        {/* BREADCRUMB - Standardized Spacing */}
-        <nav className="flex items-center gap-4 mb-12 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-[#2563eb] transition-colors flex items-center gap-1.5 shrink-0">
-             <Home className="w-3.5 h-3.5" /> Home
+        {/* BREADCRUMB - Enhanced Spacing & Visibility */}
+        <nav className="flex items-center gap-6 mb-8 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 overflow-x-auto whitespace-nowrap pb-4 border-b border-slate-100">
+          <Link href="/" className="hover:text-[#2563eb] transition-colors flex items-center gap-2 shrink-0">
+             <Home className="w-4 h-4" /> Home
           </Link>
-          <ChevronRight className="w-3 h-3 shrink-0" />
+          <ChevronRight className="w-3 h-3 shrink-0 opacity-30" />
           <Link href="/blogs" className="hover:text-[#2563eb] transition-colors shrink-0">
-             Analysis
+             Strategic Analysis
           </Link>
-          <ChevronRight className="w-3 h-3 shrink-0" />
-          <span className="text-[#2563eb] line-clamp-1 shrink-0">{post.category} Focus</span>
+          <ChevronRight className="w-3 h-3 shrink-0 opacity-30" />
+          <span className="text-[#2563eb] line-clamp-1 shrink-0 bg-blue-50 px-3 py-1 rounded-md">{post.category} Focus</span>
         </nav>
 
         {/* HERO SECTION */}
-        <header className="mb-16">
+        <header className="mb-10">
           <div className="flex flex-wrap items-center gap-4 mb-8">
             <span className="px-4 py-1.5 bg-[#2563eb] text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-blue-500/20">
               {post.category || "Education"}
@@ -83,7 +82,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </header>
 
         {/* MAIN IMAGE - Redesigned Margin */}
-        <div className="relative h-[400px] md:h-[650px] rounded-[64px] overflow-hidden shadow-2xl mb-24 border border-slate-100 group">
+        <div className="relative h-[400px] md:h-[650px] rounded-[64px] overflow-hidden shadow-2xl mb-16 border border-slate-100 group">
           <Image
             src={post.image}
             alt={post.title}
@@ -106,7 +105,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 Strategic Benefits
               </h3>
               <ul className="space-y-8">
-                {post.benefits?.map((benefit: any, i: number) => (
+                {post.benefits?.map((benefit: { title: string; desc: string }, i: number) => (
                   <li key={i} className="group/item">
                     <p className="text-blue-400 text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-2">
                        <span className="w-1 h-1 bg-blue-400 rounded-full"></span> {benefit.title}
@@ -153,7 +152,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   Counselor's Vision <span className="text-blue-400">2026</span>
                </h4>
                <p className="text-xl md:text-2xl font-medium text-slate-300 italic leading-relaxed relative z-10 pr-10">
-                 "{post.motivation}"
+                 &quot;{post.motivation}&quot;
                </p>
                <div className="mt-12 flex items-center gap-5 relative z-10">
                   <div className="w-12 h-12 rounded-2xl bg-[#2563eb] flex items-center justify-center shadow-2xl shadow-blue-500/40">
@@ -169,7 +168,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         {/* CTA SECTION - Updated Tag & Styling */}
-        <section className="mt-32 p-12 md:p-24 bg-[#2563eb] rounded-[64px] shadow-2xl shadow-blue-500/30 relative overflow-hidden group">
+        <section className="mt-20 p-12 md:p-24 bg-[#2563eb] rounded-[64px] shadow-2xl shadow-blue-500/30 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-400/20 to-transparent"></div>
           <div className="relative z-10 flex flex-col items-center text-center">
             <span className="text-[10px] font-black text-white/80 uppercase tracking-[0.5em] mb-8">Priority Admission Open 2026</span>

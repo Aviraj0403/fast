@@ -5,9 +5,9 @@ import { ChevronRight } from "lucide-react";
 
 export default function BlogListingPage() {
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-slate-50">
+    <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="container mx-auto px-6 max-w-7xl">
-        <header className="mb-20 text-center">
+        <header className="mb-12 text-center">
           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#2563eb] text-[10px] font-black uppercase tracking-[0.3em] mb-4">
             Educational Insights
           </span>

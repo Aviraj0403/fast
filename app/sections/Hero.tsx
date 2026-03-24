@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronRight, Star, Users, GraduationCap, ShieldCheck } from "lucide-react";
 
 export const Hero = () => {
@@ -20,7 +20,7 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-[85vh] flex items-center pt-20 pb-12 overflow-hidden bg-[#0f172a]"
+      className="relative min-h-[85vh] flex items-center pt-24 pb-8 overflow-hidden bg-[#0f172a]"
     >
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -55,7 +55,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tighter mb-8"
+              className="text-5xl md:text-7xl lg:text-9xl font-black text-white leading-[1] tracking-tighter mb-8"
             >
               Elite Career <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">

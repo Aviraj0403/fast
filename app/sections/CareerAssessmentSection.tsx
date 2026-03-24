@@ -61,7 +61,7 @@ export default function CareerAssessmentSection() {
             Elevate Your Future with Our <br/> <span className="text-gradient">Career Assessment</span>
           </h2>
           <p className="text-xl text-slate-400 mb-8 font-medium italic">
-            "Our groundwork takes you sky high"
+            &quot;Our groundwork takes you sky high&quot;
           </p>
           <p className="text-slate-300 max-w-3xl mx-auto leading-relaxed mb-16 text-lg">
             Admission Expert (FAST) is a pioneer in professional career counselling. 

@@ -19,21 +19,19 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL("https://fastadmission.in"),
   title: {
-    default: "FastAdmission – Best Career & College Admission Counsellor",
-    template: "%s | FastAdmission",
+    default: "FastAdmission – Elite Career Consultancy by Rajnish Singh",
+    template: "%s | FastAdmission Elite",
   },
-  description: "Get expert career guidance and college admission counselling from India's trusted education advisors at FastAdmission.",
+  description: "Secure your future with India's most prestigious career consultancy. Led by Rajnish Singh, FastAdmission provides elite guidance for Tier-1 Engineering, Medical, and Management admissions.",
   keywords: [
-    "college admission",
-    "career counsellor",
-    "best admission consultant",
-    "study guidance",
-    "education advisor",
+    "Rajnish Singh",
+    "Elite Admission Consultant",
+    "Tier-1 College Admissions",
+    "Best Career Counsellor Bihar",
+    "Engineering Admissions 2026",
+    "MBBS Consultancy",
     "FastAdmission",
-    "admission help",
-    "top colleges",
-    "career counseling",
-    "college application support"
+    "High Salary Career Guidance"
   ],
   authors: [{ name: "FastAdmission Team", url: "https://fastadmission.in" }],
   creator: "FastAdmission Team",

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export const RegionalSuccess = () => {
   const regions = [
@@ -53,45 +54,53 @@ export const RegionalSuccess = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Regional Success Stories
+    <section className="py-16 bg-white relative overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="max-w-3xl mx-auto text-center mb-12" data-aos="fade-up">
+           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#2563eb] text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+            National Impact
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black text-[#0f172a] mb-6 tracking-tighter">
+            Regional <span className="text-[#2563eb]">Success Stories</span>
           </h2>
-          <p className="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">
-            Our success spans across multiple regions in India, helping students from diverse backgrounds
+          <p className="text-lg text-slate-500 font-medium leading-relaxed">
+            Our strategic influence spans across India, empowering students from every corner to reach the peak of academic excellence.
           </p>
         </div>
 
         <div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           data-aos="fade-up"
           data-aos-delay="200"
         >
           {regions.map((region, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden"
+              className="group bg-white rounded-[40px] shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 overflow-hidden"
               data-aos="fade-up"
               data-aos-delay={index * 50}
             >
-              <div className="relative h-40 overflow-hidden">
-                <img
+              <div className="relative h-48 overflow-hidden">
+                <Image
                   src={region.image + "?auto=format&fit=crop&w=400&q=80"}
                   alt={`${region.name} landscape`}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  loading="lazy"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  unoptimized
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/40 to-transparent"></div>
               </div>
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{region.name}</h3>
-                <p className="text-primary font-bold mb-2">{region.successCount}+ Success Stories</p>
-                <p className="text-gray-600 text-sm">
-                  Top Institutions:
-                  <br />
-                  {region.topInstitutions.join(", ")}
+              <div className="p-8">
+                <h3 className="text-2xl font-black text-[#0f172a] mb-2">{region.name}</h3>
+                <p className="text-[#2563eb] text-[10px] font-black uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#2563eb]"></span> {region.successCount}+ Success Stories
                 </p>
+                <div className="pt-4 border-t border-slate-50">
+                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2">Key Institutions</p>
+                    <p className="text-slate-500 text-xs font-bold leading-relaxed">
+                      {region.topInstitutions.join(", ")}
+                    </p>
+                </div>
               </div>
             </div>
           ))}

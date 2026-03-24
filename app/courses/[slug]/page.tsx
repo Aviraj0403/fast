@@ -3,11 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { 
-  ChevronLeft, 
   ChevronRight, 
   CheckCircle2, 
   Home, 
-  Sparkles, 
   MessageCircle,
   Clock,
   BookOpen
@@ -28,17 +26,17 @@ export default async function CourseDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen pt-32 pb-20 bg-white text-[#0f172a]">
       <div className="container mx-auto px-6 max-w-6xl">
-        {/* BREADCRUMB - Consistent with Blogs */}
-        <nav className="flex items-center gap-4 mb-12 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 overflow-x-auto whitespace-nowrap pb-2">
-          <Link href="/" className="hover:text-[#2563eb] transition-colors flex items-center gap-1.5 shrink-0">
-             <Home className="w-3.5 h-3.5" /> Home
+        {/* BREADCRUMB - Enhanced Spacing & Visibility */}
+        <nav className="flex items-center gap-6 mb-16 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 overflow-x-auto whitespace-nowrap pb-4 border-b border-slate-100">
+          <Link href="/" className="hover:text-[#2563eb] transition-colors flex items-center gap-2 shrink-0">
+             <Home className="w-4 h-4" /> Home
           </Link>
-          <ChevronRight className="w-3 h-3 shrink-0" />
+          <ChevronRight className="w-3 h-3 shrink-0 opacity-30" />
           <Link href="/courses" className="hover:text-[#2563eb] transition-colors shrink-0">
-             Programs
+             Academic Programs
           </Link>
-          <ChevronRight className="w-3 h-3 shrink-0" />
-          <span className="text-[#2563eb] line-clamp-1 shrink-0">{course.title}</span>
+          <ChevronRight className="w-3 h-3 shrink-0 opacity-30" />
+          <span className="text-[#2563eb] line-clamp-1 shrink-0 bg-blue-50 px-3 py-1 rounded-md">{course.title}</span>
         </nav>
 
         <div className="grid lg:grid-cols-2 gap-16 mb-24">

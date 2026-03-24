@@ -6,7 +6,6 @@ import {
   Instagram,
   Linkedin,
   Mail,
-  Phone,
   MapPin,
   ArrowUp,
   MessageCircle,

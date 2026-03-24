@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { courses } from "@/app/data/courses";
-import { ChevronRight } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function CoursesPage() {
   return (
@@ -15,7 +15,7 @@ export default function CoursesPage() {
             Our <span className="text-[#2563eb]">Professional Programs</span>
           </h1>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
-            Architect your future with India's most sought-after degree specializations. We provides end-to-end guidance for premier institution placements.
+            Architect your future with India&apos;s most sought-after degree specializations. We provides end-to-end guidance for premier institution placements.
           </p>
         </header>
 

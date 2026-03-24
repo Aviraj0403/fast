@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef, useMemo, useState } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import { colleges } from "../data/colleges";
 
 // Native Button component
@@ -23,7 +22,7 @@ const Button = ({
     type="button"
     onClick={onClick}
     aria-label={ariaLabel}
-    className={`p-2 rounded-full shadow-md bg-white hover:bg-primary hover:text-white transition ${className}`}
+    className={`p-2 rounded-full shadow-md bg-white hover:bg-[#2563eb] hover:text-white transition ${className}`}
   >
     {children}
   </button>
@@ -41,19 +40,23 @@ const CollegeCard = ({
   image: string;
   category: string;
 }) => (
-  <div className="min-w-[280px] bg-white rounded-lg shadow-lg overflow-hidden flex-shrink-0">
-    <Image
-      src={image}
-      alt={`${name} image`}
-      width={400}
-      height={176}
-      className="w-full h-44 object-cover"
-      unoptimized
-    />
-    <div className="p-4">
-      <h3 className="font-semibold text-lg text-gray-900">{name}</h3>
-      <p className="text-gray-600 text-sm">{location}</p>
-      <p className="mt-2 inline-block px-2 py-1 text-xs font-medium rounded bg-primary/20 text-primary">
+  <div className="min-w-[280px] bg-white rounded-3xl shadow-lg overflow-hidden flex-shrink-0 border border-slate-100 group">
+    <div className="relative h-44 w-full overflow-hidden">
+        <Image
+          src={image}
+          alt={`${name} image`}
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-700"
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+    </div>
+    <div className="p-6">
+      <h3 className="font-black text-lg text-[#0f172a] mb-1">{name}</h3>
+      <p className="text-[#2563eb] text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb]"></span> {location}
+      </p>
+      <p className="mt-4 inline-block px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full bg-slate-50 text-slate-500 border border-slate-100">
         {category}
       </p>
     </div>
@@ -98,62 +101,56 @@ export const Colleges = () => {
     }
   };
 
-import { colleges } from "../data/colleges";
-
   return (
-    <section className="py-20 bg-blue-50">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-slate-50 overflow-hidden" id="colleges">
+      <div className="container mx-auto px-6">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-            data-aos="fade-up"
-          >
-            Our Partner Colleges
+           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#2563eb] text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+            Elite Partnerships
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-[#0f172a] mb-6 tracking-tighter">
+            Our <span className="text-[#2563eb]">Partner Institutions</span>
           </h2>
-          <p
-            className="text-lg text-gray-600"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <p className="text-lg text-slate-500 font-medium leading-relaxed">
             We&apos;ve partnered with over 600 top colleges across India to
-            provide the best opportunities for our students
+            provide the best opportunities for our students.
           </p>
         </div>
 
-          <div className="max-w-4xl mx-auto mb-8">
-            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 justify-center">
-              <select
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-                className="border rounded-md px-3 py-2"
-              >
-                <option value="all">All Categories</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="flex flex-col md:flex-row items-center gap-4 justify-center">
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="border-none bg-white shadow-sm ring-1 ring-slate-200 rounded-2xl px-6 py-4 font-black text-xs uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#2563eb] transition-all"
+            >
+              <option value="all">Every Category</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
 
-              <select
-                value={areaFilter}
-                onChange={(e) => setAreaFilter(e.target.value)}
-                className="border rounded-md px-3 py-2"
-              >
-                <option value="">All Areas</option>
-                {areas.map((a) => (
-                  <option key={a} value={a}>{a}</option>
-                ))}
-              </select>
+            <select
+              value={areaFilter}
+              onChange={(e) => setAreaFilter(e.target.value)}
+              className="border-none bg-white shadow-sm ring-1 ring-slate-200 rounded-2xl px-6 py-4 font-black text-xs uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#2563eb] transition-all"
+            >
+              <option value="">Every Region</option>
+              {areas.map((a) => (
+                <option key={a} value={a}>{a}</option>
+              ))}
+            </select>
 
-              <input
-                value={areaFilter}
-                onChange={(e) => setAreaFilter(e.target.value)}
-                placeholder="Search area (city, state)"
-                className="border rounded-md px-3 py-2 w-full md:w-64"
-              />
-            </div>
+            <input
+              value={areaFilter}
+              onChange={(e) => setAreaFilter(e.target.value)}
+              placeholder="QUICK SEARCH AREA..."
+              className="border-none bg-white shadow-sm ring-1 ring-slate-200 rounded-2xl px-6 py-4 font-black text-xs uppercase tracking-widest outline-none focus:ring-2 focus:ring-[#2563eb] transition-all w-full md:w-80"
+            />
           </div>
+        </div>
 
-          <div className="relative" data-aos="fade-up" data-aos-delay="200">
+        <div className="relative">
           {/* Navigation Buttons for md+ */}
           <div className="absolute -left-5 top-1/2 transform -translate-y-1/2 z-10 hidden md:block">
             <Button onClick={() => scroll("left")} ariaLabel="Scroll left">
@@ -170,11 +167,11 @@ import { colleges } from "../data/colleges";
           {/* Scrollable container */}
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-auto gap-6 pb-6 scrollbar-hide"
+            className="flex overflow-x-auto gap-8 pb-10 scrollbar-hide px-4"
             style={{ scrollbarWidth: "none" }}
           >
             {filtered.map((college) => (
-              <Link key={college.slug} href={`/colleges/${college.slug}`} className="inline-block">
+              <Link key={college.slug} href={`/colleges/${college.slug}`} className="inline-block transform transition-transform hover:-translate-y-2">
                 <CollegeCard
                   name={college.name}
                   location={college.location}
@@ -185,12 +182,12 @@ import { colleges } from "../data/colleges";
             ))}
           </div>
 
-          {/* Mobile scroll buttons */}
-          <div className="mt-10 text-center">
-            <p className="text-gray-600 italic">
-              And many more across various disciplines and regions...
+          {/* Bottom message */}
+          <div className="mt-8 text-center">
+            <p className="text-slate-400 text-xs font-black uppercase tracking-[0.3em] italic">
+              Empowering excellence in 600+ disciplinary institutions...
             </p>
-            <div className="flex justify-center mt-4 gap-2 md:hidden">
+            <div className="flex justify-center mt-8 gap-4 md:hidden">
               <Button onClick={() => scroll("left")} ariaLabel="Scroll left">
                 <ChevronLeft className="h-5 w-5" />
               </Button>

@@ -17,26 +17,12 @@ const navItems = [
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      const scrollY = window.scrollY;
-
-      navItems.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section) {
-          const offsetTop = section.offsetTop - 100;
-          const offsetBottom = offsetTop + section.offsetHeight;
-
-          if (scrollY >= offsetTop && scrollY < offsetBottom) {
-            setActiveSection(id);
-          }
-        }
-      });
     };
 
     window.addEventListener("scroll", handleScroll);
