@@ -149,7 +149,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-50"></div>
                <Quote className="w-12 h-12 text-[#2563eb] mb-10 opacity-30 transform group-hover:scale-110 transition-transform" />
                <h4 className="text-2xl md:text-3xl font-black text-white mb-8 tracking-tight relative z-10 leading-tight">
-                  Counselor's Vision <span className="text-blue-400">2026</span>
+                  Counselor&apos;s Vision <span className="text-blue-400">2026</span>
                </h4>
                <p className="text-xl md:text-2xl font-medium text-slate-300 italic leading-relaxed relative z-10 pr-10">
                  &quot;{post.motivation}&quot;

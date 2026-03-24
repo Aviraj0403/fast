@@ -59,7 +59,7 @@ export const refreshAOS = () => {
   }
 };
 
-export default {
+const animationsConfig = {
   fadeUp: fadeUpAnimation,
   fadeLeft: fadeLeftAnimation,
   fadeRight: fadeRightAnimation,
@@ -68,3 +68,5 @@ export default {
   init: initializeAOS,
   refresh: refreshAOS,
 };
+
+export default animationsConfig;

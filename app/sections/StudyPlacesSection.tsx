@@ -124,7 +124,7 @@ const StudyPlacesSection = () => {
               </h2>
             </div>
             <p className="text-slate-500 font-medium max-w-sm border-l-4 border-blue-500 pl-6 text-lg italic">
-              "Connecting elite talent with premier educational hubs across the Indian subcontinent."
+              &quot;Connecting elite talent with premier educational hubs across the Indian subcontinent.&quot;
             </p>
         </div>
 

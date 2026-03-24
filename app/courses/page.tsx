@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { courses } from "@/app/data/courses";
-import { Search } from "lucide-react";
+
 
 export default function CoursesPage() {
   return (
