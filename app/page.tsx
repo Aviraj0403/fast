@@ -1,19 +1,10 @@
 // app/page.tsx
 
 import { Metadata } from "next";
-import { Navbar } from "@/components/Navbar";
+// import { Navbar } from "@/components/Navbar";
 // import { Footer } from "@/components/Footer";
 
 import { Hero } from "./sections/Hero";
-// Uncomment these as you develop
-// import { About } from "./sections/About";
-// import { CounterSection } from "./sections/CounterSection";
-// import { Services } from "./sections/Services";
-// import { Colleges } from "./sections/Colleges";
-// import { RegionalSuccess } from "./sections/RegionalSuccess";
-// import { Testimonials } from "./sections/Testimonials";
-// import { EnquiryForm } from "./sections/EnquiryForm";
-// import { Contact } from "./sections/Contact";
 import { AdmissionSection } from "./sections/AdmissionSection";
 import { StudyGoalSection } from "./sections/StudyGoalSection";
 import StudyPlacesSection from "./sections/StudyPlacesSection";
@@ -36,9 +27,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
-      {/* Uncomment to add Navbar */}
-      {/* <Navbar /> */}
-      
       <Hero />
       <AdmissionSection />
       <StudyGoalSection />
@@ -47,17 +35,6 @@ export default function HomePage() {
       <BlogSection />
       <MergedContactSection />
       
-      {/* Uncomment as needed */}
-      {/* <About /> */}
-      {/* <CounterSection /> */}
-      {/* <Services /> */}
-      {/* <Colleges /> */}
-      {/* <RegionalSuccess /> */}
-      {/* <Testimonials /> */}
-      {/* <EnquiryForm />
-      <Contact />  */}
-
-{/*       <Footer /> */}
       <FixedButtons />
     </main>
   );

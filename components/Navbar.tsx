@@ -4,23 +4,22 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronRight } from "lucide-react";
 import Image from "next/image";
-// import { useRouter } from "next/navigation";
-
+import { usePathname } from "next/navigation";
 
 const navItems = [
-  { name: "Home", id: "home" },
-  { name: "About", id: "about" },
-  { name: "Services", id: "services" },
-  { name: "Success Stories", id: "success-stories" },
-  { name: "Contact", id: "contact" },
+  { name: "Home", id: "home", path: "/" },
+  { name: "Courses", id: "courses", path: "/courses" },
+  { name: "Blogs", id: "blogs", path: "/blogs" },
+  { name: "About", id: "about", path: "/#about" },
+  { name: "Contact", id: "contact", path: "/#contact" },
 ];
-// const router = useRouter();
-
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,117 +41,110 @@ export const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // navItems moved outside, no need to add here
-
-  const scrollToSection = (id: string) => {
-    setIsMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        (scrolled || !isHome)
+          ? "bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm py-2"
+          : "bg-transparent py-4 text-white"
       }`}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <nav className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/image/contact.jpeg"
-              alt="Logo"
-              width={50}
-              height={50}
-              className="rounded-full"
-            />
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative w-10 h-10 md:w-12 md:h-12 overflow-hidden rounded-xl bg-white/20 p-1 backdrop-blur-md">
+              <Image
+                src="/image/contact.jpeg"
+                alt="Logo"
+                width={48}
+                height={48}
+                className="rounded-lg object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
             <span
-              className={`text-2xl md:text-3xl font-bold transition-colors ${
-                scrolled ? "text-blue-600" : "text-white"
+              className={`text-2xl md:text-3xl font-black tracking-tighter transition-colors ${
+                (scrolled || !isHome) ? "text-[#0f172a]" : "text-white"
               }`}
             >
-              FAST
+              FAST<span className="text-[#2563eb]">ADMISSION</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-6">
-              {navItems.map(({ name, id }) => (
+          <div className="hidden md:flex items-center space-x-10">
+            <ul className="flex space-x-8">
+              {navItems.map(({ name, path, id }) => (
                 <li key={id} className="relative group">
-                  <button
-                    onClick={() => scrollToSection(id)}
-                    className={`font-medium transition-colors ${
-                      scrolled ? "text-gray-800" : "text-white"
-                    } ${activeSection === id ? "text-blue-600" : ""}`}
+                  <Link
+                    href={path}
+                    className={`text-sm font-black uppercase tracking-widest transition-all duration-300 hover:text-[#2563eb] ${
+                      (scrolled || !isHome) ? "text-[#0f172a]/80" : "text-white/80"
+                    }`}
                   >
                     {name}
                     <span
-                      className={`absolute left-0 bottom-0 h-[2px] w-full bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left ${
-                        activeSection === id ? "scale-x-100" : ""
-                      }`}
+                      className={`absolute -bottom-1 left-0 h-[2px] w-0 bg-[#2563eb] group-hover:w-full transition-all duration-300`}
                     />
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
 
-            <button
-              onClick={() => scrollToSection("enquiry")}
-              className={`ml-4 flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
-                scrolled
-                  ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-white text-blue-600 hover:bg-gray-100"
+            <a
+              href="https://wa.me/918581841853?text=I%20want%20to%20enquire%20about%20admissions%20-%20General%20Query"
+              target="_blank"
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 ${
+                (scrolled || !isHome)
+                  ? "bg-[#2563eb] text-white shadow-lg shadow-blue-200"
+                  : "bg-white text-[#2563eb] shadow-xl"
               }`}
             >
-              Enquire Now
+              Connect Us
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden ${scrolled ? "text-gray-800" : "text-white"}`}
-            aria-label="Toggle Menu"
-            aria-expanded={isMenuOpen}
+            className={`md:hidden p-2 rounded-xl transition-colors ${
+              (scrolled || !isHome) ? "text-[#0f172a] hover:bg-slate-100" : "text-white hover:bg-white/10"
+            }`}
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </nav>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white shadow-lg rounded-lg mt-4 p-4 absolute left-4 right-4 z-50 animate-in slide-in-from-top-5 duration-300">
-            <ul className="space-y-4">
-              {navItems.map(({ name, id }) => (
-                <li key={id}>
-                  <button
-                    onClick={() => scrollToSection(id)}
-                    className={`w-full text-left py-2 transition-colors ${
-                      activeSection === id
-                        ? "text-blue-600 font-semibold"
-                        : "text-gray-800"
-                    }`}
+          <div className="md:hidden mt-4 animate-in slide-in-from-top-5 duration-300">
+            <div className="bg-white/95 backdrop-blur-2xl shadow-2xl rounded-[32px] p-8 border border-slate-100 space-y-6">
+              <ul className="space-y-6">
+                {navItems.map(({ name, path, id }) => (
+                  <li key={id}>
+                    <Link
+                      href={path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block text-xl font-black text-[#0f172a] py-2 hover:text-[#2563eb] transition-colors"
+                    >
+                      {name}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="https://wa.me/918581841853?text=I%20want%20to%20enquire%20about%20admissions"
+                    target="_blank"
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-5 rounded-2xl flex items-center justify-center gap-2 transition font-black uppercase tracking-widest text-sm shadow-xl shadow-blue-200"
                   >
-                    {name}
-                  </button>
+                    Connect Us <ChevronRight className="h-5 w-5" />
+                  </a>
                 </li>
-              ))}
-              <li>
-                <button
-                  onClick={() => scrollToSection("enquiry")}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 transition"
-                >
-                  Enquire Now <ChevronRight className="h-4 w-4" />
-                </button>
-              </li>
-            </ul>
+              </ul>
+            </div>
           </div>
         )}
       </div>

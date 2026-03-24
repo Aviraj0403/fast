@@ -19,7 +19,7 @@ export const FixedButtons = () => {
     >
       {/* WhatsApp */}
       <a
-        href="https://wa.me/918581841853"
+        href="https://wa.me/918581841853?text=I%20want%20to%20apply%20-%20FastAdmission%20Quick%20Help"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl animate-float hover:scale-110 transition-all duration-300 ease-in-out"

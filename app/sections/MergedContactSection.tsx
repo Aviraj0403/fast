@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Send, Phone, Mail, Clock } from "lucide-react";
+import { Send, Phone, Mail, Clock, MapPin, ChevronRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -31,16 +32,15 @@ const MergedContactSection = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    const message = `
-📝 *New Enquiry Received!*
-
+    const message = `📝 *New High-Value Enquiry!*
 👤 *Name:* ${data.name}
 📧 *Email:* ${data.email}
 📱 *Phone:* ${data.phone}
 🎓 *Course:* ${data.courseInterest}
 📍 *Location:* ${data.location}
 💬 *Message:* ${data.message || "No message"}
-`.trim();
+--
+Ref: Web Apply 2026`.trim();
 
     const encoded = encodeURIComponent(message);
     const phoneNumber = "918581841853";
@@ -58,206 +58,169 @@ const MergedContactSection = () => {
   }, [toast]);
 
   return (
-
-    <section className="py-20 bg-white" id="contact">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">Get in Touch</h2>
-          <p className="text-lg text-gray-600 mt-2">
-            Fill the form or reach out to us directly
+    <section className="py-16 bg-white relative overflow-hidden" id="contact">
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#2563eb] text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+            Connect With Expertise
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black text-[#0f172a] tracking-tighter">Reach Out <span className="text-[#2563eb]">Securely</span></h2>
+          <p className="text-lg text-slate-500 mt-4 max-w-xl mx-auto font-medium">
+            Contact the primary desk of Rajnish Singh for direct institutional guidance.
           </p>
         </div>
 
-        {/* Enquiry + Contact Side by Side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
           {/* Enquiry Form */}
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="bg-blue-50 shadow-md rounded-lg p-6 space-y-6"
-          >
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-              Enquire Now
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block mb-1 font-medium">Full Name</label>
-                <input
-                  {...register("name")}
-                  className="w-full border px-4 py-2 rounded-md"
-                  placeholder="Your Name"
-                />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
-              </div>
-              <div>
-                <label className="block mb-1 font-medium">Email</label>
-                <input
-                  {...register("email")}
-                  className="w-full border px-4 py-2 rounded-md"
-                  placeholder="you@example.com"
-                />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-              </div>
-            </div>
+          <div className="bg-slate-50 p-10 md:p-12 rounded-[48px] border border-slate-100 shadow-sm flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl font-black text-[#0f172a] mb-2">Priority Selection Form</h3>
+              <p className="text-slate-400 mb-8 font-medium">Get a response within 60 minutes from our senior desk.</p>
+              
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#0f172a] ml-4">Full Name</label>
+                    <input
+                      {...register("name")}
+                      className="w-full bg-white border border-slate-100 px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#2563eb] transition-all font-bold text-sm"
+                      placeholder="Enter Name"
+                    />
+                    {errors.name && <p className="text-red-500 text-[10px] font-bold ml-4">{errors.name.message}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#0f172a] ml-4">Email ID</label>
+                    <input
+                      {...register("email")}
+                      className="w-full bg-white border border-slate-100 px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#2563eb] transition-all font-bold text-sm"
+                      placeholder="Enter Email"
+                    />
+                    {errors.email && <p className="text-red-500 text-[10px] font-bold ml-4">{errors.email.message}</p>}
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block mb-1 font-medium">Phone</label>
-                <input
-                  {...register("phone")}
-                  className="w-full border px-4 py-2 rounded-md"
-                  placeholder="Phone Number"
-                />
-                {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
-              </div>
-              <div>
-                <label className="block mb-1 font-medium">Interested In</label>
-                <select
-                  {...register("courseInterest")}
-                  className="w-full border px-4 py-2 rounded-md"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#0f172a] ml-4">Mobile Phone</label>
+                    <input
+                      {...register("phone")}
+                      className="w-full bg-white border border-slate-100 px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#2563eb] transition-all font-bold text-sm"
+                      placeholder="WhatsApp Number"
+                    />
+                    {errors.phone && <p className="text-red-500 text-[10px] font-bold ml-4">{errors.phone.message}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-[#0f172a] ml-4">Target Program</label>
+                    <select
+                      {...register("courseInterest")}
+                      className="w-full bg-white border border-slate-100 px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#2563eb] transition-all font-bold text-sm appearance-none"
+                    >
+                      <option value="">Choose Course</option>
+                      <option value="engineering">B.Tech / Engineering</option>
+                      <option value="medical">MBBS / Medical</option>
+                      <option value="management">MBA / Management</option>
+                      <option value="cse-ai-ml">CSE (AI-ML Focus)</option>
+                      <option value="law">Law Pathways</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-[#0f172a] ml-4">Current Location</label>
+                  <input
+                    {...register("location")}
+                    className="w-full bg-white border border-slate-100 px-6 py-4 rounded-2xl focus:ring-2 focus:ring-[#2563eb] transition-all font-bold text-sm"
+                    placeholder="City / State"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#0f172a] hover:bg-[#2563eb] text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 shadow-xl flex items-center justify-center gap-3 group"
                 >
-                  <option value="">Select a course</option>
-                  <option value="engineering">Engineering</option>
-                  <option value="medical">Medical</option>
-                  <option value="law">Law</option>
-                  <option value="management">Management</option>
-                  <option value="abroad">Study Abroad</option>
-                  <option value="other">Other</option>
-                </select>
-                {errors.courseInterest && <p className="text-red-500 text-sm">{errors.courseInterest.message}</p>}
-              </div>
+                  START WHATSAPP COUNSELLING <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </form>
             </div>
+          </div>
 
-            <div>
-              <label className="block mb-1 font-medium">Location</label>
-              <input
-                {...register("location")}
-                className="w-full border px-4 py-2 rounded-md"
-                placeholder="City/State"
-              />
-              {errors.location && <p className="text-red-500 text-sm">{errors.location.message}</p>}
-            </div>
-
-            <div>
-              <label className="block mb-1 font-medium">Message (Optional)</label>
-              <textarea
-                {...register("message")}
-                className="w-full border px-4 py-2 rounded-md min-h-[100px]"
-                placeholder="Any specific query?"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white px-4 py-3 rounded-md flex justify-center items-center gap-2 hover:bg-blue-700 transition"
-            >
-              Submit Enquiry <Send className="w-4 h-4" />
-            </button>
-          </form>
-
-          {/* Contact Info */}
-          <div className="grid grid-cols-1 gap-8">
-            <article className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="text-blue-600 mb-2">
-                <Phone className="mx-auto" />
+          {/* Contact Details Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+             <div className="bg-slate-50 p-8 rounded-[40px] border border-slate-100 flex flex-col items-center justify-center text-center group hover:bg-white hover:shadow-2xl transition-all duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl mb-6 shadow-lg shadow-blue-500/20">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <h4 className="text-[#0f172a] font-black text-lg mb-2">Call Direct</h4>
+                <a href="tel:+918581841853" className="text-sm font-black text-[#2563eb] hover:underline">+91 85818 41853</a>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Rajnish Singh (Desk)</p>
               </div>
-              <h4 className="text-xl font-semibold">Call Us</h4>
-              <p className="text-gray-600 mb-2">We’re available for all your queries</p>
-              <p className="font-medium">
-                <a href="tel:+918581841853" className="text-blue-600 hover:underline">+91 85818 41853</a>
-              </p>
-              <p className="font-medium">
-                <a href="tel:+917079005999" className="text-blue-600 hover:underline">+91 62020 00340</a>
-              </p>
-            </article>
 
-            <article className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="text-blue-600 mb-2">
-                <Mail className="mx-auto" />
+              <div className="bg-[#0f172a] p-8 rounded-[40px] flex flex-col items-center justify-center text-center group shadow-2xl">
+                <div className="w-14 h-14 rounded-2xl bg-white/10 text-white flex items-center justify-center text-xl mb-6 backdrop-blur-md border border-white/10">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <h4 className="text-white font-black text-lg mb-2">Email Support</h4>
+                <a href="mailto:info@fastadmission.com" className="text-sm font-bold text-white/70 hover:text-white">info@fastadmission.com</a>
               </div>
-              <h4 className="text-xl font-semibold">Email Us</h4>
-              <p className="text-gray-600 mb-2">Send us a message anytime</p>
-              <p className="font-medium">
-                <a href="mailto:info@fastadmission.com" className="text-blue-600 hover:underline">info@fastadmission.com</a>
-              </p>
-              <p className="font-medium">
-                <a href="mailto:counseling@fastadmission.com" className="text-blue-600 hover:underline">counselling@fastadmission.com</a>
-              </p>
-            </article>
 
-            <article className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="text-blue-600 mb-2">
-                <Clock className="mx-auto" />
+              <div className="col-span-1 sm:col-span-2 bg-[#2563eb] p-10 rounded-[40px] text-white relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:scale-150 transition-transform duration-1000"></div>
+                  <h4 className="text-2xl font-black mb-4 flex items-center gap-3">
+                    <MapPin className="w-6 h-6" /> Our Presence
+                  </h4>
+                  <p className="text-white/80 font-medium leading-relaxed mb-6">
+                    Admission Expert (FAST) - Head Office Patna. Serving students across Bihar and PAN India with premier institutional tie-ups.
+                  </p>
+                  <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest">
+                    <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Patna HQ</span>
+                    <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Delhi Desk</span>
+                    <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Bangalore Desk</span>
+                  </div>
               </div>
-              <h4 className="text-xl font-semibold">Office Hours</h4>
-              <p className="text-gray-600">Mon–Sat: 10am – 7pm</p>
-              <p className="text-gray-600">Sunday: By appointment</p>
-            </article>
           </div>
         </div>
 
-        {/* Leadership Section */}
-        <div className="text-center mb-12">
-          <h3 className="text-3xl font-bold text-gray-800">Our Leadership Team</h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {/* Leadership - Redesigned to Hero-style cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           {[
             {
               name: "Rajnish Singh",
-              title: "Founder",
+              title: "Founder & Chief Advisor",
               phone: "+91 85818 41853",
               img: "/image/contact.jpeg",
-              desc:
-                "With over a decade of experience in educational counselling, Rajnish has helped thousands of students achieve their academic dreams.",
+              desc: "Providing elite tactical guidance for students aiming for elite technical and medical institutions. Your primary contact for 2026 admissions."
             },
             {
               name: "Rahul Singh",
-              title: "Director",
+              title: "Operations Director",
               phone: "+91 62020 00340",
               img: "/image/contact.jpeg",
-              desc:
-                "Rahul specializes in strategic partnerships with educational institutions, ensuring our students have access to the best opportunities.",
+              desc: "Ensuring smooth operational flow and university liaison for all our registered candidates."
             },
           ].map((leader, i) => (
-            <article key={i} className="p-6 bg-white border rounded-lg shadow-sm text-center">
-              <div className="w-24 h-24 rounded-full mx-auto overflow-hidden mb-4">
-                <Image
-                  src={leader.img}
-                  alt={leader.name}
-                  width={96}
-                  height={96}
-                  className="object-cover w-full h-full"
-                  unoptimized
-                />
-              </div>
-              <h4 className="text-xl font-semibold">{leader.name}</h4>
-              <p className="text-blue-600 font-medium">{leader.title}</p>
-              <p className="text-gray-600 mb-2">{leader.desc}</p>
-              <a href={`tel:${leader.phone.replace(/\s+/g, "")}`} className="text-blue-600 hover:underline">
-                <Phone className="inline-block w-4 h-4 mr-1" />
-                {leader.phone}
-              </a>
-            </article>
+            <div key={i} className="flex flex-col md:flex-row items-center gap-10 p-10 bg-white border border-slate-100 rounded-[56px] hover:shadow-2xl transition-all duration-700">
+               <div className="w-32 h-32 shrink-0 rounded-[32px] overflow-hidden border-4 border-slate-50 shadow-xl">
+                  <Image src={leader.img} alt={leader.name} width={128} height={128} className="object-cover w-full h-full" unoptimized />
+               </div>
+               <div className="text-center md:text-left">
+                  <p className="text-[10px] font-black text-[#2563eb] uppercase tracking-[0.3em] mb-2">{leader.title}</p>
+                  <h4 className="text-2xl font-black text-[#0f172a] mb-4">{leader.name}</h4>
+                  <p className="text-slate-500 text-sm font-medium mb-6 leading-relaxed italic">"{leader.desc}"</p>
+                  <a href={`tel:${leader.phone.replace(/\s+/g, "")}`} className="inline-flex items-center gap-2 font-black text-xs text-[#0f172a] border-b-2 border-[#2563eb] pb-1 hover:text-[#2563eb] transition-colors">
+                    CONNECT DIRECTLY
+                  </a>
+               </div>
+            </div>
           ))}
         </div>
-
-        {/* Toast Message */}
+        
         {toast && (
-          <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-md shadow-lg animate-fade-in-out">
-            {toast}
+          <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-[#0f172a] text-white px-8 py-4 rounded-full shadow-2xl z-[100] font-black text-xs uppercase tracking-[0.2em] flex items-center gap-3">
+             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+             {toast}
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in-out {
-          0% { opacity: 0; transform: translateY(20px); }
-          10%, 90% { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(20px); }
-        }
-        .animate-fade-in-out {
-          animation: fade-in-out 3s ease forwards;
-        }
-      `}</style>
     </section>
   );
 };
