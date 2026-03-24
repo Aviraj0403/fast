@@ -3,16 +3,13 @@
 import { Metadata } from "next";
 
 import { Hero } from "./sections/Hero";
-import { AIAssessmentSection } from "./sections/AIAssessmentSection";
 import { AIServicesSection } from "./sections/AIServicesSection";
-import { AIAboutSection } from "./sections/AIAboutSection";
 import { AdmissionSection } from "./sections/AdmissionSection";
 import { StudyGoalSection } from "./sections/StudyGoalSection";
 import StudyPlacesSection from "./sections/StudyPlacesSection";
-import CareerAssessmentSection from "./sections/CareerAssessmentSection";
 import BlogSection from "./sections/BlogSection";
-import { FixedButtons } from "./sections/FixedButtons";
 import MergedContactSection from "./sections/MergedContactSection";
+import { FixedButtons } from "./sections/FixedButtons";
 
 // Importing metadata from layout.tsx
 import { metadata as layoutMetadata } from "./layout";
@@ -63,7 +60,7 @@ const homepageSchema = {
         "description": "Comprehensive AI-powered career assessment and recommendations"
       },
       {
-        "@type": "Offer", 
+        "@type": "Offer",
         "name": "Smart College Matching",
         "description": "AI-driven college selection and admission guidance"
       }
@@ -119,30 +116,25 @@ function HomePage() {
         }}
       />
 
-      <main>
-        {/* Hero Section - AI-focused landing */}
-        <Hero />
+      {/* Hero Section - AI-focused landing */}
+      <Hero />
 
-        {/* AI Assessment Section - Interactive career assessment */}
-        <AIAssessmentSection />
+      {/* Core Services Preview */}
+      <AIServicesSection />
 
-        {/* AI Services Section - Core AI-powered services */}
-        <AIServicesSection />
+      {/* Admission & Colleges */}
+      <AdmissionSection />
+      <StudyPlacesSection />
 
-        {/* About Section - AI technology and team */}
-        <AIAboutSection />
+      {/* Blog & Study Goals */}
+      <StudyGoalSection />
+      <BlogSection />
 
-        {/* Legacy sections - Enhanced with AI messaging */}
-        <AdmissionSection />
-        <StudyGoalSection />
-        <StudyPlacesSection />
-        <CareerAssessmentSection />
-        <BlogSection />
-        <MergedContactSection />
+      {/* Final CTA */}
+      <MergedContactSection />
 
-        {/* Fixed Action Buttons */}
-        <FixedButtons />
-      </main>
+      {/* Fixed Action Buttons */}
+      <FixedButtons />
     </>
   );
 }

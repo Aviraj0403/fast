@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Brain, 
-  Target, 
-  Users, 
-  BookOpen, 
-  TrendingUp, 
+import {
+  Brain,
+  Target,
+  Users,
+  BookOpen,
+  TrendingUp,
   Award,
   Zap,
   Shield,
@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 export const AIServicesSection = () => {
-  const [activeService, setActiveService] = useState(0);
+  // const [activeService, setActiveService] = useState(0); // Removed unused state
 
   const services = [
     {
@@ -27,7 +27,7 @@ export const AIServicesSection = () => {
       description: "Personalized career guidance powered by advanced AI algorithms",
       features: [
         "Personality & aptitude analysis",
-        "Career path recommendations", 
+        "Career path recommendations",
         "Skills gap identification",
         "Industry trend insights"
       ],
@@ -103,15 +103,15 @@ export const AIServicesSection = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <div 
+          <div
             className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full px-6 py-2 mb-6"
             data-aos="fade-up"
           >
             <Sparkles className="w-5 h-5 text-blue-600" />
             <span className="text-sm font-semibold text-blue-700">AI-Powered Services</span>
           </div>
-          
-          <h2 
+
+          <h2
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             data-aos="fade-up"
             data-aos-delay="100"
@@ -121,13 +121,13 @@ export const AIServicesSection = () => {
               AI Services
             </span>
           </h2>
-          
-          <p 
+
+          <p
             className="text-xl text-gray-600 max-w-3xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            Experience the future of career counseling with our cutting-edge AI technology 
+            Experience the future of career counseling with our cutting-edge AI technology
             that provides personalized, accurate, and instant guidance.
           </p>
         </div>
@@ -137,15 +137,12 @@ export const AIServicesSection = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className={`relative bg-gradient-to-br ${service.bgColor} rounded-3xl p-8 cursor-pointer transition-all duration-300 ${
-                activeService === index ? 'ring-2 ring-blue-500 shadow-large' : 'hover:shadow-medium'
-              }`}
-              onClick={() => setActiveService(index)}
+              className="relative bg-white border border-gray-100 rounded-3xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group"
               data-aos="fade-up"
               data-aos-delay={index * 100}
             >
               {/* Service Icon */}
-              <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center mb-6`}>
+              <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                 <service.icon className="w-8 h-8 text-white" />
               </div>
 
@@ -162,19 +159,12 @@ export const AIServicesSection = () => {
                   </li>
                 ))}
               </ul>
-
-              {/* Active Indicator */}
-              {activeService === index && (
-                <div className="absolute top-4 right-4">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                </div>
-              )}
             </div>
           ))}
         </div>
 
         {/* AI Advantages */}
-        <div 
+        <div
           className="bg-gradient-to-r from-slate-900 to-blue-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden"
           data-aos="fade-up"
         >
@@ -197,7 +187,7 @@ export const AIServicesSection = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {aiAdvantages.map((advantage, index) => (
-                <div 
+                <div
                   key={index}
                   className="text-center group"
                   data-aos="fade-up"
@@ -233,13 +223,13 @@ export const AIServicesSection = () => {
         {/* Service Process */}
         <div className="mt-20">
           <div className="text-center mb-12">
-            <h3 
+            <h3
               className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
               data-aos="fade-up"
             >
               How Our AI Works
             </h3>
-            <p 
+            <p
               className="text-xl text-gray-600 max-w-2xl mx-auto"
               data-aos="fade-up"
               data-aos-delay="100"
@@ -257,7 +247,7 @@ export const AIServicesSection = () => {
                 icon: BookOpen
               },
               {
-                step: "02", 
+                step: "02",
                 title: "AI Analysis",
                 description: "Our AI analyzes your responses using advanced algorithms",
                 icon: Brain
@@ -275,7 +265,7 @@ export const AIServicesSection = () => {
                 icon: Award
               }
             ].map((process, index) => (
-              <div 
+              <div
                 key={index}
                 className="text-center group"
                 data-aos="fade-up"
