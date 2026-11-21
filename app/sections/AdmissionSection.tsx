@@ -10,6 +10,7 @@ import {
   FaBriefcase,
 } from "react-icons/fa";
 import { ChevronRight } from "lucide-react";
+import { submitLead } from "../../lib/leads";
 
 export const AdmissionSection = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ export const AdmissionSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    void submitLead({ name: formData.name, phone: formData.phone, email: formData.email, course: formData.course, form: "admission-section" });
     const message = `📝 *New High-Value Enquiry!*
 👤 *Name:* ${formData.name}
 📧 *Email:* ${formData.email}

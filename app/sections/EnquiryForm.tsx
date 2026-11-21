@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send } from "lucide-react";
+import { submitLead } from "../../lib/leads";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -34,23 +35,8 @@ export const EnquiryForm = () => {
     setLoading(true);
 
     try {
-      // POST to external backend (NestJS) configured via env
-      const apiBase = process.env.NEXT_PUBLIC_BACKEND_URL;
-      if (!apiBase) {
-        setToast('Backend URL not configured. Set NEXT_PUBLIC_BACKEND_URL.');
-        setLoading(false);
-        return;
-      }
-
-      const endpoint = `${apiBase.replace(/\/$/, '')}/leads`;
-
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) throw new Error("Failed to submit lead");
+      const ok = await submitLead({ name: data.name, phone: data.phone, email: data.email, city: data.location, course: data.courseInterest, message: data.message, form: "enquiry-form" });
+      if (!ok) throw new Error("Failed to submit lead");
 
       setToast("Enquiry submitted — redirecting to WhatsApp...");
 

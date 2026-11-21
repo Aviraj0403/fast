@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Phone, Mail, MapPin, ChevronRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
+import { submitLead } from "../../lib/leads";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -31,6 +32,8 @@ const MergedContactSection = () => {
   });
 
   const onSubmit = (data: FormValues) => {
+    // save the lead in the platform (fire and forget) while WhatsApp opens
+    void submitLead({ name: data.name, phone: data.phone, email: data.email, city: data.location, course: data.courseInterest, message: data.message, form: "contact-section" });
     const message = `📝 *New High-Value Enquiry!*
 👤 *Name:* ${data.name}
 📧 *Email:* ${data.email}
