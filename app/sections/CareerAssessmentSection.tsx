@@ -1,91 +1,44 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import {
-  FaChalkboardTeacher,
-  FaUserTie,
-  FaUniversity,
-  FaComments,
-} from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { FaChalkboardTeacher, FaUserTie, FaUniversity, FaComments } from "react-icons/fa";
+import { SectionHeading } from "@/components/SectionHeading";
 
 const features = [
-  {
-    title: 'FREE Career Counselling',
-    icon: <FaComments />,
-    color: 'text-blue-500 bg-blue-50',
-  },
-  {
-    title: 'One-on-one Advice for Best Results',
-    icon: <FaUserTie />,
-    color: 'text-indigo-500 bg-indigo-50',
-  },
-  {
-    title: 'Best Career Guidance from the Experts',
-    icon: <FaChalkboardTeacher />,
-    color: 'text-emerald-500 bg-emerald-50',
-  },
-  {
-    title: 'Only the Best Colleges for you',
-    icon: <FaUniversity />,
-    color: 'text-amber-500 bg-amber-50',
-  },
+  { title: "Free career counselling", text: "Your first consultation costs nothing.", icon: <FaComments /> },
+  { title: "One-on-one advice", text: "A counsellor who knows your profile and goals.", icon: <FaUserTie /> },
+  { title: "Expert career guidance", text: "Backed by years of admission experience.", icon: <FaChalkboardTeacher /> },
+  { title: "Right-fit colleges", text: "Shortlists based on your marks, budget and city.", icon: <FaUniversity /> },
 ];
 
 export default function CareerAssessmentSection() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden min-h-[700px] flex items-center">
-      {/* Background Image with Dark Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/image/our_career.webp"
-          alt="Career Background"
-          fill
-          className="object-cover"
-          priority
+    <section className="relative overflow-hidden bg-brand-950 section">
+      <Image src="/image/our_career.webp" alt="" fill sizes="100vw" className="object-cover opacity-25" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-brand-950/70 via-brand-950/80 to-brand-950" />
+
+      <div className="container-x relative">
+        <SectionHeading
+          tone="dark"
+          eyebrow="Career assessment"
+          title="Know where you fit before you choose"
+          description="Admission Expert (FAST) is a pioneer in professional career counselling. Our qualified team advises thousands of students every year so they enter the right course with confidence."
         />
-        <div className="absolute inset-0 bg-[#0f172a]/80 backdrop-blur-[2px]"></div>
-      </div>
 
-      <div className="relative max-w-7xl mx-auto z-10 text-center">
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.6 }}
-           viewport={{ once: true }}
-        >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6">
-            Industry Benchmark
-          </span>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter leading-tight">
-            Elevate Your Future with Our <br/> <span className="text-gradient">Career Assessment</span>
-          </h2>
-          <p className="text-xl text-slate-400 mb-8 font-medium italic">
-            &quot;Our groundwork takes you sky high&quot;
-          </p>
-          <p className="text-slate-300 max-w-3xl mx-auto leading-relaxed mb-16 text-lg">
-            Admission Expert (FAST) is a pioneer in professional career counselling. 
-            Our highly qualified team provides sound advice to thousands of students every year, 
-            ensuring impeccable results and successful academic journeys.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          {features.map((f, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              key={f.title}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass p-10 rounded-[40px] flex flex-col items-center justify-center text-center group hover:bg-white transition-all duration-500"
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-sm transition-colors hover:bg-white/[0.09]"
             >
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 ${feature.color}`}>
-                {feature.icon}
-              </div>
-              <p className="text-[#0f172a] font-black text-lg leading-tight group-hover:text-blue-600 transition-colors">
-                {feature.title}
-              </p>
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/20 text-xl text-brand-300">{f.icon}</span>
+              <h3 className="mt-5 text-lg font-semibold !text-white">{f.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-300">{f.text}</p>
             </motion.div>
           ))}
         </div>

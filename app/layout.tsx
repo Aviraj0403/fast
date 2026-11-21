@@ -1,81 +1,68 @@
 // app/layout.tsx
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Poptin } from "@/components/Poptin";
 
 // === Fonts ===
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap" });
 
 // === Metadata ===
 export const metadata: Metadata = {
   metadataBase: new URL("https://fastadmission.in"),
   title: {
-    default: "FastAdmission – Elite Career Consultancy by Rajnish Singh",
-    template: "%s | FastAdmission Elite",
+    default: "FastAdmission – Career Counselling & College Admission Experts",
+    template: "%s | FastAdmission",
   },
-  description: "Secure your future with India's most prestigious career consultancy. Led by Rajnish Singh, FastAdmission provides elite guidance for Tier-1 Engineering, Medical, and Management admissions.",
+  description:
+    "Career counselling and admission guidance for Engineering, Medical, Management and more. Led by Rajnish Singh, FastAdmission helps students choose the right college and secure the seat.",
   keywords: [
     "Rajnish Singh",
-    "Elite Admission Consultant",
-    "Tier-1 College Admissions",
-    "Best Career Counsellor Bihar",
-    "Engineering Admissions 2026",
-    "MBBS Consultancy",
+    "College admission consultant",
+    "Career counsellor Bihar",
+    "Engineering admissions 2026",
+    "MBBS admission guidance",
     "FastAdmission",
-    "High Salary Career Guidance"
   ],
   authors: [{ name: "FastAdmission Team", url: "https://fastadmission.in" }],
   creator: "FastAdmission Team",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     url: "https://fastadmission.in",
-    title: "FastAdmission – Best Career & College Admission Counsellor",
+    title: "FastAdmission – Career Counselling & College Admission Experts",
     description: "Expert advice for college admissions and career decisions. FastAdmission helps students secure seats in top institutions.",
-    images: [
-      {
-        url: "https://fastadmission.in/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "FastAdmission - Your Gateway to Top Colleges",
-      },
-    ],
+    images: [{ url: "https://fastadmission.in/og-image.jpg", width: 1200, height: 630, alt: "FastAdmission" }],
     siteName: "FastAdmission",
   },
   twitter: {
     card: "summary_large_image",
     title: "FastAdmission – College Admission & Career Counselling",
-    description: "FastAdmission offers expert counselling for college admissions and career planning in India.",
+    description: "Expert counselling for college admissions and career planning in India.",
     images: ["https://fastadmission.in/og-image.jpg"],
     creator: "@fastadmission",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  icons: { icon: "/favicon.ico", apple: "/brand-mark.png" },
 };
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0a2336" };
 
 // === Layout ===
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" dir="ltr" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" dir="ltr" className={`${inter.variable} ${jakarta.variable} antialiased`}>
       <head>
-        {/* Meta tag for responsiveness */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-          strategy="afterInteractive"
-        />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -90,12 +77,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Navbar />
         <AOSInit />
-        
+
         {children}
         <SpeedInsights />
         <Analytics />
 
         <Footer />
+        <Poptin />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}
       </body>

@@ -25,7 +25,7 @@ export const courses: Course[] = [
     description: "Kickstart your medical career with top-tier clinical training and research opportunities in leading medical colleges.",
     duration: "5.5 Years",
     eligibility: "10+2 with PCB + NEET Qualification",
-    image: "https://images.unsplash.com/photo-1538108197794-27806f3747aa",
+    image: "/image/medical.webp",
   },
   {
     slug: "mba-finance",
@@ -34,7 +34,7 @@ export const courses: Course[] = [
     description: "Master the world of finance and business strategy with our industry-aligned MBA program.",
     duration: "2 Years",
     eligibility: "Graduation (Any Stream) + Entrance Exam",
-    image: "https://images.unsplash.com/photo-1454165833767-13a6d4b240df",
+    image: "/image/mangement.webp",
   },
   {
     slug: "llb",

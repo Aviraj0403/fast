@@ -1,143 +1,75 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronRight, Star, Users, GraduationCap, ShieldCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, GraduationCap, Star } from "lucide-react";
+import { waLink } from "@/lib/site";
 
-export const Hero = () => {
-  const [mounted, setMounted] = useState(false);
+const stats = [
+  { label: "Success rate", value: "99%", icon: Star },
+  { label: "Partner colleges", value: "250+", icon: GraduationCap },
+  { label: "Guiding since", value: "2015", icon: BadgeCheck },
+];
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+const fade = (delay = 0) => ({ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay } });
 
-  const contactOnWhatsApp = () => {
-    window.open("https://wa.me/918581841853?text=I%20want%20to%20start%20my%20journey%20with%20FastAdmission%20-%20Apply%202026", "_blank");
-  };
+export const Hero = () => (
+  <section id="home" className="relative overflow-hidden bg-brand-950 pt-[calc(var(--header-h)+3rem)] pb-16 md:pb-24">
+    {/* soft brand glow + fine grid: depth without noise */}
+    <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_85%_0%,rgb(10_150_208/0.28),transparent_60%),radial-gradient(50%_60%_at_0%_100%,rgb(10_122_176/0.18),transparent_60%)]" />
+    <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
 
-  if (!mounted) return null;
+    <div className="container-x relative grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+      <div className="text-center lg:text-left">
+        <motion.p {...fade()} className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-1.5 text-sm text-slate-200 lg:mx-0">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Trusted by 50,000+ students and parents
+        </motion.p>
 
-  return (
-    <section
-      id="home"
-      className="relative min-h-[85vh] flex items-center pt-24 pb-8 overflow-hidden bg-[#0f172a]"
-    >
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] animate-pulse delay-700"></div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]"></div>
-      </div>
+        <motion.h1 {...fade(0.08)} className="mt-6 text-balance text-[2.5rem] font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-[3.5rem]">
+          Choose the right college.
+          <br />
+          <span className="text-brand-300">Secure the seat.</span>
+        </motion.h1>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          {/* Left Content */}
-          <div className="flex-1 text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
-            >
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="w-6 h-6 rounded-full border-2 border-[#0f172a] bg-blue-500 flex items-center justify-center overflow-hidden">
-                    <Users className="w-3 h-3 text-white" />
-                  </div>
-                ))}
-              </div>
-              <span className="text-white/80 text-[10px] font-black uppercase tracking-[0.2em] ml-2">
-                Trusted by 50,000+ Students
-              </span>
-            </motion.div>
+        <motion.p {...fade(0.16)} className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-300 lg:mx-0">
+          Career counselling and admission guidance from <strong className="font-semibold text-white">Rajnish Singh</strong> and team, for top Engineering, Medical and Management institutions in 2026.
+        </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-5xl md:text-7xl lg:text-9xl font-black text-white leading-[1] tracking-tighter mb-8"
-            >
-              Elite Career <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-                Consultancy.
-              </span>
-            </motion.h1>
+        <motion.div {...fade(0.24)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+          <a href={waLink("I want to start my journey with FastAdmission - Apply 2026")} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+            Apply for 2026 <ArrowRight className="h-5 w-5" />
+          </a>
+          <a href="#contact" className="btn btn-ghost-light btn-lg">
+            Talk to an expert
+          </a>
+        </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed mb-10"
-            >
-              Architect your academic future with <strong>Rajnish Singh</strong> and Team. Secure premier seats in Tier-1 Engineering, Medical, and Management institutions in 2026.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto"
-            >
-              <button
-                onClick={contactOnWhatsApp}
-                className="px-10 py-5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-[24px] font-black text-lg transition-all shadow-2xl shadow-blue-500/30 flex items-center justify-center gap-3 group hover:scale-105 active:scale-95"
-              >
-                Apply for 2026 Batch
-                <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white rounded-[24px] font-black text-lg transition-all border border-white/10 backdrop-blur-md flex items-center justify-center gap-2 group">
-                View Expert Team
-              </button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="mt-12 grid grid-cols-3 gap-8 max-w-lg mx-auto lg:mx-0 border-t border-white/5 pt-10"
-            >
-              {[
-                { label: "Success Rate", val: "99%", icon: <Star className="w-4 h-4 text-amber-400" /> },
-                { label: "Top Colleges", val: "250+", icon: <GraduationCap className="w-4 h-4 text-blue-400" /> },
-                { label: "Expert Choice", val: "Verified", icon: <ShieldCheck className="w-4 h-4 text-emerald-400" /> },
-              ].map((stat, i) => (
-                <div key={i} className="flex flex-col gap-1">
-                  <div className="flex items-center gap-2 text-white/40 text-[10px] font-black uppercase tracking-widest">
-                    {stat.icon} {stat.label}
-                  </div>
-                  <div className="text-white text-2xl font-black tracking-tight">{stat.val}</div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right Image/Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="flex-1 relative hidden lg:block"
-          >
-            <div className="relative w-full aspect-square max-w-[550px] mx-auto">
-              <div className="absolute inset-0 bg-blue-500/20 rounded-[60px] rotate-6 border border-white/10"></div>
-              <div className="absolute inset-0 bg-indigo-500/20 rounded-[60px] -rotate-3 border border-white/10"></div>
-              <div className="relative rounded-[60px] overflow-hidden w-full h-full border border-white/20 shadow-2xl group">
-                <Image
-                  src="/image/contact.jpeg"
-                  alt="Rajnish Singh - Best Admission Counselor in Bihar"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-[2000ms]"
-                  unoptimized
-                />
-                <div className="absolute inset-x-0 bottom-0 p-10 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent">
-                    <p className="text-white text-2xl font-black tracking-tight">Rajnish Singh</p>
-                    <p className="text-blue-400 text-xs font-black uppercase tracking-[0.3em]">Chief Admission Advisor</p>
-                </div>
-              </div>
+        <motion.dl {...fade(0.32)} className="mx-auto mt-12 grid max-w-xl grid-cols-3 gap-6 border-t border-white/10 pt-8 lg:mx-0">
+          {stats.map(({ label, value, icon: Icon }) => (
+            <div key={label}>
+              <dt className="flex items-center justify-center gap-1.5 text-xs text-slate-400 lg:justify-start">
+                <Icon className="h-3.5 w-3.5 text-brand-300" /> {label}
+              </dt>
+              <dd className="mt-1 text-center font-display text-xl font-bold text-white lg:text-left">{value}</dd>
             </div>
-          </motion.div>
-        </div>
+          ))}
+        </motion.dl>
       </div>
-    </section>
-  );
-};
+
+      <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }} className="relative mx-auto hidden w-full max-w-md lg:block">
+        <div className="rounded-3xl border border-white/15 bg-white/[0.06] p-3 shadow-2xl">
+          <div className="rounded-2xl bg-white p-6">
+            <Image src="/brand-logo.png" alt="FastAdmission" width={512} height={512} priority className="mx-auto h-auto w-full max-w-[320px]" />
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 px-2 pb-2 pt-4">
+            {["Engineering", "Medical", "Management", "Law"].map((t) => (
+              <span key={t} className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-medium text-slate-200">
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);

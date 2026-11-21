@@ -1,151 +1,102 @@
 "use client";
 
 import { useState } from "react";
-import {
-  FaUniversity,
-  FaBuilding,
-  FaBookOpen,
-  FaClipboardCheck,
-  FaPenFancy,
-  FaBriefcase,
-} from "react-icons/fa";
-import { ChevronRight } from "lucide-react";
+import { FaUniversity, FaBuilding, FaBookOpen, FaClipboardCheck, FaPenFancy, FaBriefcase } from "react-icons/fa";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 import { submitLead } from "../../lib/leads";
+import { waLink } from "@/lib/site";
+
+const gridItems = [
+  { label: "Colleges", icon: <FaBuilding /> },
+  { label: "Universities", icon: <FaUniversity /> },
+  { label: "Courses", icon: <FaBookOpen /> },
+  { label: "Admission process", icon: <FaClipboardCheck /> },
+  { label: "Entrance exams", icon: <FaPenFancy /> },
+  { label: "Placements", icon: <FaBriefcase /> },
+];
 
 export const AdmissionSection = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    course: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", course: "" });
+  const [sent, setSent] = useState(false);
+  const set = (k: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => setFormData((f) => ({ ...f, [k]: e.target.value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     void submitLead({ name: formData.name, phone: formData.phone, email: formData.email, course: formData.course, form: "admission-section" });
-    const message = `📝 *New High-Value Enquiry!*
+    const message = `📝 *New Enquiry*
 👤 *Name:* ${formData.name}
 📧 *Email:* ${formData.email}
 📱 *Phone:* ${formData.phone}
 🎓 *Course:* ${formData.course}
 --
 Ref: Priority Admission 2026`.trim();
-    
-    window.open(`https://wa.me/918581841853?text=${encodeURIComponent(message)}`, "_blank");
+    window.open(waLink(message), "_blank");
+    setSent(true);
+    setFormData({ name: "", email: "", phone: "", course: "" });
   };
 
-  const gridItems = [
-    { label: "Colleges", icon: <FaBuilding />, color: "bg-blue-50 text-blue-600" },
-    { label: "University", icon: <FaUniversity />, color: "bg-purple-50 text-purple-600" },
-    { label: "Courses", icon: <FaBookOpen />, color: "bg-emerald-50 text-emerald-600" },
-    { label: "Admission", icon: <FaClipboardCheck />, color: "bg-orange-50 text-orange-600" },
-    { label: "Exam", icon: <FaPenFancy />, color: "bg-pink-50 text-pink-600" },
-    { label: "Placements", icon: <FaBriefcase />, color: "bg-cyan-50 text-cyan-600" },
-  ];
-
   return (
-    <section id="admission" className="bg-white py-20 px-6 overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-blue-50/50 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
-      
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-        {/* LEFT INFO */}
-        <div className="flex-1 space-y-10">
-          <div>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#2563eb] text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-              Your Journey Starts Here
-            </span>
-            <h3 className="text-4xl md:text-6xl font-black text-[#0f172a] leading-tight mb-8 tracking-tighter">
-              Navigate the Future of <br/> <span className="text-[#2563eb]">Elite Education</span>
-            </h3>
-            <p className="text-lg text-slate-500 max-w-xl leading-relaxed font-medium">
-              We provide expert consultancy for the most prestigious universities and professional courses in India. Secure your seat through simplified, high-priority admission processes.
-            </p>
-          </div>
+    <section id="admission" className="section bg-white">
+      <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <p className="eyebrow mb-3">Admission guidance</p>
+          <h2 className="h-section">Everything about your admission, handled by one team</h2>
+          <p className="lead mt-4 max-w-xl">
+            From shortlisting colleges to documents and seat confirmation, we guide you through each step of admission to India&apos;s leading universities and professional courses.
+          </p>
 
-          <div className="grid grid-cols-2 gap-8">
-            {gridItems.map((item, i) => (
-              <div key={i} className="flex items-center gap-5 group">
-                <div className={`p-4 rounded-2xl text-2xl transition-all duration-500 group-hover:scale-110 shadow-lg ${item.color}`}>
-                  {item.icon}
-                </div>
+          <ul className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {gridItems.map((item) => (
+              <li key={item.label} className="flex items-center gap-3.5">
+                <span className="icon-tile text-lg">{item.icon}</span>
                 <div>
-                  <h4 className="font-black text-[#0f172a] text-lg">{item.label}</h4>
-                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Expert Guidance</p>
+                  <p className="font-semibold text-ink">{item.label}</p>
+                  <p className="text-sm text-muted">Expert guidance</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        {/* FORM SECTION */}
-        <div className="flex-1 w-full max-w-xl">
-          <div className="bg-[#0f172a] p-10 md:p-14 rounded-[56px] shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563eb]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#2563eb]/30 transition-colors"></div>
-            
-            <div className="relative z-10">
-              <h4 className="text-white text-3xl font-black mb-2 tracking-tight transition-colors">Register for Seating</h4>
-              <p className="text-slate-400 mb-10 font-medium">Get a response within 60 minutes from our senior desk specialists.</p>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                 <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Student Name</label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="Enter Name"
-                    className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-[#2563eb] focus:bg-white/10 transition-all font-bold text-sm"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Email ID</label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="Email Address"
-                      className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-[#2563eb] focus:bg-white/10 transition-all font-bold text-sm"
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">WhatsApp No.</label>
-                    <input
-                      required
-                      type="tel"
-                      placeholder="Phone Number"
-                      className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-[#2563eb] focus:bg-white/10 transition-all font-bold text-sm"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    />
-                  </div>
-                </div>
+        <div className="on-dark rounded-3xl bg-brand-950 p-7 shadow-[var(--shadow-lift)] sm:p-10">
+          <h3 className="text-2xl font-bold !text-white">Register for counselling</h3>
+          <p className="mt-2 text-sm text-slate-300">Share your details and our admissions desk will get back to you within the hour.</p>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Selected Course Goal</label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="e.g., Engineering, Medical, Law"
-                    className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-[#2563eb] focus:bg-white/10 transition-all font-bold text-sm"
-                    value={formData.course}
-                    onChange={(e) => setFormData({...formData, course: e.target.value})}
-                  />
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-6 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-2xl shadow-blue-500/20 flex items-center justify-center gap-3 mt-8"
-                >
-                  START WHATSAPP COUNSELLING
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </form>
+          {sent ? (
+            <div role="status" className="mt-8 flex gap-3 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-5 text-emerald-100">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
+              <div>
+                <p className="font-semibold">Thank you, we have your details.</p>
+                <p className="mt-1 text-sm text-emerald-100/80">WhatsApp is opening so you can chat with us right away.</p>
+                <button type="button" onClick={() => setSent(false)} className="mt-3 text-sm font-semibold underline underline-offset-4">Submit another enquiry</button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5" noValidate={false}>
+              <div>
+                <label htmlFor="adm-name" className="label">Student name</label>
+                <input id="adm-name" required autoComplete="name" className="field" placeholder="Full name" value={formData.name} onChange={set("name")} />
+              </div>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="adm-email" className="label">Email</label>
+                  <input id="adm-email" required type="email" autoComplete="email" className="field" placeholder="you@example.com" value={formData.email} onChange={set("email")} />
+                </div>
+                <div>
+                  <label htmlFor="adm-phone" className="label">WhatsApp number</label>
+                  <input id="adm-phone" required type="tel" inputMode="tel" autoComplete="tel" pattern="[0-9+\s\-]{10,16}" className="field" placeholder="98765 43210" value={formData.phone} onChange={set("phone")} />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="adm-course" className="label">Course you are interested in</label>
+                <input id="adm-course" required className="field" placeholder="e.g. Engineering, Medical, Law" value={formData.course} onChange={set("course")} />
+              </div>
+              <button type="submit" className="btn btn-primary btn-lg w-full">
+                <MessageCircle className="h-5 w-5" /> Start counselling on WhatsApp
+              </button>
+              <p className="text-center text-xs text-slate-400">Your details are used only to contact you about admissions.</p>
+            </form>
+          )}
         </div>
       </div>
     </section>

@@ -1,139 +1,122 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { Menu, X, MessageCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { waLink } from "@/lib/site";
 
 const navItems = [
-  { name: "Home", id: "home", path: "/" },
-  { name: "Courses", id: "courses", path: "/courses" },
-  { name: "Blogs", id: "blogs", path: "/blogs" },
-  { name: "About", id: "about", path: "/#about" },
-  { name: "Contact", id: "contact", path: "/#contact" },
+  { name: "Home", path: "/" },
+  { name: "Courses", path: "/courses" },
+  { name: "Blogs", path: "/blogs" },
+  { name: "About", path: "/#about" },
+  { name: "Contact", path: "/#contact" },
 ];
 
 export const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const overHero = pathname === "/" && !scrolled && !open; // transparent over the dark hero, solid everywhere else
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  const isActive = (path: string) => (path === "/" ? pathname === "/" : !path.includes("#") && pathname.startsWith(path));
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        (scrolled || !isHome)
-          ? "bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm py-2"
-          : "bg-transparent py-4 text-white"
-      }`}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300",
+        overHero ? "border-b border-transparent bg-transparent" : "border-b border-line bg-white/95 shadow-[0_1px_0_rgb(11_27_46/0.03)] backdrop-blur-md",
+      )}
     >
-      <div className="container mx-auto px-6">
-        <nav className="flex justify-between items-center">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 overflow-hidden rounded-xl bg-white/20 p-1 backdrop-blur-md">
-              <Image
-                src="/image/contact.jpeg"
-                alt="Logo"
-                width={48}
-                height={48}
-                className="rounded-lg object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <span
-              className={`text-2xl md:text-3xl font-black tracking-tighter transition-colors ${
-                (scrolled || !isHome) ? "text-[#0f172a]" : "text-white"
-              }`}
+      <div className="container-x flex h-[var(--header-h)] items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5" aria-label="FastAdmission home" onClick={() => setOpen(false)}>
+          <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/[0.06]">
+            <Image src="/brand-mark.png" alt="" width={40} height={40} className="h-full w-full object-contain p-[3px]" priority />
+          </span>
+          <span className={cn("font-display text-[1.35rem] font-extrabold tracking-tight", overHero ? "text-white" : "text-ink")}>
+            FAST<span className={overHero ? "text-brand-300" : "text-brand-500"}>ADMISSION</span>
+          </span>
+        </Link>
+
+        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+          {navItems.map(({ name, path }) => (
+            <Link
+              key={name}
+              href={path}
+              aria-current={isActive(path) ? "page" : undefined}
+              className={cn(
+                "rounded-lg px-3.5 py-2 text-[0.9375rem] font-medium transition-colors",
+                overHero ? "text-white/80 hover:bg-white/10 hover:text-white" : "text-body hover:bg-brand-50 hover:text-brand-700",
+                isActive(path) && (overHero ? "text-white" : "bg-brand-50 text-brand-700"),
+              )}
             >
-              FAST<span className="text-[#2563eb]">ADMISSION</span>
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10">
-            <ul className="flex space-x-8">
-              {navItems.map(({ name, path, id }) => (
-                <li key={id} className="relative group">
-                  <Link
-                    href={path}
-                    className={`text-sm font-black uppercase tracking-widest transition-all duration-300 hover:text-[#2563eb] ${
-                      (scrolled || !isHome) ? "text-[#0f172a]/80" : "text-white/80"
-                    }`}
-                  >
-                    {name}
-                    <span
-                      className={`absolute -bottom-1 left-0 h-[2px] w-0 bg-[#2563eb] group-hover:w-full transition-all duration-300`}
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href="https://wa.me/918581841853?text=I%20want%20to%20enquire%20about%20admissions%20-%20General%20Query"
-              target="_blank"
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 active:scale-95 ${
-                (scrolled || !isHome)
-                  ? "bg-[#2563eb] text-white shadow-lg shadow-blue-200"
-                  : "bg-white text-[#2563eb] shadow-xl"
-              }`}
-            >
-              Connect Us
-              <ChevronRight className="w-4 h-4" />
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden p-2 rounded-xl transition-colors ${
-              (scrolled || !isHome) ? "text-[#0f172a] hover:bg-slate-100" : "text-white hover:bg-white/10"
-            }`}
+              {name}
+            </Link>
+          ))}
+          <a
+            href={waLink("I want to enquire about admissions - General Query")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary ml-3"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+            <MessageCircle className="h-4 w-4" /> Free counselling
+          </a>
         </nav>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 animate-in slide-in-from-top-5 duration-300">
-            <div className="bg-white/95 backdrop-blur-2xl shadow-2xl rounded-[32px] p-8 border border-slate-100 space-y-6">
-              <ul className="space-y-6">
-                {navItems.map(({ name, path, id }) => (
-                  <li key={id}>
-                    <Link
-                      href={path}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block text-xl font-black text-[#0f172a] py-2 hover:text-[#2563eb] transition-colors"
-                    >
-                      {name}
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <a
-                    href="https://wa.me/918581841853?text=I%20want%20to%20enquire%20about%20admissions"
-                    target="_blank"
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-5 rounded-2xl flex items-center justify-center gap-2 transition font-black uppercase tracking-widest text-sm shadow-xl shadow-blue-200"
-                  >
-                    Connect Us <ChevronRight className="h-5 w-5" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        )}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          className={cn("rounded-lg p-2 md:hidden", overHero ? "text-white hover:bg-white/10" : "text-ink hover:bg-brand-50")}
+        >
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
+
+      {open && (
+        <div id="mobile-menu" className="border-t border-line bg-white md:hidden">
+          <nav aria-label="Mobile" className="container-x flex flex-col gap-1 py-4">
+            {navItems.map(({ name, path }) => (
+              <Link
+                key={name}
+                href={path}
+                onClick={() => setOpen(false)}
+                aria-current={isActive(path) ? "page" : undefined}
+                className={cn("rounded-lg px-3 py-3 text-base font-medium text-ink hover:bg-brand-50", isActive(path) && "bg-brand-50 text-brand-700")}
+              >
+                {name}
+              </Link>
+            ))}
+            <a
+              href={waLink("I want to enquire about admissions")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="btn btn-primary btn-lg mt-2"
+            >
+              <MessageCircle className="h-5 w-5" /> Free counselling on WhatsApp
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

@@ -1,41 +1,26 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
+"use client";
 
-export const FixedButtons = () => {
-  const [visible, setVisible] = useState(false);
+import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
+import { SITE, waLink } from "@/lib/site";
 
-  useEffect(() => {
-    // Trigger entrance animation
-    const timer = setTimeout(() => setVisible(true), 200);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <div
-      className={`fixed right-4 bottom-10 flex flex-col gap-4 z-50 transition-all duration-700 ease-in-out ${
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-      }`}
+/** Always-reachable shortcuts: WhatsApp and call. Quiet by design (no bouncing). */
+export const FixedButtons = () => (
+  <div className="fixed bottom-5 right-4 z-40 flex flex-col gap-3 sm:right-6">
+    <a
+      href={waLink("I want to apply - FastAdmission Quick Help")}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+      className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25d366] text-white shadow-lg ring-1 ring-black/5 transition hover:bg-[#1fb957]"
     >
-      {/* WhatsApp */}
-      <a
-        href="https://wa.me/918581841853?text=I%20want%20to%20apply%20-%20FastAdmission%20Quick%20Help"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl animate-float hover:scale-110 transition-all duration-300 ease-in-out"
-        aria-label="WhatsApp"
-      >
-        <FaWhatsapp size={22} />
-      </a>
-
-      {/* Call */}
-      <a
-        href="tel:+918581841853"
-        className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl animate-float-alt hover:scale-110 transition-all duration-300 ease-in-out"
-        aria-label="Call"
-      >
-        <FaPhoneAlt size={20} />
-      </a>
-    </div>
-  );
-};
+      <FaWhatsapp size={24} />
+    </a>
+    <a
+      href={SITE.phoneHref}
+      aria-label="Call us"
+      className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg ring-1 ring-black/5 transition hover:bg-brand-700"
+    >
+      <FaPhoneAlt size={18} />
+    </a>
+  </div>
+);

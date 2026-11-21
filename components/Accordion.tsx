@@ -11,9 +11,9 @@ const Accordion = ({heading,content}:accordionprops) => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className="border-b border-gray-500 w-full py-2 h-auto ">
+    <div className="border-b border-gray-500 w-full py-2 h-auto">
       <div className="flex items-center justify-between px-2">
-        <h1 className="font-lg  text-left text-[20px] text-gray-900 py-2">
+        <h1 className="font-lg text-left text-[20px] text-gray-900 py-2">
           {heading}
         </h1>
         {active ? (
