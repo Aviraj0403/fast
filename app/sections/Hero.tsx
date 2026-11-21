@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck, GraduationCap, Star } from "lucide-react";
 import { waLink } from "@/lib/site";
+import { LeadForm } from "@/components/LeadForm";
 
 const stats = [
   { label: "Success rate", value: "99%", icon: Star },
@@ -36,11 +36,11 @@ export const Hero = () => (
         </motion.p>
 
         <motion.div {...fade(0.24)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-          <a href={waLink("I want to start my journey with FastAdmission - Apply 2026")} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-            Apply for 2026 <ArrowRight className="h-5 w-5" />
+          <a href="#hero-form" className="btn btn-primary btn-lg">
+            Get a free call back <ArrowRight className="h-5 w-5" />
           </a>
-          <a href="#contact" className="btn btn-ghost-light btn-lg">
-            Talk to an expert
+          <a href={waLink("I want to start my journey with FastAdmission - Apply 2026")} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light btn-lg">
+            Chat on WhatsApp
           </a>
         </motion.div>
 
@@ -56,19 +56,8 @@ export const Hero = () => (
         </motion.dl>
       </div>
 
-      <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }} className="relative mx-auto hidden w-full max-w-md lg:block">
-        <div className="rounded-3xl border border-white/15 bg-white/[0.06] p-3 shadow-2xl">
-          <div className="rounded-2xl bg-white p-6">
-            <Image src="/brand-logo.png" alt="FastAdmission" width={512} height={512} priority className="mx-auto h-auto w-full max-w-[320px]" />
-          </div>
-          <div className="flex flex-wrap justify-center gap-2 px-2 pb-2 pt-4">
-            {["Engineering", "Medical", "Management", "Law"].map((t) => (
-              <span key={t} className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-medium text-slate-200">
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
+      <motion.div id="hero-form" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="relative mx-auto w-full max-w-md scroll-mt-24 lg:max-w-none">
+        <LeadForm form="hero" dark title="Get a free call back" subtitle="Tell us what you want to study. A counsellor will call you with a college shortlist, fees and cutoffs." />
       </motion.div>
     </div>
   </section>

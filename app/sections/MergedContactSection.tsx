@@ -8,6 +8,7 @@ import { Phone, Mail, MapPin, MessageCircle, CheckCircle2 } from "lucide-react";
 import { submitLead } from "../../lib/leads";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SITE, waLink } from "@/lib/site";
+import { event } from "@/lib/analytics";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Please enter your full name" }),
@@ -36,6 +37,7 @@ const MergedContactSection = () => {
   const onSubmit = (data: FormValues) => {
     // save the lead in the platform (fire and forget) while WhatsApp opens
     void submitLead({ name: data.name, phone: data.phone, email: data.email, city: data.location, course: data.courseInterest, message: data.message, form: "contact-section" });
+    event("lead_submitted", { form: "contact-section", course: data.courseInterest });
     const message = `📝 *New Enquiry*
 👤 *Name:* ${data.name}
 📧 *Email:* ${data.email}

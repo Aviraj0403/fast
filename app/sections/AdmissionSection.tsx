@@ -5,6 +5,7 @@ import { FaUniversity, FaBuilding, FaBookOpen, FaClipboardCheck, FaPenFancy, FaB
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { submitLead } from "../../lib/leads";
 import { waLink } from "@/lib/site";
+import { event } from "@/lib/analytics";
 
 const gridItems = [
   { label: "Colleges", icon: <FaBuilding /> },
@@ -23,6 +24,7 @@ export const AdmissionSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     void submitLead({ name: formData.name, phone: formData.phone, email: formData.email, course: formData.course, form: "admission-section" });
+    event("lead_submitted", { form: "admission-section", course: formData.course });
     const message = `📝 *New Enquiry*
 👤 *Name:* ${formData.name}
 📧 *Email:* ${formData.email}

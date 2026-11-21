@@ -11,6 +11,10 @@ import AOSInit from "@/components/AOSInit";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Poptin } from "@/components/Poptin";
+import { ClickTracker } from "@/components/ClickTracker";
+import { MobileCta } from "@/components/MobileCta";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 // === Fonts ===
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -74,7 +78,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
       </head>
-      <body>
+      <body className="pb-16 md:pb-0">
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN" }} />
         <Navbar />
         <AOSInit />
 
@@ -84,6 +89,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Footer />
         <Poptin />
+        <ClickTracker />
+        <MobileCta />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}
       </body>

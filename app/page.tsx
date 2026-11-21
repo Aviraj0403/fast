@@ -12,6 +12,8 @@ import CareerAssessmentSection from "./sections/CareerAssessmentSection";
 import BlogSection from "./sections/BlogSection";
 import { FixedButtons } from "./sections/FixedButtons";
 import MergedContactSection from "./sections/MergedContactSection";
+import { FaqSection } from "./sections/FaqSection";
+import { faqs } from "./data/faqs";
 
 // Importing metadata from layout.tsx
 import { metadata as layoutMetadata } from "./layout";
@@ -33,6 +35,7 @@ export default function HomePage() {
       <StudyPlacesSection />
       <CareerAssessmentSection />
       <BlogSection />
+      <FaqSection items={faqs()} />
       <MergedContactSection />
       
       <FixedButtons />
