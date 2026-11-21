@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import { PLATFORM } from '@/lib/site';
 
 export default function LeadsPage() {
-  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || '';
+  const adminUrl = PLATFORM.adminUrl;
 
   return (
     <main className="p-8">

@@ -11,3 +11,13 @@ export const SITE = {
 
 /** WhatsApp chat link with a ready-made message. */
 export const waLink = (text: string) => `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+/**
+ * Counsellor platform that receives this website's leads and popup. Hard-coded so the site works without any environment
+ * variables; set NEXT_PUBLIC_BACKEND_URL / NEXT_PUBLIC_TENANT_SLUG only to point somewhere else (e.g. a staging API).
+ */
+export const PLATFORM = {
+  apiUrl: (process.env.NEXT_PUBLIC_BACKEND_URL || "https://apicounsellor.jdinfotechsolutions.in").replace(/\/+$/, ""),
+  tenantSlug: process.env.NEXT_PUBLIC_TENANT_SLUG || "fastadmission",
+  adminUrl: process.env.NEXT_PUBLIC_ADMIN_URL || "https://counsellor.jdinfotechsolutions.in",
+} as const;
