@@ -12,6 +12,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Poptin } from "@/components/Poptin";
 import { ClickTracker } from "@/components/ClickTracker";
+import { Tracker } from "@/components/Tracker";
 import { MobileCta } from "@/components/MobileCta";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
@@ -90,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <Poptin />
         <ClickTracker />
+        <Tracker />
         <MobileCta />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}

@@ -77,7 +77,9 @@ export const Footer = () => (
     <div className="border-t border-white/10">
       <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-xs text-slate-500 sm:flex-row">
         <p>&copy; {new Date().getFullYear()} FastAdmission. All rights reserved.</p>
-        <p>Guidance on admissions; seats are subject to each institution&apos;s own criteria.</p>
+        <p>
+          <Link href="/privacy" className="hover:text-white">Privacy</Link> · Guidance on admissions; seats are subject to each institution&apos;s own criteria.
+        </p>
       </div>
     </div>
   </footer>
