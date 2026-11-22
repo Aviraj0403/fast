@@ -46,17 +46,18 @@ export const metadata: Metadata = {
     url: "https://fastadmission.in",
     title: "FastAdmission – Career Counselling & College Admission Experts",
     description: "Expert advice for college admissions and career decisions. FastAdmission helps students secure seats in top institutions.",
-    images: [{ url: "https://fastadmission.in/og-image.jpg", width: 1200, height: 630, alt: "FastAdmission" }],
+    images: [{ url: "https://fastadmission.in/brand-logo.png", width: 1200, height: 630, alt: "FastAdmission" }],
     siteName: "FastAdmission",
   },
   twitter: {
     card: "summary_large_image",
     title: "FastAdmission – College Admission & Career Counselling",
     description: "Expert counselling for college admissions and career planning in India.",
-    images: ["https://fastadmission.in/og-image.jpg"],
+    images: ["https://fastadmission.in/brand-logo.png"],
     creator: "@fastadmission",
   },
   icons: { icon: "/favicon.ico", apple: "/brand-mark.png" },
+  ...(SITE.googleVerification ? { verification: { google: SITE.googleVerification } } : {}),
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0a2336" };
@@ -80,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
       </head>
       <body className="pb-16 md:pb-0">
-        <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN" }} />
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN", address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.locality, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country }, hasMap: SITE.mapsUrl, sameAs: [SITE.mapsUrl] }} />
         <Navbar />
         <AOSInit />
 

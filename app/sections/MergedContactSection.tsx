@@ -147,6 +147,7 @@ Ref: Web Apply 2026`.trim();
                       <li key={p} className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-brand-300" /> {p}</li>
                     ))}
                   </ul>
+                  <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-300 hover:text-white">Open on Google Maps <MapPin className="h-4 w-4" /></a>
                 </div>
               </div>
             </div>

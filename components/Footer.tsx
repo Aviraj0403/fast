@@ -67,6 +67,10 @@ export const Footer = () => (
             <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
             <a href={`mailto:${SITE.email}`} className="break-all text-slate-400 hover:text-white">{SITE.email}</a>
           </li>
+          <li className="flex gap-3">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
+            <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">Find us on Google Maps ({SITE.address.locality})</a>
+          </li>
         </ul>
         <a href={waLink("Hi FastAdmission, I need help with admissions")} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-6">
           <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
