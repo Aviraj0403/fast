@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { waLink } from "@/lib/site";
+import { getToken } from "@/lib/student";
 
 const allNavItems: { name: string; path: string; section?: keyof NavSections }[] = [
   { name: "Home", path: "/" },
@@ -23,9 +24,14 @@ export type NavSections = { colleges: boolean; courses: boolean; blogs: boolean;
 /** sections = what the owner switched on in the admin; a link to a switched-off section is not shown. */
 export const Navbar = ({ sections }: { sections?: NavSections }) => {
   const [open, setOpen] = useState(false);
-  const navItems = allNavItems.filter((i) => !i.section || sections?.[i.section] !== false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => setSignedIn(!!getToken()), [pathname]);
+  // a signed-in student sees a link to their dashboard instead of "Student login"
+  const navItems = allNavItems
+    .filter((i) => !i.section || sections?.[i.section] !== false)
+    .map((i) => (i.path === "/student/login" && signedIn ? { ...i, name: "My dashboard", path: "/student" } : i));
+  const [scrolled, setScrolled] = useState(false);
   const overHero = pathname === "/" && !scrolled && !open; // transparent over the dark hero, solid everywhere else
 
   useEffect(() => {
