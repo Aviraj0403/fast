@@ -1,0 +1,50 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+import { PLATFORM, SITE } from "@/lib/site";
+
+export const revalidate = 300;
+export const metadata: Metadata = {
+  title: `Colleges we work with | ${SITE.name}`,
+  description: "Colleges and universities you can apply to through FastAdmission, with free counselling.",
+  alternates: { canonical: `${SITE.url}/colleges` },
+};
+
+type College = { slug: string; name: string; type?: string; city?: string; state?: string; affiliation?: string; description?: string };
+
+async function load(): Promise<College[]> {
+  try {
+    const res = await fetch(`${PLATFORM.apiUrl}/public/sites/${PLATFORM.tenantSlug}/colleges.json`, { next: { revalidate } });
+    if (!res.ok) return [];
+    return ((await res.json()).items ?? []) as College[];
+  } catch {
+    return [];
+  }
+}
+
+export default async function CollegesPage() {
+  const list = await load();
+  return (
+    <main className="container-x pb-20 pt-32">
+      <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">Colleges we work with</h1>
+      <p className="mt-2 max-w-2xl text-body">Pick colleges with a free counsellor. Register once to apply, track your status and upload your documents online.</p>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <Link href="/student/register" className="btn btn-primary">Register to apply</Link>
+        <Link href="/student/login" className="btn border border-line bg-white text-ink">Student login</Link>
+      </div>
+      {list.length === 0 ? (
+        <p className="mt-10 text-body">Our college list is being updated. Register and your counsellor will share a shortlist.</p>
+      ) : (
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((c) => (
+            <li key={c.slug} className="card card-hover p-5">
+              <h2 className="font-display text-lg font-bold text-ink">{c.name}</h2>
+              <p className="mt-1 text-sm text-body">{[c.city, c.state].filter(Boolean).join(", ")}{c.type ? ` · ${c.type}` : ""}</p>
+              {c.affiliation && <p className="mt-1 text-xs text-body">{c.affiliation}</p>}
+              {c.description && <p className="mt-3 line-clamp-3 text-sm text-body">{c.description}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  );
+}

@@ -11,9 +11,11 @@ import { waLink } from "@/lib/site";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
+  { name: "Colleges", path: "/colleges" },
   { name: "Blogs", path: "/blogs" },
   { name: "About", path: "/#about" },
   { name: "Contact", path: "/#contact" },
+  { name: "Student login", path: "/student/login" },
 ];
 
 export const Navbar = () => {
