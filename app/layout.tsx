@@ -11,9 +11,8 @@ import AOSInit from "@/components/AOSInit";
 import { Navbar } from "@/components/Navbar";
 import { getSiteConfig } from "@/lib/siteConfig";
 import { Footer } from "@/components/Footer";
-import { Poptin } from "@/components/Poptin";
+import { SiteSdk } from "@/components/SiteSdk";
 import { ClickTracker } from "@/components/ClickTracker";
-import { Tracker } from "@/components/Tracker";
 import { MobileCta } from "@/components/MobileCta";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
@@ -105,9 +104,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Analytics />
 
         <Footer />
-        <Poptin />
+        <SiteSdk />
         <ClickTracker />
-        <Tracker />
         <MobileCta />
         {/* Web Vitals (only in production for performance) */}
         {process.env.NODE_ENV === "production" && <WebVitals />}

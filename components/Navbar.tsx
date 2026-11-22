@@ -13,6 +13,7 @@ const allNavItems: { name: string; path: string; section?: keyof NavSections }[]
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses", section: "courses" },
   { name: "Colleges", path: "/colleges", section: "colleges" },
+  { name: "Rank predictor", path: "/college-predictor", section: "colleges" },
   { name: "Blogs", path: "/blogs", section: "blogs" },
   { name: "About", path: "/#about" },
   { name: "Contact", path: "/#contact" },
@@ -66,14 +67,14 @@ export const Navbar = ({ sections }: { sections?: NavSections }) => {
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {navItems.map(({ name, path }) => (
             <Link
               key={name}
               href={path}
               aria-current={isActive(path) ? "page" : undefined}
               className={cn(
-                "rounded-lg px-3.5 py-2 text-[0.9375rem] font-medium transition-colors",
+                "whitespace-nowrap rounded-lg px-3 py-2 text-[0.9375rem] font-medium transition-colors",
                 overHero ? "text-white/80 hover:bg-white/10 hover:text-white" : "text-body hover:bg-brand-50 hover:text-brand-700",
                 isActive(path) && (overHero ? "text-white" : "bg-brand-50 text-brand-700"),
               )}
@@ -97,14 +98,14 @@ export const Navbar = ({ sections }: { sections?: NavSections }) => {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className={cn("rounded-lg p-2 md:hidden", overHero ? "text-white hover:bg-white/10" : "text-ink hover:bg-brand-50")}
+          className={cn("rounded-lg p-2 lg:hidden", overHero ? "text-white hover:bg-white/10" : "text-ink hover:bg-brand-50")}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-line bg-white md:hidden">
+        <div id="mobile-menu" className="border-t border-line bg-white lg:hidden">
           <nav aria-label="Mobile" className="container-x flex flex-col gap-1 py-4">
             {navItems.map(({ name, path }) => (
               <Link
