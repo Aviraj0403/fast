@@ -1,91 +1,59 @@
 import { notFound } from "next/navigation";
-import { getSiteConfig } from "@/lib/siteConfig";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { pageSeo } from "@/lib/content";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Clock, GraduationCap, MessageCircle } from "lucide-react";
+import { CtaBand } from "@/components/CtaBand";
+import { PageHero } from "@/components/PageHero";
 import { courses } from "@/app/data/courses";
-
+import { pageSeo } from "@/lib/content";
+import { waLink } from "@/lib/site";
+import { getSiteConfig } from "@/lib/siteConfig";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await pageSeo("/courses");
-  return { title: seo?.title || "Courses: Engineering, Medical, Management, Law", description: seo?.description || "Professional programmes we guide admissions for, with duration, eligibility and fees guidance.", alternates: { canonical: "/courses" }, ...(seo?.noindex ? { robots: { index: false } } : {}) };
+  return { title: seo?.title || "Courses: Engineering, Medical, Management, Law", description: seo?.description || "Professional programmes we guide admissions for, with duration, eligibility and fees, plus free counselling.", alternates: { canonical: "/courses" } };
 }
+
+const TONE: Record<string, string> = { Engineering: "bg-sky-500", Medical: "bg-emerald-500", Management: "bg-violet-500", Law: "bg-amber-500", Arts: "bg-rose-500" };
 
 export default async function CoursesPage() {
   if (!(await getSiteConfig()).sections.courses) notFound(); // switched off in the admin
+  const streams = [...new Set(courses.map((c) => c.category))];
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-slate-50">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <header className="mb-20 text-center">
-           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-brand-100 text-brand-600 text-xs font-bold tracking-wide mb-4">
-            Academic Pathways
-          </span>
-          <h1 className="text-4xl md:text-6xl font-bold text-ink tracking-tight mb-6">
-            Our <span className="text-brand-600">Professional Programs</span>
-          </h1>
-          <p className="text-slate-500 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
-            Architect your future with India&apos;s most sought-after degree specializations. We provides end-to-end guidance for premier institution placements.
-          </p>
-        </header>
+    <main className="bg-slate-50 pb-28">
+      <PageHero eyebrow="Admissions 2026" title="Choose a course." accent="We guide you to the seat." text="Engineering, Medical, Management and Law: see duration and eligibility, then talk to a counsellor who matches colleges to your marks and budget.">
+        <ul className="mt-6 flex flex-wrap gap-2">{streams.map((s) => <li key={s} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-sm text-slate-100"><span className={`h-2 w-2 rounded-full ${TONE[s] || "bg-slate-400"}`} />{s}</li>)}</ul>
+      </PageHero>
 
-        <div className="grid lg:grid-cols-2 gap-10">
-          {courses.map((course) => (
-            <div 
-              key={course.slug}
-              className="group flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden border border-slate-100 hover:shadow-lg transition-all duration-500"
-            >
-              <div className="md:w-5/12 relative h-72 md:h-auto overflow-hidden">
-                <Image
-                  src={course.image}
-                  alt={course.title}
-                  fill
-                  className="object-cover transition-transform duration-700"
-                  unoptimized
-                />
+      <div className="container-x relative z-10 -mt-10 max-w-6xl">
+        <ul className="grid gap-6 lg:grid-cols-2">
+          {courses.map((c) => (
+            <li key={c.slug} className="card card-hover group relative flex flex-col overflow-hidden sm:flex-row">
+              <div className="relative h-52 shrink-0 overflow-hidden sm:h-auto sm:w-[38%]">
+                <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 20vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" unoptimized />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-brand-950/60 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-brand-950/10" />
+                <span className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold text-white shadow ${TONE[c.category] || "bg-slate-500"}`}>{c.category}</span>
               </div>
-              <div className="md:w-7/12 p-10 flex flex-col justify-between">
-                <div>
-                  <span className="text-xs font-bold text-brand-600 tracking-wide mb-2 block bg-blue-50 w-fit px-3 py-1 rounded-full">
-                    {course.category}
-                  </span>
-                  <h2 className="text-2xl font-bold text-ink mb-4 group-hover:text-brand-600 transition-colors">
-                    {course.title}
-                  </h2>
-                  <p className="text-slate-500 text-sm mb-6 leading-relaxed font-medium line-clamp-3">
-                    {course.description}
-                  </p>
-                  <div className="flex flex-wrap gap-3 mb-8">
-                    <div className="bg-slate-50 px-4 py-2 rounded-xl text-xs font-bold text-slate-500 tracking-wide border border-slate-100">
-                      {course.duration}
-                    </div>
-                    <div className="bg-slate-50 px-4 py-2 rounded-xl text-xs font-bold text-slate-500 tracking-wide border border-slate-100">
-                      Eligibility: {course.eligibility}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <Link 
-                    href={`/courses/${course.slug}`}
-                    className="flex-1 text-center bg-slate-50 text-ink px-6 py-4 rounded-2xl font-bold text-xs tracking-wide hover:bg-brand-950 hover:text-white transition-all shadow-sm"
-                  >
-                    View Details
-                  </Link>
-                  <a 
-                    href={`https://wa.me/918581841853?text=I%20want%20to%20apply%20for%20${encodeURIComponent(course.title)}%20-%20FastAdmission`}
-                    target="_blank"
-                    className="flex-1 text-center bg-brand-500 text-white px-6 py-4 rounded-2xl font-bold text-xs tracking-wide shadow-lg hover:bg-brand-600 transition-all"
-                  >
-                    Apply Now
-                  </a>
+              <div className="flex flex-1 flex-col p-6">
+                <h2 className="font-display text-xl font-extrabold leading-snug text-ink"><Link href={`/courses/${c.slug}`} className="after:absolute after:inset-0 group-hover:text-brand-700">{c.title}</Link></h2>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-body">{c.description}</p>
+                <dl className="mt-4 grid gap-2 text-sm">
+                  <div className="flex items-center gap-2 text-ink"><Clock className="h-4 w-4 text-brand-500" aria-hidden="true" /><dt className="sr-only">Duration</dt><dd className="font-semibold">{c.duration}</dd></div>
+                  <div className="flex items-start gap-2 text-body"><GraduationCap className="mt-0.5 h-4 w-4 shrink-0 text-brand-500" aria-hidden="true" /><dt className="sr-only">Eligibility</dt><dd>{c.eligibility}</dd></div>
+                </dl>
+                <div className="relative z-10 mt-auto flex flex-wrap items-center gap-3 pt-5">
+                  <Link href={`/courses/${c.slug}`} className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-600">View details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" /></Link>
+                  <a href={waLink(`I want to apply for ${c.title}`)} target="_blank" rel="noopener noreferrer" className="btn btn-primary ml-auto !py-2 text-sm"><MessageCircle className="h-4 w-4" /> Apply on WhatsApp</a>
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
+        <CtaBand form="courses-page" />
       </div>
-    </div>
+    </main>
   );
 }

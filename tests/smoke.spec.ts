@@ -27,7 +27,23 @@ test("home page loads with navigation", async ({ page }) => {
 
 test("colleges page works even when the platform has no colleges", async ({ page }) => {
   await page.goto("/colleges");
-  await expect(page.getByRole("heading", { name: "Colleges we work with" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Find the right college");
+});
+
+test("courses, blog, privacy and a course page render with the shared layout", async ({ page }) => {
+  await page.goto("/courses");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Choose a course");
+  await expect(page.getByRole("heading", { name: "B.Tech in Computer Science" })).toBeVisible();
+  await page.goto("/courses/mbbs");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("MBBS");
+  await expect(page.getByRole("button", { name: "Request a free call back" })).toBeVisible();
+  await page.goto("/blogs");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Straight answers");
+  await page.goto("/blogs/engineering-ai-ml-2026");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Modern Engineering");
+  await expect(page.getByText("Key takeaways")).toBeVisible();
+  await page.goto("/privacy");
+  await expect(page.getByRole("heading", { name: "When you create a student account" })).toBeVisible();
 });
 
 test("unknown page shows the friendly 404", async ({ page }) => {

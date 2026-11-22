@@ -31,7 +31,7 @@ export default function PredictorPage() {
           </ul>
         </div>
       </section>
-      <div className="container-x -mt-14 max-w-4xl">
+      <div className="container-x relative z-10 -mt-14 max-w-4xl">
         <PredictorForm />
       </div>
     </main>

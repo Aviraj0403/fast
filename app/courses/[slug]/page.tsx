@@ -1,135 +1,97 @@
-import { getCourseBySlug } from "@/app/data/courses";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { 
-  ChevronRight, 
-  CheckCircle2, 
-  Home, 
-  MessageCircle,
-  Clock,
-  BookOpen
-} from "lucide-react";
+import { ArrowRight, BadgeCheck, CheckCircle2, Clock, FileCheck2, GraduationCap, MessageCircle, UserRoundCheck, Building2, Armchair } from "lucide-react";
+import { JsonLd } from "@/components/JsonLd";
+import { LeadForm } from "@/components/LeadForm";
+import { PageHero } from "@/components/PageHero";
+import { courses, getCourseBySlug } from "@/app/data/courses";
+import { SITE, waLink } from "@/lib/site";
+import { getSiteConfig } from "@/lib/siteConfig";
 
-interface PageProps {
-  params: Promise<{ slug: string }>;
+export const revalidate = 300;
+interface PageProps { params: Promise<{ slug: string }> }
+
+export function generateStaticParams() {
+  return courses.map((c) => ({ slug: c.slug }));
 }
 
-export default async function CourseDetailPage({ params }: PageProps) {
-  const { slug } = await params;
-  const course = getCourseBySlug(slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const course = getCourseBySlug((await params).slug);
+  if (!course) return { title: "Course not found" };
+  return {
+    title: `${course.title}: admission, eligibility and counselling | ${SITE.name}`,
+    description: `${course.description} Duration ${course.duration}. Eligibility: ${course.eligibility}. Free counselling by ${SITE.name}.`.slice(0, 160),
+    alternates: { canonical: `${SITE.url}/courses/${course.slug}` },
+  };
+}
 
-  if (!course) {
-    notFound();
-  }
+const PROCESS = [
+  { icon: UserRoundCheck, title: "Counselling session", text: "A free one-to-one call to map your marks, budget and goals to the right colleges." },
+  { icon: FileCheck2, title: "Documents and application", text: "We check every form and document so nothing is missed or rejected." },
+  { icon: Building2, title: "College coordination", text: "We stay in touch with the college admission office so your application is not stuck." },
+  { icon: Armchair, title: "Seat confirmation", text: "Help with fees, registration and the final seat confirmation." },
+];
+
+export default async function CourseDetailPage({ params }: PageProps) {
+  const course = getCourseBySlug((await params).slug);
+  if (!course || !(await getSiteConfig()).sections.courses) notFound();
+  const related = courses.filter((c) => c.slug !== course.slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-white text-ink">
-      <div className="container mx-auto px-6 max-w-6xl">
-        {/* BREADCRUMB - Enhanced Spacing & Visibility */}
-        <nav className="flex items-center gap-6 mb-16 text-xs font-bold tracking-wide text-slate-400 overflow-x-auto whitespace-nowrap pb-4 border-b border-slate-100">
-          <Link href="/" className="hover:text-brand-600 transition-colors flex items-center gap-2 shrink-0">
-             <Home className="w-4 h-4" /> Home
-          </Link>
-          <ChevronRight className="w-3 h-3 shrink-0 opacity-30" />
-          <Link href="/courses" className="hover:text-brand-600 transition-colors shrink-0">
-             Academic Programs
-          </Link>
-          <ChevronRight className="w-3 h-3 shrink-0 opacity-30" />
-          <span className="text-brand-600 line-clamp-1 shrink-0 bg-blue-50 px-3 py-1 rounded-md">{course.title}</span>
-        </nav>
+    <main className="bg-slate-50 pb-28">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "Course", name: course.title, description: course.description, provider: { "@type": "EducationalOrganization", name: SITE.name, url: SITE.url } }} />
+      <PageHero eyebrow={`${course.category} · Admissions 2026`} title={course.title}>
+        <nav aria-label="Breadcrumb" className="mt-4 text-sm text-slate-400"><Link href="/courses" className="hover:text-white">Courses</Link> <span aria-hidden>/</span> <span className="text-slate-200">{course.category}</span></nav>
+      </PageHero>
 
-        <div className="grid lg:grid-cols-2 gap-16 mb-24">
-          <div className="relative h-[450px] lg:h-auto rounded-2xl overflow-hidden shadow-lg group border border-slate-100">
-            <Image
-              src={course.image}
-              alt={course.title}
-              fill
-              className="object-cover transition-transform duration-1000"
-              unoptimized
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-950/40 via-transparent to-transparent"></div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="text-brand-600 font-bold tracking-wide text-xs mb-4 bg-blue-50 w-fit px-4 py-1.5 rounded-full border border-brand-100">
-              {course.category}
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-8 leading-tight tracking-tight">
-              {course.title}
-            </h1>
-            <p className="text-slate-500 text-lg mb-10 leading-relaxed font-medium italic border-l-4 border-brand-100 pl-6">
-              {course.description}
-            </p>
-            
-            <div className="grid grid-cols-2 gap-6 mb-12">
-              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand-100 transition-colors group">
-                <p className="text-slate-400 text-xs font-bold tracking-wide mb-2 flex items-center gap-2">
-                  <Clock className="w-3 h-3 text-brand-600" /> Duration
-                </p>
-                <p className="font-bold text-xl text-ink">{course.duration}</p>
-              </div>
-              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand-100 transition-colors group">
-                <p className="text-slate-400 text-xs font-bold tracking-wide mb-2 flex items-center gap-2">
-                  <BookOpen className="w-3 h-3 text-brand-600" /> Eligibility
-                </p>
-                <p className="font-bold text-xl text-ink">{course.eligibility}</p>
-              </div>
+      <div className="container-x relative z-10 -mt-10 grid max-w-6xl items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <div className="grid gap-6">
+          <section className="card overflow-hidden">
+            <div className="relative h-56 sm:h-72"><Image src={course.image} alt={course.title} fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover" unoptimized priority /></div>
+            <div className="p-6 sm:p-8">
+              <h2 className="font-display text-xl font-extrabold text-ink">About this course</h2>
+              <p className="mt-2 leading-relaxed text-body">{course.description}</p>
+              <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl bg-slate-50 p-4"><dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-body"><Clock className="h-4 w-4 text-brand-500" aria-hidden="true" /> Duration</dt><dd className="mt-1 font-display text-lg font-extrabold text-ink">{course.duration}</dd></div>
+                <div className="rounded-2xl bg-slate-50 p-4"><dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-body"><GraduationCap className="h-4 w-4 text-brand-500" aria-hidden="true" /> Eligibility</dt><dd className="mt-1 font-display text-lg font-extrabold leading-snug text-ink">{course.eligibility}</dd></div>
+              </dl>
             </div>
+          </section>
 
-            <a 
-              href={`https://wa.me/918581841853?text=I%20want%20to%20apply%20for%20${encodeURIComponent(course.title)}%20-%20Expert%20Guidance`}
-              target="_blank"
-              className="bg-brand-500 text-white px-10 py-5 rounded-2xl font-bold text-sm tracking-wide text-center shadow-lg hover:bg-brand-600 transition-all flex items-center justify-center gap-3 group"
-            >
-              Consult Admission Expert <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </div>
-        </div>
-
-        {/* PROCESS SECTION - Standardized Padding */}
-        <div className="bg-brand-950 rounded-2xl p-12 md:p-20 relative overflow-hidden shadow-lg">
-          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-brand-500/5 blur-[120px] rounded-full"></div>
-          <div className="relative z-10">
-            <div className="text-center mb-16">
-               <span className="text-xs font-bold text-brand-400 tracking-wide mb-4 block">How it works</span>
-               <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">Our <span className="text-brand-400">admission process</span></h2>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-x-16 gap-y-12 max-w-5xl mx-auto">
-              {[
-                { step: "01", title: "Counselling Session", desc: "Speak with Rajnish Singh to map your academic potential to premier institution clusters." },
-                { step: "02", title: "Documents and Application", desc: "Professional assistance in documentation and portfolio building for top-tier selection." },
-                { step: "03", title: "College Coordination", desc: "Direct communication with university admission offices to ensure your application is prioritized." },
-                { step: "04", title: "Seat Confirmation", desc: "Seamless completion of fees and registration and seat confirmation." }
-              ].map((item) => (
-                <div key={item.step} className="flex gap-8 group">
-                  <div className="text-5xl font-bold text-white/10 group-hover:text-brand-500/20 transition-colors duration-500">{item.step}</div>
-                  <div>
-                    <h3 className="text-2xl font-bold mb-3 text-white flex items-center gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm font-medium leading-relaxed group-hover:text-slate-300 transition-colors">{item.desc}</p>
-                  </div>
-                </div>
+          <section className="card p-6 sm:p-8" aria-labelledby="process">
+            <p className="eyebrow">How it works</p>
+            <h2 id="process" className="mt-1 font-display text-2xl font-extrabold text-ink">From first call to confirmed seat</h2>
+            <ol className="mt-6 grid gap-4 sm:grid-cols-2">
+              {PROCESS.map((s, i) => (
+                <li key={s.title} className="rounded-2xl border border-line p-5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><s.icon className="h-5 w-5" aria-hidden="true" /></span>
+                  <p className="mt-3 text-xs font-bold text-brand-600">Step {i + 1}</p>
+                  <h3 className="font-display text-base font-extrabold text-ink">{s.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-body">{s.text}</p>
+                </li>
               ))}
-            </div>
-          </div>
+            </ol>
+          </section>
+
+          <section aria-labelledby="related">
+            <h2 id="related" className="font-display text-xl font-extrabold text-ink">Other courses</h2>
+            <ul className="mt-4 grid gap-4 sm:grid-cols-3">
+              {related.map((c) => (
+                <li key={c.slug}><Link href={`/courses/${c.slug}`} className="card card-hover block h-full p-4"><p className="text-xs font-bold text-brand-600">{c.category}</p><p className="mt-1 font-display text-base font-extrabold leading-snug text-ink">{c.title}</p><p className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-brand-600">View <ArrowRight className="h-4 w-4" aria-hidden="true" /></p></Link></li>
+              ))}
+            </ul>
+          </section>
         </div>
-        
-        {/* FOOTER CTA */}
-        <div className="mt-24 text-center">
-            <p className="text-slate-400 text-xs font-bold tracking-wide mb-8">Ready to secure your future?</p>
-            <a 
-              href="https://wa.me/918581841853?text=I%20want%20to%20start%20my%20enrolment%20process"
-              target="_blank"
-              className="inline-flex items-center gap-3 bg-slate-50 hover:bg-slate-100 text-ink px-10 py-5 rounded-2xl font-bold text-xs tracking-wide transition-all"
-            >
-              Contact Head Office <MessageCircle className="w-4 h-4 text-brand-600" />
-            </a>
-        </div>
+
+        <aside className="grid gap-4 lg:sticky lg:top-24">
+          <LeadForm form={`course-${course.slug}`} title={`Apply for ${course.category}`} subtitle="A counsellor will call you with colleges, fees and the admission steps." />
+          <a href={waLink(`I want to know about ${course.title}`)} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><MessageCircle className="h-4 w-4" /> Chat on WhatsApp</a>
+          <ul className="card grid gap-2 p-5 text-sm text-ink">{["Free counselling, no hidden fees", "Colleges matched to your marks", "Help with forms and documents"].map((t) => <li key={t} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-emerald-600" aria-hidden="true" />{t}</li>)}</ul>
+          <Link href="/college-predictor" className="card card-hover flex items-center justify-between p-4"><span className="flex items-center gap-2 text-sm font-bold text-ink"><BadgeCheck className="h-5 w-5 text-brand-500" aria-hidden="true" /> Check your rank predictor</span><ArrowRight className="h-4 w-4 text-brand-600" aria-hidden="true" /></Link>
+        </aside>
       </div>
-    </div>
+    </main>
   );
 }

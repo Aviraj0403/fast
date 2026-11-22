@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BadgeCheck, Calculator, FileCheck2, MessageCircle, UserRoundCheck } from "lucide-react";
-import { LeadForm } from "@/components/LeadForm";
+import { Calculator, FileCheck2, MessageCircle, UserRoundCheck } from "lucide-react";
+import { CtaBand } from "@/components/CtaBand";
 import { getColleges } from "@/lib/colleges";
 import { SITE, waLink } from "@/lib/site";
 import { getSiteConfig } from "@/lib/siteConfig";
@@ -69,17 +69,7 @@ export default async function CollegesPage() {
           </ol>
         </section>
 
-        <section className="mt-16 overflow-hidden rounded-3xl bg-brand-950" aria-labelledby="callback">
-          <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <p className="eyebrow eyebrow-dark">Not sure which college?</p>
-              <h2 id="callback" className="mt-1 font-display text-2xl font-extrabold text-white sm:text-3xl">Get a free call back from a counsellor</h2>
-              <p className="mt-3 text-slate-300">Tell us your marks, budget and city. We suggest colleges with real fees and the admission steps. No pressure, no charge.</p>
-              <ul className="mt-5 grid gap-2 text-sm text-slate-200">{["Honest advice, no hidden fees", "Colleges matched to your marks and budget", "Help with forms, documents and deadlines"].map((t) => <li key={t} className="flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-emerald-400" aria-hidden="true" />{t}</li>)}</ul>
-            </div>
-            <LeadForm form="colleges-page" dark />
-          </div>
-        </section>
+        <CtaBand form="colleges-page" eyebrow="Not sure which college?" />
       </div>
     </main>
   );

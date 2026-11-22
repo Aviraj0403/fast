@@ -46,7 +46,7 @@ export default async function CollegePage({ params }: Props) {
         </div>
       </section>
 
-      <div className="container-x -mt-10 grid max-w-5xl items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
+      <div className="container-x relative z-10 -mt-10 grid max-w-5xl items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
         <div className="grid gap-6">
           {college.description && <section className="card p-6"><h2 className="font-display text-xl font-extrabold text-ink">About</h2><p className="mt-2 whitespace-pre-line leading-relaxed text-body">{college.description}</p></section>}
 
