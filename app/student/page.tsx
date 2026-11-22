@@ -36,7 +36,7 @@ export default function StudentHome() {
   if (!data) return <main className="flex min-h-[60vh] items-center justify-center pt-24"><Loader2 className="h-7 w-7 animate-spin text-brand-500" aria-label="Loading" /></main>;
 
   return (
-    <main className="min-h-screen bg-slate-50 pb-28 pt-[calc(var(--header-h)+1.25rem)]">
+    <main className="min-h-dvh bg-slate-50 pb-28 pt-[calc(var(--header-h)+1.25rem)]">
       <div className="container-x grid max-w-6xl gap-5">
         <StudentHero data={data} onLogout={logout} />
         <Stats data={data} />

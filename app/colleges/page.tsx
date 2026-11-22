@@ -37,8 +37,8 @@ export default async function CollegesPage() {
           <h1 className="mt-2 max-w-3xl text-balance font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">Find the right college. <span className="text-brand-300">We guide you to the seat.</span></h1>
           <p className="mt-3 max-w-2xl text-lg text-slate-300">Browse colleges with courses and fees. Then get free, honest counselling from admission experts, with every document and application tracked online.</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/student/register" className="btn btn-primary btn-lg">Get free counselling</Link>
-            <a href={waLink("Hi, I want help choosing a college.")} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light btn-lg"><MessageCircle className="h-5 w-5" /> Chat on WhatsApp</a>
+            <Link href="/student/register" className="btn btn-primary btn-lg w-full sm:w-auto">Get free counselling</Link>
+            <a href={waLink("Hi, I want help choosing a college.")} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light btn-lg w-full sm:w-auto"><MessageCircle className="h-5 w-5" /> Chat on WhatsApp</a>
           </div>
           <dl className="mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
             {stats.map(([v, l]) => <div key={l} className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3"><dt className="sr-only">{l}</dt><dd className="font-display text-2xl font-extrabold text-white">{v}</dd><p className="text-xs uppercase tracking-wide text-slate-300">{l}</p></div>)}

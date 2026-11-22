@@ -105,7 +105,7 @@ export const Navbar = ({ sections }: { sections?: NavSections }) => {
       </div>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-line bg-white lg:hidden">
+        <div id="mobile-menu" className="max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-t border-line bg-white lg:hidden">
           <nav aria-label="Mobile" className="container-x flex flex-col gap-1 py-4">
             {navItems.map(({ name, path }) => (
               <Link

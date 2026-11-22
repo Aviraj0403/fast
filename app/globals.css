@@ -96,7 +96,7 @@ body {
   .btn:disabled { opacity: .6; cursor: not-allowed; }
 
   .label { display: block; margin-bottom: 0.375rem; font-size: 0.8125rem; font-weight: 600; color: var(--color-ink); }
-  .field { width: 100%; border: 1px solid #cfd9e3; background: #fff; color: var(--color-ink); border-radius: 0.75rem; padding: 0.75rem 0.9rem; font-size: 0.9375rem; transition: border-color .15s ease, box-shadow .15s ease; }
+  .field { width: 100%; border: 1px solid #cfd9e3; background: #fff; color: var(--color-ink); border-radius: 0.75rem; padding: 0.75rem 0.9rem; font-size: 1rem; transition: border-color .15s ease, box-shadow .15s ease; }
   .field::placeholder { color: #8a9aab; }
   .field:focus { outline: none; border-color: var(--color-brand-500); box-shadow: 0 0 0 3px rgb(10 150 208 / .18); }
   .field[aria-invalid="true"] { border-color: #e5484d; }

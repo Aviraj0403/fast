@@ -10,7 +10,7 @@ const POINTS = [
 /** Shared two-column layout for student register / login: brand panel on the left (hidden on phones), the form on the right. */
 export function AuthShell({ eyebrow, title, subtitle, children }: { eyebrow: string; title: string; subtitle: string; children: ReactNode }) {
   return (
-    <main className="min-h-screen bg-slate-50 pt-[calc(var(--header-h)+1.5rem)] pb-24">
+    <main className="min-h-dvh bg-slate-50 pt-[calc(var(--header-h)+1.5rem)] pb-24">
       <div className="container-x grid grid-cols-1 items-stretch gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <aside className="relative hidden overflow-hidden rounded-3xl bg-brand-950 p-10 text-white lg:block">
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_90%_0%,rgb(10_150_208/0.35),transparent_60%)]" />
