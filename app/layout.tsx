@@ -16,13 +16,14 @@ import { Tracker } from "@/components/Tracker";
 import { MobileCta } from "@/components/MobileCta";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
+import { getSiteSettings } from "@/lib/content";
 
 // === Fonts ===
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap" });
 
 // === Metadata ===
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   metadataBase: new URL("https://fastadmission.in"),
   title: {
     default: "FastAdmission – Career Counselling & College Admission Experts",
@@ -57,28 +58,40 @@ export const metadata: Metadata = {
     creator: "@fastadmission",
   },
   icons: { icon: "/favicon.ico", apple: "/brand-mark.png" },
-  ...(SITE.googleVerification ? { verification: { google: SITE.googleVerification } } : {}),
 };
+
+/** Verification and the default share image come from the admin; everything else stays as written above. */
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteSettings();
+  const og = site?.defaultOgImage;
+  return {
+    ...baseMetadata,
+    verification: site?.googleVerification ? { google: site.googleVerification } : SITE.googleVerification ? { google: SITE.googleVerification } : undefined,
+    ...(og ? { openGraph: { ...baseMetadata.openGraph, images: [{ url: og, width: 1200, height: 630, alt: SITE.name }] }, twitter: { ...baseMetadata.twitter, images: [og] } } : {}),
+  };
+}
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0a2336" };
 
 // === Layout ===
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const site = await getSiteSettings(); // Analytics and Pixel ids are set in the admin; nothing loads until they are
   return (
     <html lang="en" dir="ltr" className={`${inter.variable} ${jakarta.variable} antialiased`}>
       <head>
-        {/* Google Analytics */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
+        {site?.gaMeasurementId && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId}`} strategy="afterInteractive" />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${site.gaMeasurementId}');`}
+            </Script>
+          </>
+        )}
+        {site?.metaPixelId && (
+          <Script id="meta-pixel" strategy="afterInteractive">
+            {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${site.metaPixelId}');fbq('track','PageView');`}
+          </Script>
+        )}
       </head>
       <body className="pb-16 md:pb-0">
         <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN", address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.locality, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country }, hasMap: SITE.mapsUrl, sameAs: [SITE.mapsUrl] }} />

@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageSeo } from "@/lib/content";
 import Image from "next/image";
 import { courses } from "@/app/data/courses";
 
+
+export const revalidate = 300;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await pageSeo("/courses");
+  return { title: seo?.title || "Courses: Engineering, Medical, Management, Law", description: seo?.description || "Professional programmes we guide admissions for, with duration, eligibility and fees guidance.", alternates: { canonical: "/courses" }, ...(seo?.noindex ? { robots: { index: false } } : {}) };
+}
 
 export default function CoursesPage() {
   return (

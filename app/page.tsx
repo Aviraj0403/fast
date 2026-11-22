@@ -15,18 +15,23 @@ import MergedContactSection from "./sections/MergedContactSection";
 import { FaqSection } from "./sections/FaqSection";
 import { faqs } from "./data/faqs";
 
-// Importing metadata from layout.tsx
-import { metadata as layoutMetadata } from "./layout";
+import { getBlogCards, pageSeo } from "@/lib/content";
 
-// Merge the metadata from layout and add specific page-level metadata here
-export const metadata: Metadata = {
-  ...layoutMetadata,
-  title: "Fast Admission Expert | FastAdmission",
-  description:
-    "Explore your career goals, get guidance, and start your journey with FastAdmission.",
-};
+export const revalidate = 60;
 
-export default function HomePage() {
+// Search text for the home page comes from the admin (Site SEO & tracking) when set, otherwise these defaults.
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await pageSeo("/");
+  return {
+    title: seo?.title || "FastAdmission: Career Counselling & College Admission Experts",
+    description: seo?.description || "Explore your career goals, get guidance, and start your journey with FastAdmission.",
+    alternates: { canonical: "/" },
+    ...(seo?.noindex ? { robots: { index: false } } : {}),
+  };
+}
+
+export default async function HomePage() {
+  const { items: blog } = await getBlogCards(3);
   return (
     <main>
       <Hero />
@@ -34,7 +39,7 @@ export default function HomePage() {
       <StudyGoalSection />
       <StudyPlacesSection />
       <CareerAssessmentSection />
-      <BlogSection />
+      <BlogSection posts={blog} />
       <FaqSection items={faqs()} />
       <MergedContactSection />
       

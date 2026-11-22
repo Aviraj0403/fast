@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { posts } from "../data/posts";
+import type { BlogCardData } from "@/lib/content";
 import { SectionHeading } from "@/components/SectionHeading";
 
-export default function BlogSection() {
+export default function BlogSection({ posts }: { posts: BlogCardData[] }) {
   return (
     <section className="section bg-canvas">
       <div className="container-x">

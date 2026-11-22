@@ -1,9 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
-import { posts } from "@/app/data/posts";
+import type { Metadata } from "next";
+import { getBlogCards, pageSeo } from "@/lib/content";
 import { ChevronRight } from "lucide-react";
 
-export default function BlogListingPage() {
+export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await pageSeo("/blogs");
+  return { title: seo?.title || "Blog: admission and career guidance", description: seo?.description || "Guides on colleges, entrance exams, fees and careers from the FastAdmission counsellors.", alternates: { canonical: "/blogs" }, ...(seo?.noindex ? { robots: { index: false } } : {}) };
+}
+
+export default async function BlogListingPage() {
+  const { items: posts } = await getBlogCards();
   return (
     <div className="min-h-screen pt-24 pb-16 bg-slate-50">
       <div className="container mx-auto px-6 max-w-7xl">

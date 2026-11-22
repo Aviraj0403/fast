@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { getPostBySlug } from "@/app/data/posts";
+import { getApiPost } from "@/lib/content";
+import { ApiPostView } from "./ApiPostView";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -17,8 +20,20 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60; // new posts and edits from the admin appear within a minute, no redeploy
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const api = await getApiPost(slug);
+  if (api) return { title: api.seo.title, description: api.seo.description, alternates: { canonical: `/blogs/${slug}` }, openGraph: { title: api.seo.title, description: api.seo.description, type: "article", images: api.coverUrl ? [api.coverUrl] : undefined, publishedTime: api.publishedAt } };
+  const local = getPostBySlug(slug);
+  return local ? { title: local.title, description: local.excerpt, alternates: { canonical: `/blogs/${slug}` } } : {};
+}
+
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
+  const api = await getApiPost(slug);
+  if (api) return <ApiPostView post={api} />;
   const post = getPostBySlug(slug);
 
   if (!post) {
