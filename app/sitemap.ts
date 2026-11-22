@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { cities } from "./data/cities";
 import { courses } from "./data/courses";
-import { colleges } from "./data/colleges";
+import { getColleges } from "@/lib/colleges";
 import { getBlogCards } from "@/lib/content";
 
 export const revalidate = 3600;
@@ -12,6 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const url = (p: string) => `${SITE.url}${p}`;
   const { items } = await getBlogCards(50);
+  const colleges = await getColleges();
   return [
     { url: url("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: url("/courses"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },

@@ -8,7 +8,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SITE, waLink } from "@/lib/site";
 import { CITY_IMAGES, cities, cityBySlug, sameState } from "../../data/cities";
-import { colleges } from "../../data/colleges";
+import { collegesIn, getColleges } from "@/lib/colleges";
 import { faqs } from "../../data/faqs";
 import { FaqSection } from "../../sections/FaqSection";
 
@@ -42,7 +42,7 @@ export default async function CityPage({ params }: Params) {
   const city = cityBySlug((await params).city);
   if (!city) notFound();
   const nearby = sameState(city);
-  const local = colleges.filter((c) => c.location.toLowerCase().includes(city.name.toLowerCase().replace(" ncr", "")));
+  const local = collegesIn(await getColleges(), city.name);
   const img = CITY_IMAGES[city.slug];
   const list = faqs(city.name);
 
@@ -121,9 +121,9 @@ export default async function CityPage({ params }: Params) {
             <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {local.map((c) => (
                 <Link key={c.slug} href={`/colleges/${c.slug}`} className="card card-hover block p-6">
-                  <p className="text-xs font-semibold text-brand-600">{c.category}</p>
+                  <p className="text-xs font-semibold text-brand-600">{c.type}</p>
                   <h3 className="mt-1 text-lg font-bold">{c.name}</h3>
-                  <p className="mt-1 text-sm text-muted">{c.location}</p>
+                  <p className="mt-1 text-sm text-muted">{[c.city, c.state].filter(Boolean).join(", ")}</p>
                 </Link>
               ))}
             </div>

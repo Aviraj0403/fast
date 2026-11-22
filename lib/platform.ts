@@ -13,3 +13,17 @@ export async function platformGet<T>(path: string, revalidate = 60): Promise<T |
     return null;
   }
 }
+
+/**
+ * Generic read of the platform's PUBLIC api for this website's organisation. `{slug}` in the path is replaced by the organisation.
+ * One place for the base address, caching, timeout and error handling: every page uses this instead of its own fetch.
+ */
+export async function platformFetch<T>(path: string, opts: { revalidate?: number } = {}): Promise<T | null> {
+  try {
+    const url = `${PLATFORM.apiUrl}/public${path.replace("{slug}", encodeURIComponent(PLATFORM.tenantSlug))}`;
+    const res = await fetch(url, { next: { revalidate: opts.revalidate ?? 60 }, signal: AbortSignal.timeout(6000) });
+    return res.ok ? ((await res.json()) as T) : null;
+  } catch {
+    return null;
+  }
+}

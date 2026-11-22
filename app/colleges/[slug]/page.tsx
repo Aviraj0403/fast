@@ -1,67 +1,83 @@
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import { getCollegeBySlug } from '../../data/colleges';
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { MapPin, MessageCircle, Building2 } from "lucide-react";
+import { LeadForm } from "@/components/LeadForm";
+import { JsonLd } from "@/components/JsonLd";
+import { feeLakh, getCollegePage } from "@/lib/colleges";
+import { SITE, waLink } from "@/lib/site";
+import { getSiteConfig } from "@/lib/siteConfig";
 
-interface Props { 
-  params: Promise<{ slug: string }>;
-}
+export const revalidate = 300;
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const college = getCollegeBySlug(slug);
-  if (!college) return { title: 'College not found' };
-  return { 
-    title: `${college.name} - FastAdmission`, 
-    description: college.description 
+  const page = await getCollegePage((await params).slug);
+  if (!page) return { title: "College not found" };
+  const { college } = page;
+  const place = [college.city, college.state].filter(Boolean).join(", ");
+  return {
+    title: `${college.name}${place ? `, ${place}` : ""}: courses, fees and admission | ${SITE.name}`,
+    description: college.description?.slice(0, 160) || `Courses, fees and admission guidance for ${college.name}. Free counselling by ${SITE.name}.`,
+    alternates: { canonical: `${SITE.url}/colleges/${college.slug}` },
   };
 }
 
 export default async function CollegePage({ params }: Props) {
-  const { slug } = await params;
-  const college = getCollegeBySlug(slug);
-  if (!college) return notFound();
+  const slug = (await params).slug;
+  if (!(await getSiteConfig()).sections.colleges) notFound(); // switched off in the admin
+  const page = await getCollegePage(slug);
+  if (!page) notFound();
+  const { college, courses, faqs } = page;
+  const place = [college.city, college.state].filter(Boolean).join(", ");
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-24 pt-40 min-h-screen">
-      <header className="mb-12">
-        <span className="text-brand-600 text-xs font-bold tracking-wide mb-4 block">Institutional Deep-Dive</span>
-        <h1 className="text-4xl md:text-5xl font-bold text-ink mb-6 tracking-tight leading-tight">{college.name}</h1>
-        <div className="flex items-center gap-4 text-slate-400 text-xs font-bold tracking-wide">
-           <span className="bg-slate-100 px-3 py-1 rounded-md">{college.location}</span>
-           <span className="w-1.5 h-1.5 rounded-full bg-slate-200"></span>
-           <span className="bg-blue-50 text-brand-600 px-3 py-1 rounded-md">{college.category}</span>
-        </div>
-      </header>
-
-      <div className="w-full h-72 md:h-[500px] relative rounded-2xl overflow-hidden mb-12 shadow-lg border border-slate-100">
-        <Image src={college.image} alt={college.name} fill className="object-cover" unoptimized />
-      </div>
-
-      <section className="prose prose-lg max-w-none prose-slate">
-        <div className="p-10 bg-slate-50 rounded-2xl border border-slate-100 mb-10">
-            <h2 className="text-xl font-bold text-ink mb-4">Overview</h2>
-            <p className="text-slate-600 leading-relaxed font-medium">{college.description}</p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 bg-brand-950 rounded-2xl text-white">
-                <h3 className="text-white font-bold text-lg mb-4">Priority Admission</h3>
-                <p className="text-slate-400 text-sm mb-6">Direct institutional liaison available for this college through Rajnish Singh&apos;s primary desk.</p>
-                <a 
-                  href={`https://wa.me/918581841853?text=I%20want%20to%20apply%20to%20${encodeURIComponent(college.name)}`}
-                  target="_blank"
-                  className="inline-block bg-brand-500 text-white px-6 py-3 rounded-xl font-bold text-xs tracking-wide"
-                >
-                  Consult Now
-                </a>
-            </div>
-            <div className="p-8 bg-blue-50 rounded-2xl border border-brand-100">
-                <h3 className="text-ink font-bold text-lg mb-4">Key Disciplines</h3>
-                <p className="text-slate-500 text-sm">Recognized for excellence in {college.category} and related innovative academic streams.</p>
-            </div>
+    <main className="bg-slate-50 pb-28">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollegeOrUniversity", name: college.name, url: `${SITE.url}/colleges/${college.slug}`, ...(college.description ? { description: college.description } : {}), ...(place ? { address: { "@type": "PostalAddress", addressLocality: college.city, addressRegion: college.state, addressCountry: "IN" } } : {}) }} />
+      <section className="bg-brand-950 pb-20 pt-[calc(var(--header-h)+2.5rem)]">
+        <div className="container-x max-w-5xl">
+          <Link href="/colleges" className="text-sm text-brand-300 hover:underline">All colleges</Link>
+          <h1 className="mt-3 text-balance font-display text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">{college.name}</h1>
+          <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-slate-300">
+            {place && <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4" aria-hidden="true" />{place}</span>}
+            {college.type && <span className="inline-flex items-center gap-1.5"><Building2 className="h-4 w-4" aria-hidden="true" />{college.type}</span>}
+            {college.affiliation && <span>{college.affiliation}</span>}
+          </p>
         </div>
       </section>
+
+      <div className="container-x -mt-10 grid max-w-5xl items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <div className="grid gap-6">
+          {college.description && <section className="card p-6"><h2 className="font-display text-xl font-extrabold text-ink">About</h2><p className="mt-2 whitespace-pre-line leading-relaxed text-body">{college.description}</p></section>}
+
+          <section className="card p-6">
+            <h2 className="font-display text-xl font-extrabold text-ink">Courses and fees</h2>
+            {courses.length === 0 ? <p className="mt-2 text-body">Course details are shared by your counsellor. Ask us on WhatsApp.</p> : (
+              <ul className="mt-4 divide-y divide-line">
+                {courses.map((c) => (
+                  <li key={c.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
+                    <div><p className="font-semibold text-ink">{c.name}</p><p className="text-sm text-body">{[c.level?.toUpperCase(), c.stream, c.durationMonths ? `${Math.round(c.durationMonths / 12 * 10) / 10} years` : ""].filter(Boolean).join(" · ")}</p></div>
+                    <p className="font-semibold text-ink">{feeLakh(c.annualFeePaise)}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          {faqs.length > 0 && (
+            <section className="card p-6">
+              <h2 className="font-display text-xl font-extrabold text-ink">Questions answered</h2>
+              <div className="mt-3 divide-y divide-line">{faqs.map((f, i) => <details key={i} className="py-3"><summary className="cursor-pointer font-semibold text-ink">{f.q}</summary><p className="mt-2 text-body">{f.a}</p></details>)}</div>
+            </section>
+          )}
+        </div>
+
+        <aside className="grid gap-4 lg:sticky lg:top-24">
+          <LeadForm form={`college-${college.slug}`} city={college.city} title={`Apply to ${college.name}`} subtitle="A counsellor will call you with fees, cutoffs and the admission process." />
+          <a href={waLink(`I want to know about admission to ${college.name}`)} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><MessageCircle className="h-4 w-4" /> Chat on WhatsApp</a>
+          <Link href="/student/register" className="btn btn-primary w-full">Register to apply and track</Link>
+        </aside>
+      </div>
     </main>
   );
 }

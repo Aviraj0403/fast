@@ -6,7 +6,6 @@ import Script from "next/script";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
 import { Navbar } from "@/components/Navbar";
 import { getSiteConfig } from "@/lib/siteConfig";
@@ -108,7 +107,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ClickTracker />
         <MobileCta />
         {/* Web Vitals (only in production for performance) */}
-        {process.env.NODE_ENV === "production" && <WebVitals />}
       </body>
     </html>
   );
