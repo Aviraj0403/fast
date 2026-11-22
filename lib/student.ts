@@ -24,7 +24,7 @@ async function call<T>(path: string, init: RequestInit = {}, token?: string | nu
   return data as T;
 }
 
-export type RegisterInput = { name: string; phone: string; email: string; city?: string; interestedCourse?: string; consent: true; company_url?: string };
+export type RegisterInput = { referralCode?: string; name: string; phone: string; email: string; city?: string; interestedCourse?: string; consent: true; company_url?: string };
 
 export const registerStudent = (v: RegisterInput) => {
   const t = attribution();
@@ -49,17 +49,30 @@ export const loginStudent = async (email: string, password: string) => {
 export const changePassword = (currentPassword: string, newPassword: string) =>
   call<{ token?: string }>(`/api/v1/auth/change-password`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ currentPassword, newPassword }) }, getToken()).then((r) => { if (r.token) setToken(r.token); });
 
-export type Doc = { id: string; type: string; fileName?: string; status: string; rejectReason?: string; uploadedAt: string; superseded: boolean };
+export type Doc = { id: string; type: string; applicationId?: string; fileName?: string; status: string; rejectReason?: string; uploadedAt: string; superseded: boolean };
+export type ChecklistItem = { type: string; label: string; mandatory: boolean; state: string };
+export type HistoryItem = { from?: string; to?: string; at?: string };
 export type Application = {
   id: string; collegeName?: string; courseName?: string; status: string;
-  statusHistory?: { to?: string; status?: string; at?: string }[];
-  checklist?: { type: string; label: string; mandatory: boolean; state: string }[];
+  intake?: { month: number; year: number };
+  offer?: { scholarshipPaise?: number; deadline?: string };
+  statusHistory?: HistoryItem[];
+  checklist?: ChecklistItem[];
 };
+export type FeeLink = { _id?: string; id?: string; title: string; amountPaise: number; status: string; shortUrl?: string; paidAt?: string; applicationId?: string };
 export type Overview = {
-  profile: { name: string; email?: string; phone?: string };
+  profile: {
+    name: string; email?: string; phone?: string; dob?: string; gender?: string;
+    address?: { line?: string; city?: string; state?: string; pincode?: string };
+    academics?: { level?: string; board?: string; institute?: string; year?: number; percentage?: number }[];
+    testScores?: { test?: string; score?: number; year?: number }[];
+    preferences?: { courses?: string[]; cities?: string[]; budgetMaxPaise?: number };
+  };
   applications: Application[];
   documents: Doc[];
-  counsellor: { name: string } | null;
+  counsellor: { id: string; name: string } | null;
+  referral?: { referralCode: string; shareUrl: string } | null;
+  feeLinks?: FeeLink[];
 };
 
 export const overview = () => call<Overview>(`/api/v1/portal/student/overview`, {}, getToken());

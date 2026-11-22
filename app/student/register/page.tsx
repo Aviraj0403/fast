@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, Loader2, Mail, FileUp, LogIn } from "lucide-react";
 import { AuthShell } from "@/components/student/AuthShell";
@@ -15,6 +15,8 @@ export default function RegisterPage() {
   const [formErr, setFormErr] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
   const [emailed, setEmailed] = useState(true);
+  const [ref, setRef] = useState("");
+  useEffect(() => { try { setRef((new URLSearchParams(window.location.search).get("ref") || "").slice(0, 30)); } catch { /* no query */ } }, []);
   const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const t = e.target as HTMLInputElement;
     setV((x) => ({ ...x, [k]: t.type === "checkbox" ? t.checked : t.value }));
@@ -34,7 +36,7 @@ export default function RegisterPage() {
     if (Object.keys(next).length) return;
     setState("sending");
     try {
-      const r = await registerStudent({ name: v.name, phone: phone!, email: v.email, city: v.city || undefined, interestedCourse: v.course || undefined, consent: true, company_url: v.company_url || undefined });
+      const r = await registerStudent({ referralCode: ref || undefined, name: v.name, phone: phone!, email: v.email, city: v.city || undefined, interestedCourse: v.course || undefined, consent: true, company_url: v.company_url || undefined });
       setEmailed(r.loginEmailed);
       setState("done");
     } catch (ex) {
