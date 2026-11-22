@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/next";
 import WebVitals from "@/components/WebVitals";
 import AOSInit from "@/components/AOSInit";
 import { Navbar } from "@/components/Navbar";
+import { getSiteConfig } from "@/lib/siteConfig";
 import { Footer } from "@/components/Footer";
 import { Poptin } from "@/components/Poptin";
 import { ClickTracker } from "@/components/ClickTracker";
@@ -76,6 +77,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 // === Layout ===
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const site = await getSiteSettings(); // Analytics and Pixel ids are set in the admin; nothing loads until they are
+  const config = await getSiteConfig();
   return (
     <html lang="en" dir="ltr" className={`${inter.variable} ${jakarta.variable} antialiased`}>
       <head>
@@ -95,7 +97,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="pb-16 md:pb-0">
         <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN", address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.locality, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country }, hasMap: SITE.mapsUrl, sameAs: [SITE.mapsUrl] }} />
-        <Navbar />
+        <Navbar sections={config.sections} />
         <AOSInit />
 
         {children}

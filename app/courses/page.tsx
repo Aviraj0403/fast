@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { getSiteConfig } from "@/lib/siteConfig";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageSeo } from "@/lib/content";
@@ -12,7 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: seo?.title || "Courses: Engineering, Medical, Management, Law", description: seo?.description || "Professional programmes we guide admissions for, with duration, eligibility and fees guidance.", alternates: { canonical: "/courses" }, ...(seo?.noindex ? { robots: { index: false } } : {}) };
 }
 
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  if (!(await getSiteConfig()).sections.courses) notFound(); // switched off in the admin
   return (
     <div className="min-h-screen pt-32 pb-20 bg-slate-50">
       <div className="container mx-auto px-6 max-w-7xl">

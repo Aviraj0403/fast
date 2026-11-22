@@ -8,18 +8,22 @@ import { Menu, X, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { waLink } from "@/lib/site";
 
-const navItems = [
+const allNavItems: { name: string; path: string; section?: keyof NavSections }[] = [
   { name: "Home", path: "/" },
-  { name: "Courses", path: "/courses" },
-  { name: "Colleges", path: "/colleges" },
-  { name: "Blogs", path: "/blogs" },
+  { name: "Courses", path: "/courses", section: "courses" },
+  { name: "Colleges", path: "/colleges", section: "colleges" },
+  { name: "Blogs", path: "/blogs", section: "blogs" },
   { name: "About", path: "/#about" },
   { name: "Contact", path: "/#contact" },
-  { name: "Student login", path: "/student/login" },
+  { name: "Student login", path: "/student/login", section: "studentLogin" },
 ];
 
-export const Navbar = () => {
+export type NavSections = { colleges: boolean; courses: boolean; blogs: boolean; studentLogin: boolean };
+
+/** sections = what the owner switched on in the admin; a link to a switched-off section is not shown. */
+export const Navbar = ({ sections }: { sections?: NavSections }) => {
   const [open, setOpen] = useState(false);
+  const navItems = allNavItems.filter((i) => !i.section || sections?.[i.section] !== false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const overHero = pathname === "/" && !scrolled && !open; // transparent over the dark hero, solid everywhere else

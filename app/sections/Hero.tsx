@@ -13,7 +13,7 @@ const stats = [
 
 const fade = (delay = 0) => ({ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5, delay } });
 
-export const Hero = () => (
+export const Hero = ({ title, subtitle, cta }: { title?: string; subtitle?: string; cta?: string } = {}) => (
   <section id="home" className="relative overflow-hidden bg-brand-950 pt-[calc(var(--header-h)+3rem)] pb-16 md:pb-24">
     {/* soft brand glow + fine grid: depth without noise */}
     <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_85%_0%,rgb(10_150_208/0.28),transparent_60%),radial-gradient(50%_60%_at_0%_100%,rgb(10_122_176/0.18),transparent_60%)]" />
@@ -26,18 +26,20 @@ export const Hero = () => (
         </motion.p>
 
         <motion.h1 {...fade(0.08)} className="mt-6 text-balance text-[2.5rem] font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-[3.5rem]">
+          {title ? title : (<>
           Choose the right college.
           <br />
           <span className="text-brand-300">Secure the seat.</span>
+          </>)}
         </motion.h1>
 
         <motion.p {...fade(0.16)} className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-300 lg:mx-0">
-          Career counselling and admission guidance from <strong className="font-semibold text-white">Rajnish Singh</strong> and team, for top Engineering, Medical and Management institutions in 2026.
+          {subtitle ? subtitle : (<>Career counselling and admission guidance from <strong className="font-semibold text-white">Rajnish Singh</strong> and team, for top Engineering, Medical and Management institutions in 2026.</>)}
         </motion.p>
 
         <motion.div {...fade(0.24)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
           <a href="#hero-form" className="btn btn-primary btn-lg">
-            Get a free call back <ArrowRight className="h-5 w-5" />
+            {cta || "Get a free call back"} <ArrowRight className="h-5 w-5" />
           </a>
           <a href={waLink("I want to start my journey with FastAdmission - Apply 2026")} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light btn-lg">
             Chat on WhatsApp

@@ -5,6 +5,7 @@ import { Metadata } from "next";
 // import { Footer } from "@/components/Footer";
 
 import { Hero } from "./sections/Hero";
+import { getSiteConfig } from "@/lib/siteConfig";
 import { AdmissionSection } from "./sections/AdmissionSection";
 import { StudyGoalSection } from "./sections/StudyGoalSection";
 import StudyPlacesSection from "./sections/StudyPlacesSection";
@@ -31,10 +32,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
+  const config = await getSiteConfig();
   const { items: blog } = await getBlogCards(3);
   return (
     <main>
-      <Hero />
+      <Hero title={config.homepage.heroTitle} subtitle={config.homepage.heroSubtitle} cta={config.homepage.ctaText} />
       <AdmissionSection />
       <StudyGoalSection />
       <StudyPlacesSection />

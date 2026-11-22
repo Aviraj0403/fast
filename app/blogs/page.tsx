@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+import { getSiteConfig } from "@/lib/siteConfig";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -12,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogListingPage() {
+  if (!(await getSiteConfig()).sections.blogs) notFound(); // switched off in the admin
   const { items: posts } = await getBlogCards();
   return (
     <div className="min-h-screen pt-24 pb-16 bg-slate-50">
