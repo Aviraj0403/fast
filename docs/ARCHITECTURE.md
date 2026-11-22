@@ -41,5 +41,8 @@ and the popup (shaped in the admin: Lead popups). Do **not** add a second tracke
 3. Colleges, blog, popup, predictor and student portal then work with no code change.
 
 ## Checks before a release
-`npx tsc --noEmit` and `npx next build` must pass. There is no test suite yet: the next sensible step is Playwright smoke tests for
-`/`, `/colleges`, `/college-predictor`, `/student/register`, `/student/login`.
+`npx tsc --noEmit`, `npx next build` and `npm test` must pass.
+`npm test` runs 12 Playwright smoke tests (tests/smoke.spec.ts) against a production build in the installed Chrome: home, colleges, 404,
+the rank predictor (validation, results, filters), student registration (validation, referral code, next steps), student login
+(wrong password, staff refused, dashboard, expired session) and the indexing rules. The platform API is mocked inside each test, so nothing real is called.
+Add a test here whenever a page that brings in or serves students changes.
