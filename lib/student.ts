@@ -84,6 +84,13 @@ export const uploadDocument = (type: string, file: File, label?: string) =>
     body: file,
   }, getToken());
 
+export const requestCallback = (topic: string, preferredSlot?: string) =>
+  call<{ ok: boolean; message: string }>(`/api/v1/portal/student/callback-request`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ topic, preferredSlot }),
+  }, getToken());
+
 /** The documents almost every admission asks for. "other" takes anything else (caste certificate, migration, etc.). */
 export const DOC_TYPES: { type: string; label: string }[] = [
   { type: "marksheet_10", label: "10th marksheet" },

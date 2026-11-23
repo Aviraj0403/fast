@@ -150,12 +150,11 @@ export function AiChatWidget() {
       )}
 
       {/* Floating Widget Container:
-          On mobile: bottom full-sheet or clean centered card.
-          On desktop: bottom-right above or alongside controls. */}
-      <div className="fixed z-50 bottom-4 right-4 md:bottom-5 md:right-24">
+          Positioned on the center-left side to prevent bottom overlapping with footer/dock/mobile actions */}
+      <div className="fixed z-50 left-4 top-1/2 -translate-y-1/2">
         {/* Chat Dialog */}
         {open && (
-          <div className="fixed inset-x-2 bottom-2 top-auto z-50 flex flex-col h-[520px] max-h-[88vh] rounded-3xl border border-slate-200/90 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950 overflow-hidden animate-in fade-in slide-in-from-bottom-5 md:static md:w-[390px] md:h-[500px] md:max-h-[82vh] md:mb-3">
+          <div className="fixed inset-x-2 bottom-2 top-auto z-50 flex flex-col h-[520px] max-h-[88vh] rounded-3xl border border-slate-200/90 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950 overflow-hidden animate-in fade-in slide-in-from-left-5 md:absolute md:left-0 md:top-full md:mt-2 md:w-[390px] md:h-[520px] md:max-h-[80vh]">
             {/* Header */}
             <div className="relative bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-4 py-3.5 text-white shadow-sm shrink-0">
               <div className="flex items-center justify-between">
