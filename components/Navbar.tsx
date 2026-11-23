@@ -23,7 +23,7 @@ const allNavItems: { name: string; path: string; section?: keyof NavSections }[]
 export type NavSections = { colleges: boolean; courses: boolean; blogs: boolean; studentLogin: boolean };
 
 /** sections = what the owner switched on in the admin; a link to a switched-off section is not shown. */
-export const Navbar = ({ sections, siteSettings }: { sections?: NavSections; siteSettings?: { name?: string; logoUrl?: string | null } }) => {
+export const Navbar = ({ sections }: { sections?: NavSections }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [signedIn, setSignedIn] = useState(false);
@@ -48,9 +48,6 @@ export const Navbar = ({ sections, siteSettings }: { sections?: NavSections; sit
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  const displayName = siteSettings?.name || "FastAdmission";
-  const displayLogo = siteSettings?.logoUrl || "/brand-mark.png";
-
   const isActive = (path: string) => (path === "/" ? pathname === "/" : !path.includes("#") && pathname.startsWith(path));
 
   return (
@@ -61,18 +58,12 @@ export const Navbar = ({ sections, siteSettings }: { sections?: NavSections; sit
       )}
     >
       <div className="container-x flex h-[var(--header-h)] items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5" aria-label={`${displayName} home`} onClick={() => setOpen(false)}>
+        <Link href="/" className="flex items-center gap-2.5" aria-label="FastAdmission home" onClick={() => setOpen(false)}>
           <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/[0.06]">
-            <Image src={displayLogo} alt={displayName} width={40} height={40} className="h-full w-full object-contain p-[3px]" priority unoptimized={displayLogo.startsWith("http")} />
+            <Image src="/brand-mark.png" alt="" width={40} height={40} className="h-full w-full object-contain p-[3px]" priority />
           </span>
-          <span className={cn("font-display text-[1.35rem] font-extrabold tracking-tight uppercase", overHero ? "text-white" : "text-ink")}>
-            {displayName.length > 4 ? (
-              <>
-                {displayName.slice(0, 4)}<span className={overHero ? "text-brand-300" : "text-brand-500"}>{displayName.slice(4)}</span>
-              </>
-            ) : (
-              <span className={overHero ? "text-brand-300" : "text-brand-500"}>{displayName}</span>
-            )}
+          <span className={cn("font-display text-[1.35rem] font-extrabold tracking-tight", overHero ? "text-white" : "text-ink")}>
+            FAST<span className={overHero ? "text-brand-300" : "text-brand-500"}>ADMISSION</span>
           </span>
         </Link>
 

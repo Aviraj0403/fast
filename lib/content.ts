@@ -25,7 +25,6 @@ export interface PageSeo {
 export interface SiteSettings {
   name: string;
   logoUrl: string | null;
-  brandColor?: string | null;
   googleVerification: string | null;
   gaMeasurementId: string | null;
   metaPixelId: string | null;

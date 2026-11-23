@@ -1,18 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Loader2, MessageCircle, ShieldCheck, Flame } from "lucide-react";
+import { CheckCircle2, Loader2, MessageCircle, ShieldCheck } from "lucide-react";
 import { submitLead } from "@/lib/leads";
 import { event } from "@/lib/analytics";
 import { waLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const COURSES = ["Engineering (B.Tech)", "Medical (MBBS / BDS)", "Management (MBA / BBA)", "Law (LLB)", "Commerce / Arts / Other"];
-const ADMISSION_YEARS = [
-  { label: "Immediate Admission (2026 Batch)", value: "2026 Immediate" },
-  { label: "Next Session (2027 Batch)", value: "2027 Planning" },
-  { label: "Just Exploring Career Options", value: "Exploring" },
-];
 
 /** 10-digit Indian mobile, accepting +91, 91, 0 and spaces / dashes. Returns the 10 digits or null. */
 export const mobileOf = (raw: string): string | null => {
@@ -22,11 +17,13 @@ export const mobileOf = (raw: string): string | null => {
 };
 
 /**
- * The short lead form used in the hero and on every city page: name, mobile, course, and intake urgency.
- * High-intent selections (e.g. 2026 Immediate) automatically trigger the Hot Lead score in the Counsellor CRM.
+ * The short lead form used in the hero and on every city page: name, mobile, course. The lead goes to the platform;
+ * if that is unreachable the visitor is sent to WhatsApp instead so nobody is lost.
+ *  - form: which placement it is (kept as the campaign name, e.g. "hero", "city-patna")
+ *  - city: prefilled and sent with the lead (city pages)
  */
 export function LeadForm({ form, city, dark = false, title = "Get a free call back", subtitle = "A counsellor will call you with a college shortlist, fees and cutoffs.", className }: { form: string; city?: string; dark?: boolean; title?: string; subtitle?: string; className?: string }) {
-  const [v, setV] = useState({ name: "", phone: "", course: "", admissionYear: "2026 Immediate" });
+  const [v, setV] = useState({ name: "", phone: "", course: "" });
   const [err, setErr] = useState<Record<string, string>>({});
   const [state, setState] = useState<"idle" | "sending" | "saved" | "fallback">("idle");
   const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setV((x) => ({ ...x, [k]: e.target.value }));
@@ -43,32 +40,17 @@ export function LeadForm({ form, city, dark = false, title = "Get a free call ba
     if (Object.keys(problems).length) return;
 
     setState("sending");
-    const formattedCourse = `${v.course} [${v.admissionYear}]`;
-    const ok = await submitLead({
-      name: v.name,
-      phone: phone!,
-      course: formattedCourse,
-      city,
-      form,
-      message: `Intake: ${v.admissionYear}`,
-    });
-    event(ok ? "lead_submitted" : "lead_failed", { form, city: city ?? null, course: v.course, admissionYear: v.admissionYear });
+    const ok = await submitLead({ name: v.name, phone: phone!, course: v.course, city, form });
+    event(ok ? "lead_submitted" : "lead_failed", { form, city: city ?? null, course: v.course });
     setState(ok ? "saved" : "fallback");
   };
 
-  const chat = waLink(`Hi FastAdmission, I am ${v.name || "a student"}${city ? ` from ${city}` : ""} looking for ${v.course || "admission"} (${v.admissionYear}). My number is ${v.phone}.`);
+  const chat = waLink(`Hi FastAdmission, I am ${v.name || "a student"}${city ? ` from ${city}` : ""} and I want counselling for ${v.course || "admission"}. My number is ${v.phone}.`);
 
   return (
     <div className={cn("on-dark-scope rounded-2xl p-6 sm:p-7", dark ? "on-dark border border-white/15 bg-white/[0.06] shadow-2xl" : "card", className)}>
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h3 className={cn("text-xl font-bold", dark && "!text-white")}>{title}</h3>
-          <p className={cn("mt-1 text-sm", dark ? "text-slate-300" : "text-muted")}>{subtitle}</p>
-        </div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-600 dark:text-amber-300">
-          <Flame size={12} className="text-amber-500" /> Fast Callback
-        </span>
-      </div>
+      <h3 className={cn("text-xl font-bold", dark && "!text-white")}>{title}</h3>
+      <p className={cn("mt-1 text-sm", dark ? "text-slate-300" : "text-muted")}>{subtitle}</p>
 
       {state === "saved" || state === "fallback" ? (
         <div role="status" className={cn("mt-6 rounded-xl border p-5", dark ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-100" : "border-emerald-200 bg-emerald-50 text-emerald-900")}>
@@ -92,21 +74,13 @@ export function LeadForm({ form, city, dark = false, title = "Get a free call ba
             <input id={id("phone")} type="tel" inputMode="tel" autoComplete="tel" value={v.phone} onChange={set("phone")} aria-invalid={!!err.phone} className="field" placeholder="98765 43210" />
             {err.phone && <p role="alert" className="field-error">{err.phone}</p>}
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div>
-              <label htmlFor={id("course")} className="label">Course you want</label>
-              <select id={id("course")} value={v.course} onChange={set("course")} aria-invalid={!!err.course} className="field">
-                <option value="">Choose a course</option>
-                {COURSES.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
-              {err.course && <p role="alert" className="field-error">{err.course}</p>}
-            </div>
-            <div>
-              <label htmlFor={id("year")} className="label">Admission Year</label>
-              <select id={id("year")} value={v.admissionYear} onChange={set("admissionYear")} className="field">
-                {ADMISSION_YEARS.map((y) => <option key={y.value} value={y.value}>{y.label}</option>)}
-              </select>
-            </div>
+          <div>
+            <label htmlFor={id("course")} className="label">Course you want</label>
+            <select id={id("course")} value={v.course} onChange={set("course")} aria-invalid={!!err.course} className="field">
+              <option value="">Choose a course</option>
+              {COURSES.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            {err.course && <p role="alert" className="field-error">{err.course}</p>}
           </div>
           <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg w-full">
             {state === "sending" ? <Loader2 className="h-5 w-5 animate-spin" /> : null} {state === "sending" ? "Sending..." : "Request a free call back"}
