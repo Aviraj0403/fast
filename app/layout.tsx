@@ -13,6 +13,7 @@ import { Footer } from "@/components/Footer";
 import { SiteSdk } from "@/components/SiteSdk";
 import { ClickTracker } from "@/components/ClickTracker";
 import { MobileCta } from "@/components/MobileCta";
+import { FloatingAssistantWidget } from "@/components/FloatingAssistantWidget";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import { getSiteSettings } from "@/lib/content";
@@ -76,9 +77,18 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const site = await getSiteSettings(); // Analytics and Pixel ids are set in the admin; nothing loads until they are
   const config = await getSiteConfig();
+  const brandColor = site?.brandColor && /^#[0-9a-fA-F]{6}$/.test(site.brandColor) ? site.brandColor : null;
+  const brandStyles = brandColor
+    ? `:root {
+        --color-brand-500: ${brandColor};
+        --color-brand-600: ${brandColor};
+        --color-brand-400: ${brandColor};
+      }`
+    : "";
   return (
     <html lang="en" dir="ltr" className={`${inter.variable} ${jakarta.variable} antialiased`}>
       <head>
+        {brandStyles && <style dangerouslySetInnerHTML={{ __html: brandStyles }} />}
         {site?.gaMeasurementId && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId}`} strategy="afterInteractive" />
@@ -94,8 +104,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         )}
       </head>
       <body className="pb-16 md:pb-0">
-        <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN", address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.locality, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country }, hasMap: SITE.mapsUrl, sameAs: [SITE.mapsUrl] }} />
-        <Navbar sections={config.sections} />
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "EducationalOrganization", name: site?.name || SITE.name, url: SITE.url, logo: site?.logoUrl || `${SITE.url}/brand-mark.png`, telephone: SITE.phone, email: SITE.email, founder: { "@type": "Person", name: "Rajnish Singh" }, areaServed: "IN", address: { "@type": "PostalAddress", streetAddress: SITE.address.street, addressLocality: SITE.address.locality, addressRegion: SITE.address.region, postalCode: SITE.address.postalCode, addressCountry: SITE.address.country }, hasMap: SITE.mapsUrl, sameAs: [SITE.mapsUrl] }} />
+        <Navbar sections={config.sections} siteSettings={site ? { name: site.name, logoUrl: site.logoUrl } : undefined} />
         <AOSInit />
 
         {children}
@@ -105,6 +115,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Footer />
         <SiteSdk />
         <ClickTracker />
+        <FloatingAssistantWidget />
         <MobileCta />
         {/* Web Vitals (only in production for performance) */}
       </body>
