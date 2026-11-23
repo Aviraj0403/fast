@@ -13,6 +13,7 @@ import { Footer } from "@/components/Footer";
 import { SiteSdk } from "@/components/SiteSdk";
 import { ClickTracker } from "@/components/ClickTracker";
 import { MobileCta } from "@/components/MobileCta";
+import { AiChatWidget } from "@/components/AiChatWidget";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import { getSiteSettings } from "@/lib/content";
@@ -105,6 +106,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Footer />
         <SiteSdk />
         <ClickTracker />
+        <AiChatWidget />
         <MobileCta />
         {/* Web Vitals (only in production for performance) */}
       </body>
