@@ -1,13 +1,37 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Bot, X, Send, Sparkles, MessageCircle, RefreshCw } from "lucide-react";
+import {
+  Bot,
+  X,
+  Send,
+  Sparkles,
+  ChevronDown,
+  PhoneCall,
+  GraduationCap,
+  HelpCircle,
+  ShieldCheck,
+  RotateCcw,
+} from "lucide-react";
 import { PLATFORM } from "@/lib/site";
 
 interface Message {
   role: "assistant" | "user";
   text: string;
+  time?: string;
 }
+
+const QUICK_PROMPTS = [
+  "Top B.Tech Colleges & Fees",
+  "Admission Process 2026",
+  "Engineering Eligibility Criteria",
+  "Book a Free Counselling Call",
+];
+
+const getCurrentTime = () => {
+  const d = new Date();
+  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+};
 
 export function AiChatWidget() {
   const [open, setOpen] = useState(false);
@@ -18,7 +42,6 @@ export function AiChatWidget() {
   const [visitorToken, setVisitorToken] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Fetch bot config only if bot is enabled on backend
   useEffect(() => {
     const slug = PLATFORM.tenantSlug || "fastadmission";
     const api = PLATFORM.apiUrl || "https://apicounsellor.jdinfotechsolutions.in";
@@ -30,7 +53,7 @@ export function AiChatWidget() {
       .then((cfg) => {
         if (cfg && cfg.greeting) {
           setConfig(cfg);
-          setMessages([{ role: "assistant", text: cfg.greeting }]);
+          setMessages([{ role: "assistant", text: cfg.greeting, time: getCurrentTime() }]);
         }
       })
       .catch(() => {});
@@ -40,17 +63,15 @@ export function AiChatWidget() {
     if (open) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, open]);
+  }, [messages, open, loading]);
 
-  // If bot is disabled or not found, don't show the button
   if (!config) return null;
 
-  const handleSend = async (e?: React.FormEvent) => {
-    e?.preventDefault();
-    const text = input.trim();
+  const sendMessage = async (textToSend: string) => {
+    const text = textToSend.trim();
     if (!text || loading) return;
 
-    const userMsg: Message = { role: "user", text };
+    const userMsg: Message = { role: "user", text, time: getCurrentTime() };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
@@ -81,7 +102,8 @@ export function AiChatWidget() {
         ...prev,
         {
           role: "assistant",
-          text: data.reply || "Thank you for reaching out. A senior counsellor will contact you shortly.",
+          text: data.reply || "Thank you for reaching out. A FastAdmission senior counsellor will contact you shortly.",
+          time: getCurrentTime(),
         },
       ]);
     } catch {
@@ -90,6 +112,7 @@ export function AiChatWidget() {
         {
           role: "assistant",
           text: "Our admissions counsellor will assist you directly. Please share your preferred course and phone number.",
+          time: getCurrentTime(),
         },
       ]);
     } finally {
@@ -97,103 +120,164 @@ export function AiChatWidget() {
     }
   };
 
+  const handleSend = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    sendMessage(input);
+  };
+
+  const resetChat = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("fa_bot_token");
+    }
+    setVisitorToken(null);
+    setMessages([
+      {
+        role: "assistant",
+        text: config.greeting || "Hi! How can FastAdmission help you with your college admissions today?",
+        time: getCurrentTime(),
+      },
+    ]);
+  };
+
   return (
-    <div className="fixed bottom-5 right-24 z-40 hidden md:block">
+    <div className="fixed bottom-5 right-24 z-50">
       {/* Chat Window Dialog */}
       {open && (
-        <div className="mb-3 w-80 sm:w-96 rounded-2xl border border-line bg-white shadow-2xl transition-all animate-in fade-in slide-in-from-bottom-3 dark:border-white/10 dark:bg-slate-900 overflow-hidden flex flex-col h-[460px]">
-          {/* Header */}
-          <div className="flex items-center justify-between border-b border-line bg-brand-50/50 px-4 py-3 dark:bg-white/5">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white shadow-sm">
-                <Bot size={17} />
-              </span>
-              <div>
-                <p className="text-xs font-bold text-ink dark:text-white">{config.name}</p>
-                <p className="text-[10px] font-medium text-emerald-600 flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> 24/7 AI Admissions Desk
-                </p>
+        <div className="mb-3 w-[calc(100vw-32px)] sm:w-[400px] rounded-3xl border border-slate-200/80 bg-white shadow-2xl shadow-slate-900/15 transition-all animate-in fade-in slide-in-from-bottom-4 dark:border-slate-800 dark:bg-slate-950 overflow-hidden flex flex-col h-[520px] max-h-[82vh]">
+          {/* Premium Header */}
+          <div className="relative bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-4 py-3.5 text-white shadow-sm">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-inner">
+                    <GraduationCap size={20} className="text-white" />
+                  </div>
+                  <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-indigo-700 bg-emerald-400" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-bold tracking-tight text-white leading-none">{config.name}</p>
+                    <span className="rounded-full bg-white/20 px-1.5 py-0.5 text-[9px] font-semibold text-white/90">Official</span>
+                  </div>
+                  <p className="text-[11px] font-medium text-blue-100 flex items-center gap-1 mt-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    FastAdmission 24/7 Desk
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={resetChat}
+                  title="Reset Conversation"
+                  className="rounded-xl p-1.5 text-white/70 hover:bg-white/15 hover:text-white transition"
+                  aria-label="Reset Chat"
+                >
+                  <RotateCcw size={15} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl p-1.5 text-white/70 hover:bg-white/15 hover:text-white transition"
+                  aria-label="Close"
+                >
+                  <ChevronDown size={18} />
+                </button>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-white/10"
-              aria-label="Close"
-            >
-              <X size={16} />
-            </button>
+
+            {/* Sub-banner disclaimer */}
+            <div className="mt-2.5 flex items-center gap-1.5 text-[10px] text-blue-100/80 bg-black/10 rounded-lg px-2 py-1">
+              <ShieldCheck size={12} className="text-emerald-300 shrink-0" />
+              <span>Verified admission guidance strictly from FastAdmission portal colleges</span>
+            </div>
           </div>
 
           {/* Messages Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs bg-slate-50/50 dark:bg-slate-900/40">
             {messages.map((m, idx) => (
-              <div
-                key={idx}
-                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed ${
-                    m.role === "user"
-                      ? "bg-brand-600 text-white rounded-br-xs"
-                      : "bg-surface-2 text-ink dark:text-slate-200 border border-line dark:border-white/10 rounded-bl-xs"
-                  }`}
-                >
-                  {m.text}
+              <div key={idx} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"} max-w-[85%]`}>
+                  <div
+                    className={`rounded-2xl px-3.5 py-2.5 text-[12.5px] leading-relaxed shadow-xs whitespace-pre-wrap ${
+                      m.role === "user"
+                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-br-xs font-normal"
+                        : "bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/80 dark:border-slate-700/80 rounded-bl-xs"
+                    }`}
+                  >
+                    {m.text}
+                  </div>
+                  {m.time && (
+                    <span className="text-[10px] text-slate-400 px-1 pt-1 font-mono">{m.time}</span>
+                  )}
                 </div>
               </div>
             ))}
+
             {loading && (
               <div className="flex justify-start">
-                <div className="rounded-2xl rounded-bl-xs bg-surface-2 border border-line px-3.5 py-2 text-[11px] text-muted flex items-center gap-2">
-                  <Sparkles size={12} className="animate-spin text-brand-500" />
-                  Thinking...
+                <div className="rounded-2xl rounded-bl-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2 shadow-xs">
+                  <Sparkles size={13} className="animate-spin text-indigo-500" />
+                  <span className="font-medium">FastAdmission AI is checking colleges & criteria...</span>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
-          <form onSubmit={handleSend} className="p-3 border-t border-line bg-surface flex items-center gap-2">
+          {/* Quick Prompts Chips */}
+          <div className="border-t border-slate-100 bg-white px-3 py-2 dark:border-slate-800/80 dark:bg-slate-950 flex gap-1.5 overflow-x-auto no-scrollbar">
+            {QUICK_PROMPTS.map((prompt, i) => (
+              <button
+                key={i}
+                type="button"
+                disabled={loading}
+                onClick={() => sendMessage(prompt)}
+                className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 transition hover:border-indigo-400 hover:bg-indigo-50/50 hover:text-indigo-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
+
+          {/* Input Area */}
+          <form
+            onSubmit={handleSend}
+            className="flex items-center gap-2 border-t border-slate-200/80 bg-white p-2.5 dark:border-slate-800 dark:bg-slate-950"
+          >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask cutoffs, courses, eligibility..."
-              className="flex-1 rounded-xl border border-line bg-white dark:bg-slate-800 px-3 py-2 text-xs placeholder:text-muted focus:border-brand-500 focus:outline-none"
+              placeholder="Ask anything about engineering, medical, fees..."
+              disabled={loading}
+              className="flex-1 rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-600 text-white disabled:opacity-40 transition hover:bg-brand-700 shrink-0"
-              aria-label="Send"
+              className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 shadow-xs"
+              aria-label="Send message"
             >
-              <Send size={13} />
+              <Send size={14} />
             </button>
           </form>
         </div>
       )}
 
-      {/* Floating Bot Launcher (Positioned next to FixedButtons) */}
+      {/* Floating Launcher Button */}
       <button
         type="button"
-        onClick={() => setOpen(!open)}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 dark:bg-brand-600 text-white shadow-xl ring-2 ring-white/20 transition-all hover:scale-105 active:scale-95 group relative"
+        onClick={() => setOpen((prev) => !prev)}
+        className="group relative flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 p-3.5 text-white shadow-xl shadow-indigo-500/25 transition-all hover:scale-105 active:scale-95"
         aria-label="Open AI Admissions Assistant"
-        title="AI Admissions Assistant"
       >
-        <span className="relative">
-          {open ? <X size={20} /> : <Bot size={22} />}
-          {!open && (
-            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-400" />
-            </span>
-          )}
+        <span className="relative flex h-5 w-5 items-center justify-center">
+          <Bot size={21} className="transition-transform group-hover:rotate-12" />
+          <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
         </span>
+        <span className="hidden text-xs font-bold tracking-wide pr-1 sm:inline">Ask AI Admission Desk</span>
       </button>
     </div>
   );
 }
-
