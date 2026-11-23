@@ -7,11 +7,10 @@ import {
   Send,
   Sparkles,
   ChevronDown,
-  PhoneCall,
   GraduationCap,
-  HelpCircle,
   ShieldCheck,
   RotateCcw,
+  MessageSquare,
 } from "lucide-react";
 import { PLATFORM } from "@/lib/site";
 
@@ -25,7 +24,7 @@ const QUICK_PROMPTS = [
   "Top B.Tech Colleges & Fees",
   "Admission Process 2026",
   "Engineering Eligibility Criteria",
-  "Book a Free Counselling Call",
+  "Book Free Counselling Call",
 ];
 
 const getCurrentTime = () => {
@@ -140,144 +139,165 @@ export function AiChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-5 right-24 z-50">
-      {/* Chat Window Dialog */}
+    <>
+      {/* Backdrop for mobile */}
       {open && (
-        <div className="mb-3 w-[calc(100vw-32px)] sm:w-[400px] rounded-3xl border border-slate-200/80 bg-white shadow-2xl shadow-slate-900/15 transition-all animate-in fade-in slide-in-from-bottom-4 dark:border-slate-800 dark:bg-slate-950 overflow-hidden flex flex-col h-[520px] max-h-[82vh]">
-          {/* Premium Header */}
-          <div className="relative bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-4 py-3.5 text-white shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-inner">
-                    <GraduationCap size={20} className="text-white" />
-                  </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-indigo-700 bg-emerald-400" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <p className="text-sm font-bold tracking-tight text-white leading-none">{config.name}</p>
-                    <span className="rounded-full bg-white/20 px-1.5 py-0.5 text-[9px] font-semibold text-white/90">Official</span>
-                  </div>
-                  <p className="text-[11px] font-medium text-blue-100 flex items-center gap-1 mt-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    FastAdmission 24/7 Desk
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  onClick={resetChat}
-                  title="Reset Conversation"
-                  className="rounded-xl p-1.5 text-white/70 hover:bg-white/15 hover:text-white transition"
-                  aria-label="Reset Chat"
-                >
-                  <RotateCcw size={15} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl p-1.5 text-white/70 hover:bg-white/15 hover:text-white transition"
-                  aria-label="Close"
-                >
-                  <ChevronDown size={18} />
-                </button>
-              </div>
-            </div>
-
-            {/* Sub-banner disclaimer */}
-            <div className="mt-2.5 flex items-center gap-1.5 text-[10px] text-blue-100/80 bg-black/10 rounded-lg px-2 py-1">
-              <ShieldCheck size={12} className="text-emerald-300 shrink-0" />
-              <span>Verified admission guidance strictly from FastAdmission portal colleges</span>
-            </div>
-          </div>
-
-          {/* Messages Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs bg-slate-50/50 dark:bg-slate-900/40">
-            {messages.map((m, idx) => (
-              <div key={idx} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"} max-w-[85%]`}>
-                  <div
-                    className={`rounded-2xl px-3.5 py-2.5 text-[12.5px] leading-relaxed shadow-xs whitespace-pre-wrap ${
-                      m.role === "user"
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-br-xs font-normal"
-                        : "bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/80 dark:border-slate-700/80 rounded-bl-xs"
-                    }`}
-                  >
-                    {m.text}
-                  </div>
-                  {m.time && (
-                    <span className="text-[10px] text-slate-400 px-1 pt-1 font-mono">{m.time}</span>
-                  )}
-                </div>
-              </div>
-            ))}
-
-            {loading && (
-              <div className="flex justify-start">
-                <div className="rounded-2xl rounded-bl-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2 shadow-xs">
-                  <Sparkles size={13} className="animate-spin text-indigo-500" />
-                  <span className="font-medium">FastAdmission AI is checking colleges & criteria...</span>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Quick Prompts Chips */}
-          <div className="border-t border-slate-100 bg-white px-3 py-2 dark:border-slate-800/80 dark:bg-slate-950 flex gap-1.5 overflow-x-auto no-scrollbar">
-            {QUICK_PROMPTS.map((prompt, i) => (
-              <button
-                key={i}
-                type="button"
-                disabled={loading}
-                onClick={() => sendMessage(prompt)}
-                className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 transition hover:border-indigo-400 hover:bg-indigo-50/50 hover:text-indigo-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
-              >
-                {prompt}
-              </button>
-            ))}
-          </div>
-
-          {/* Input Area */}
-          <form
-            onSubmit={handleSend}
-            className="flex items-center gap-2 border-t border-slate-200/80 bg-white p-2.5 dark:border-slate-800 dark:bg-slate-950"
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask anything about engineering, medical, fees..."
-              disabled={loading}
-              className="flex-1 rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500"
-            />
-            <button
-              type="submit"
-              disabled={loading || !input.trim()}
-              className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 shadow-xs"
-              aria-label="Send message"
-            >
-              <Send size={14} />
-            </button>
-          </form>
-        </div>
+        <div
+          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs transition-opacity md:hidden"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
       )}
 
-      {/* Floating Launcher Button */}
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        className="group relative flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 p-3.5 text-white shadow-xl shadow-indigo-500/25 transition-all hover:scale-105 active:scale-95"
-        aria-label="Open AI Admissions Assistant"
-      >
-        <span className="relative flex h-5 w-5 items-center justify-center">
-          <Bot size={21} className="transition-transform group-hover:rotate-12" />
-          <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
-        </span>
-        <span className="hidden text-xs font-bold tracking-wide pr-1 sm:inline">Ask AI Admission Desk</span>
-      </button>
-    </div>
+      {/* Floating Widget Container:
+          On mobile: bottom full-sheet or clean centered card.
+          On desktop: bottom-right above or alongside controls. */}
+      <div className="fixed z-50 bottom-4 right-4 md:bottom-5 md:right-24">
+        {/* Chat Dialog */}
+        {open && (
+          <div className="fixed inset-x-2 bottom-2 top-auto z-50 flex flex-col h-[520px] max-h-[88vh] rounded-3xl border border-slate-200/90 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950 overflow-hidden animate-in fade-in slide-in-from-bottom-5 md:static md:w-[390px] md:h-[500px] md:max-h-[82vh] md:mb-3">
+            {/* Header */}
+            <div className="relative bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-4 py-3.5 text-white shadow-sm shrink-0">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="relative">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-inner">
+                      <GraduationCap size={19} className="text-white" />
+                    </div>
+                    <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-indigo-700 bg-emerald-400" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-xs sm:text-sm font-bold tracking-tight text-white leading-none">
+                        {config.name}
+                      </p>
+                      <span className="rounded-full bg-white/20 px-1.5 py-0.2 text-[8px] sm:text-[9px] font-semibold text-white/90">
+                        Official
+                      </span>
+                    </div>
+                    <p className="text-[10px] sm:text-[11px] font-medium text-blue-100 flex items-center gap-1 mt-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      FastAdmission 24/7 Desk
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={resetChat}
+                    title="Reset Conversation"
+                    className="rounded-xl p-1.5 text-white/80 hover:bg-white/15 hover:text-white transition"
+                    aria-label="Reset Chat"
+                  >
+                    <RotateCcw size={15} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    className="rounded-xl p-1.5 text-white/80 hover:bg-white/15 hover:text-white transition"
+                    aria-label="Close"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Sub-banner disclaimer */}
+              <div className="mt-2 flex items-center gap-1.5 text-[10px] text-blue-100/90 bg-black/15 rounded-lg px-2 py-0.5">
+                <ShieldCheck size={12} className="text-emerald-300 shrink-0" />
+                <span className="truncate">Verified college & cutoff data directly from FastAdmission</span>
+              </div>
+            </div>
+
+            {/* Messages Body */}
+            <div className="flex-1 overflow-y-auto p-3.5 space-y-3 text-xs bg-slate-50/60 dark:bg-slate-900/40">
+              {messages.map((m, idx) => (
+                <div key={idx} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                  <div className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"} max-w-[85%]`}>
+                    <div
+                      className={`rounded-2xl px-3.5 py-2.5 text-[12px] sm:text-[12.5px] leading-relaxed shadow-xs whitespace-pre-wrap ${
+                        m.role === "user"
+                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-br-xs font-normal"
+                          : "bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700/80 rounded-bl-xs"
+                      }`}
+                    >
+                      {m.text}
+                    </div>
+                    {m.time && (
+                      <span className="text-[9px] text-slate-400 px-1 pt-0.5 font-mono">{m.time}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="rounded-2xl rounded-bl-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3.5 py-2 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2 shadow-xs">
+                    <Sparkles size={13} className="animate-spin text-indigo-500 shrink-0" />
+                    <span className="font-medium">FastAdmission AI is checking colleges & criteria...</span>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Quick Prompts Chips */}
+            <div className="border-t border-slate-100 bg-white px-2.5 py-1.5 dark:border-slate-800/80 dark:bg-slate-950 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+              {QUICK_PROMPTS.map((prompt, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  disabled={loading}
+                  onClick={() => sendMessage(prompt)}
+                  className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] sm:text-[11px] font-medium text-slate-600 transition hover:border-indigo-400 hover:bg-indigo-50/50 hover:text-indigo-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+
+            {/* Input Area */}
+            <form
+              onSubmit={handleSend}
+              className="flex items-center gap-2 border-t border-slate-200/80 bg-white p-2.5 dark:border-slate-800 dark:bg-slate-950 shrink-0"
+            >
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask about courses, cutoffs, fees..."
+                disabled={loading}
+                className="flex-1 rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500"
+              />
+              <button
+                type="submit"
+                disabled={loading || !input.trim()}
+                className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 shadow-xs shrink-0"
+                aria-label="Send message"
+              >
+                <Send size={14} />
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* Floating Launcher Button */}
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          className="group relative flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 p-3 sm:p-3.5 text-white shadow-xl shadow-indigo-600/30 transition-all hover:scale-105 active:scale-95"
+          aria-label="Open AI Admissions Assistant"
+        >
+          <span className="relative flex h-5 w-5 items-center justify-center">
+            <Bot size={20} className="transition-transform group-hover:rotate-12" />
+            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
+          </span>
+          <span className="text-[11px] sm:text-xs font-bold tracking-wide pr-1">
+            Ask AI
+          </span>
+        </button>
+      </div>
+    </>
   );
 }
