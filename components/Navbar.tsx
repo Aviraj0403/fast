@@ -42,11 +42,10 @@ export const Navbar = ({ sections }: { sections?: NavSections }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
+  // Hide public navbar on internal student dashboard so student app has clean full-screen experience
+  if (pathname.startsWith("/student") && pathname !== "/student/login" && pathname !== "/student/register") {
+    return null;
+  }
 
   const isActive = (path: string) => (path === "/" ? pathname === "/" : !path.includes("#") && pathname.startsWith(path));
 

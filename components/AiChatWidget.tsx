@@ -152,27 +152,27 @@ export function AiChatWidget() {
         />
       )}
 
-      {/* Floating Launcher Button: Bottom Right, above mobile nav bar */}
-      <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-40">
+      {/* Floating Launcher Button: Center Left with clean compact badge "FAST-AI" */}
+      <div className="fixed left-3 sm:left-5 top-1/2 -translate-y-1/2 z-40">
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
-          className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-4 py-3 text-white shadow-2xl shadow-indigo-600/40 transition-all hover:scale-105 active:scale-95 ring-2 ring-white/20"
-          aria-label="Open AI Admissions Assistant"
+          className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-3 py-2.5 sm:px-3.5 sm:py-2.5 text-white shadow-xl shadow-indigo-600/30 transition-all hover:scale-105 active:scale-95 ring-2 ring-white/20"
+          aria-label="Open FAST-AI Assistant"
         >
           <span className="relative flex h-5 w-5 items-center justify-center">
-            <Bot size={20} className="transition-transform group-hover:rotate-12" />
-            <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
+            <Bot size={19} className="transition-transform group-hover:rotate-12" />
+            <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
           </span>
-          <span className="text-xs font-bold tracking-wide">
-            FastAdmission AI
+          <span className="text-xs font-extrabold tracking-wider">
+            FAST-AI
           </span>
         </button>
       </div>
 
-      {/* Chat Dialog: Fixed modal on mobile, clean pinned popover on desktop */}
+      {/* Chat Dialog: Clean slide-in on left for desktop, full bottom sheet on mobile */}
       {open && (
-        <div className="fixed inset-x-3 bottom-3 z-50 flex flex-col h-[540px] max-h-[85vh] rounded-3xl border border-slate-200 bg-white shadow-2xl overflow-hidden sm:inset-x-auto sm:right-6 sm:bottom-20 sm:w-[390px] sm:h-[530px] animate-in fade-in slide-in-from-bottom-5">
+        <div className="fixed inset-x-3 bottom-3 z-50 flex flex-col h-[520px] max-h-[85vh] rounded-3xl border border-slate-200 bg-white shadow-2xl overflow-hidden sm:inset-x-auto sm:left-5 sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto sm:w-[390px] sm:h-[530px] animate-in fade-in slide-in-from-left-4">
           {/* Header */}
           <div className="relative bg-gradient-to-r from-blue-700 via-indigo-700 to-brand-600 px-4 py-3.5 text-white shadow-xs shrink-0">
             <div className="flex items-center justify-between">

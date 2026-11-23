@@ -286,33 +286,36 @@ export default function StudentAppDashboard() {
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 flex lg:hidden">
             <div
-              className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs"
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs animate-in fade-in"
               onClick={() => setMobileMenuOpen(false)}
             />
-            <div className="relative flex w-72 flex-col justify-between bg-white p-5 shadow-2xl">
-              <div>
-                <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="relative flex w-[82vw] max-w-xs flex-col justify-between bg-white p-5 shadow-2xl animate-in slide-in-from-left duration-200">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-600 font-bold text-white text-xs">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-brand-600 to-sky-500 font-bold text-white text-xs">
                       FA
                     </span>
                     <span className="font-display font-bold text-slate-900 text-sm">FastAdmission</span>
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-1 rounded-lg text-slate-400 hover:bg-slate-100"
+                    className="p-1.5 rounded-lg text-slate-400 hover:bg-slate-100"
                   >
                     <X className="h-5 w-5" />
                   </button>
                 </div>
 
-                <div className="mt-4 rounded-xl bg-slate-50 p-3">
+                <div className="rounded-xl border border-slate-100 bg-slate-50 p-3">
                   <p className="text-xs font-bold text-slate-900">{studentName}</p>
                   <p className="text-[11px] text-slate-500 font-mono">ID: FA-2026-{data.profile.phone?.slice(-4) || "8821"}</p>
-                  <p className="mt-1 text-[10px] font-semibold text-brand-700">Batch 2026-2027</p>
+                  <div className="mt-1 flex items-center justify-between text-[10px]">
+                    <span className="font-semibold text-brand-700">Batch 2026-2027</span>
+                    <span className="font-semibold text-emerald-600">KYC Verified</span>
+                  </div>
                 </div>
 
-                <nav className="mt-4 space-y-1">
+                <nav className="space-y-1 overflow-y-auto max-h-[55vh] pr-1">
                   {NAV_ITEMS.map((item) => {
                     const isActive = activeTab === item.key;
                     const Icon = item.icon;
@@ -323,14 +326,14 @@ export default function StudentAppDashboard() {
                           setActiveTab(item.key);
                           setMobileMenuOpen(false);
                         }}
-                        className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold ${
+                        className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition ${
                           isActive
-                            ? "bg-brand-600 text-white"
-                            : "text-slate-600 hover:bg-slate-50"
+                            ? "bg-brand-600 text-white shadow-xs"
+                            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                         }`}
                       >
                         <span className="flex items-center gap-2.5">
-                          <Icon className="h-4 w-4" />
+                          <Icon className={`h-4 w-4 ${isActive ? "text-white" : "text-slate-400"}`} />
                           {item.label}
                         </span>
                         {item.badge && (
@@ -350,7 +353,7 @@ export default function StudentAppDashboard() {
 
               <button
                 onClick={logout}
-                className="flex items-center justify-center gap-2 rounded-xl border border-red-200 py-2.5 text-xs font-semibold text-red-600 hover:bg-red-50"
+                className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-red-200 py-2.5 text-xs font-semibold text-red-600 hover:bg-red-50"
               >
                 <LogOut className="h-4 w-4" /> Log out
               </button>
@@ -359,7 +362,7 @@ export default function StudentAppDashboard() {
         )}
 
         {/* Dynamic Main Workspace Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl">
+        <main className="flex-1 w-full min-w-0 p-3 sm:p-6 lg:p-8 max-w-7xl">
           {/* Overview Tab */}
           {activeTab === "overview" && (
             <div className="space-y-6">

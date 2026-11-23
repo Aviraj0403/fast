@@ -1,10 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { MessageCircle, Phone, PhoneCall } from "lucide-react";
 import { SITE, waLink } from "@/lib/site";
 
 /** Phones only: a bar that is always in thumb reach with the three ways to contact us. Desktop uses the floating buttons. */
 export function MobileCta() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/student")) {
+    return null;
+  }
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-4px_16px_rgb(11_27_46/0.08)] backdrop-blur md:hidden">
       <div className="grid grid-cols-3 gap-2">

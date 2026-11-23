@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { SITE, waLink } from "@/lib/site";
 
@@ -13,8 +16,14 @@ const links = [
 
 const programmes = ["Engineering (B.Tech)", "Medical (MBBS / BDS)", "Management (MBA / BBA)", "Law (LLB)", "Career assessment", "Admission counselling"];
 
-export const Footer = () => (
-  <footer className="bg-brand-950 text-slate-300">
+export const Footer = () => {
+  const pathname = usePathname();
+  if (pathname.startsWith("/student") && pathname !== "/student/login" && pathname !== "/student/register") {
+    return null;
+  }
+
+  return (
+    <footer className="bg-brand-950 text-slate-300">
     <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
       <div>
         <div className="flex items-center gap-2.5">
@@ -87,4 +96,5 @@ export const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};
