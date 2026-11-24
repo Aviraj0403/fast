@@ -17,13 +17,13 @@ const gridItems = [
 ];
 
 export const AdmissionSection = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", course: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", course: "", company_url: "" });
   const [sent, setSent] = useState(false);
   const set = (k: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => setFormData((f) => ({ ...f, [k]: e.target.value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    void submitLead({ name: formData.name, phone: formData.phone, email: formData.email, course: formData.course, form: "admission-section" });
+    void submitLead({ name: formData.name, phone: formData.phone, email: formData.email, course: formData.course, form: "admission-section", company_url: formData.company_url });
     event("lead_submitted", { form: "admission-section", course: formData.course });
     const message = `📝 *New Enquiry*
 👤 *Name:* ${formData.name}
@@ -34,7 +34,7 @@ export const AdmissionSection = () => {
 Ref: Priority Admission 2026`.trim();
     window.open(waLink(message), "_blank");
     setSent(true);
-    setFormData({ name: "", email: "", phone: "", course: "" });
+    setFormData({ name: "", email: "", phone: "", course: "", company_url: "" });
   };
 
   return (
@@ -93,6 +93,7 @@ Ref: Priority Admission 2026`.trim();
                 <label htmlFor="adm-course" className="label">Course you are interested in</label>
                 <input id="adm-course" required className="field" placeholder="e.g. Engineering, Medical, Law" value={formData.course} onChange={set("course")} />
               </div>
+              <input className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" name="company_url" value={formData.company_url} onChange={set("company_url")} />
               <button type="submit" className="btn btn-primary btn-lg w-full">
                 <MessageCircle className="h-5 w-5" /> Start counselling on WhatsApp
               </button>

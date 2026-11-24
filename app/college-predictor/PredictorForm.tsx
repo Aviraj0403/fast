@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader2, MapPin, MessageCircle, Wallet } from "lucide-react";
-import { mobileOf } from "@/components/LeadForm";
+import { mobileOf } from "@/lib/phone";
 import { event } from "@/lib/analytics";
 import { PLATFORM, waLink } from "@/lib/site";
 import { cn } from "@/lib/utils";

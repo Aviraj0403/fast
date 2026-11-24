@@ -17,6 +17,7 @@ const formSchema = z.object({
   courseInterest: z.string().min(1, { message: "Choose a course" }),
   location: z.string().min(2, { message: "Enter your city or state" }),
   message: z.string().optional(),
+  company_url: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -36,7 +37,7 @@ const MergedContactSection = () => {
 
   const onSubmit = (data: FormValues) => {
     // save the lead in the platform (fire and forget) while WhatsApp opens
-    void submitLead({ name: data.name, phone: data.phone, email: data.email, city: data.location, course: data.courseInterest, message: data.message, form: "contact-section" });
+    void submitLead({ name: data.name, phone: data.phone, email: data.email, city: data.location, course: data.courseInterest, message: data.message, form: "contact-section", company_url: data.company_url });
     event("lead_submitted", { form: "contact-section", course: data.courseInterest });
     const message = `📝 *New Enquiry*
 👤 *Name:* ${data.name}
@@ -109,6 +110,7 @@ Ref: Web Apply 2026`.trim();
                 <label htmlFor="c-msg" className="label">Message <span className="font-normal text-muted">(optional)</span></label>
                 <textarea id="c-msg" rows={3} {...register("message")} className="field resize-y" placeholder="Marks, preferred colleges, questions..." />
               </div>
+              <input className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...register("company_url")} />
               <button type="submit" className="btn btn-primary btn-lg w-full">
                 <MessageCircle className="h-5 w-5" /> Continue on WhatsApp
               </button>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, Loader2, Mail, FileUp, LogIn } from "lucide-react";
 import { AuthShell } from "@/components/student/AuthShell";
-import { mobileOf } from "@/components/LeadForm";
+import { mobileOf } from "@/lib/phone";
 import { registerStudent } from "@/lib/student";
 
 const COURSES = ["Engineering (B.Tech)", "Medical (MBBS / BDS)", "Management (MBA / BBA)", "Law (LLB)", "Commerce / Arts / Other"];

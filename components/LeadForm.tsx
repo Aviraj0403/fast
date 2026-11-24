@@ -5,16 +5,12 @@ import { CheckCircle2, Loader2, MessageCircle, ShieldCheck } from "lucide-react"
 import { submitLead } from "@/lib/leads";
 import { event } from "@/lib/analytics";
 import { waLink } from "@/lib/site";
+import { mobileOf } from "@/lib/phone";
 import { cn } from "@/lib/utils";
 
 const COURSES = ["Engineering (B.Tech)", "Medical (MBBS / BDS)", "Management (MBA / BBA)", "Law (LLB)", "Commerce / Arts / Other"];
 
-/** 10-digit Indian mobile, accepting +91, 91, 0 and spaces / dashes. Returns the 10 digits or null. */
-export const mobileOf = (raw: string): string | null => {
-  const d = raw.replace(/\D/g, "");
-  const n = d.length === 12 && d.startsWith("91") ? d.slice(2) : d.length === 11 && d.startsWith("0") ? d.slice(1) : d;
-  return /^[6-9]\d{9}$/.test(n) ? n : null;
-};
+export { mobileOf };
 
 /**
  * The short lead form used in the hero and on every city page: name, mobile, course. The lead goes to the platform;
@@ -23,7 +19,7 @@ export const mobileOf = (raw: string): string | null => {
  *  - city: prefilled and sent with the lead (city pages)
  */
 export function LeadForm({ form, city, dark = false, title = "Get a free call back", subtitle = "A counsellor will call you with a college shortlist, fees and cutoffs.", className }: { form: string; city?: string; dark?: boolean; title?: string; subtitle?: string; className?: string }) {
-  const [v, setV] = useState({ name: "", phone: "", course: "" });
+  const [v, setV] = useState({ name: "", phone: "", course: "", company_url: "" });
   const [err, setErr] = useState<Record<string, string>>({});
   const [state, setState] = useState<"idle" | "sending" | "saved" | "fallback">("idle");
   const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setV((x) => ({ ...x, [k]: e.target.value }));
@@ -40,7 +36,7 @@ export function LeadForm({ form, city, dark = false, title = "Get a free call ba
     if (Object.keys(problems).length) return;
 
     setState("sending");
-    const ok = await submitLead({ name: v.name, phone: phone!, course: v.course, city, form });
+    const ok = await submitLead({ name: v.name, phone: phone!, course: v.course, city, form, company_url: v.company_url });
     event(ok ? "lead_submitted" : "lead_failed", { form, city: city ?? null, course: v.course });
     setState(ok ? "saved" : "fallback");
   };
@@ -82,6 +78,7 @@ export function LeadForm({ form, city, dark = false, title = "Get a free call ba
             </select>
             {err.course && <p role="alert" className="field-error">{err.course}</p>}
           </div>
+          <input className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" name="company_url" value={v.company_url} onChange={set("company_url")} />
           <button type="submit" disabled={state === "sending"} className="btn btn-primary btn-lg w-full">
             {state === "sending" ? <Loader2 className="h-5 w-5 animate-spin" /> : null} {state === "sending" ? "Sending..." : "Request a free call back"}
           </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Bell,
@@ -145,14 +146,14 @@ export default function StudentAppDashboard() {
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
 
-          <a href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-brand-600 to-sky-500 font-black text-white shadow-xs">
               FA
             </span>
             <span className="font-display text-lg font-bold tracking-tight text-slate-900">
               FastAdmission <span className="text-xs font-medium text-brand-600 uppercase tracking-widest ml-0.5">Portal</span>
             </span>
-          </a>
+          </Link>
 
           <div className="hidden sm:flex items-center gap-2 border-l border-slate-200 pl-4 ml-2 text-xs text-slate-500">
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MessageCircle, Phone, PhoneCall } from "lucide-react";
 import { SITE, waLink } from "@/lib/site";
@@ -15,7 +16,7 @@ export function MobileCta() {
       <div className="grid grid-cols-3 gap-2">
         <a href={SITE.phoneHref} className="btn btn-outline !px-2 !py-2.5 text-sm"><Phone className="h-4 w-4" /> Call</a>
         <a href={waLink("Hi FastAdmission, I need admission guidance")} target="_blank" rel="noopener noreferrer" className="btn !px-2 !py-2.5 bg-[#25d366] text-sm text-white"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
-        <a href="/#hero-form" className="btn btn-primary !px-2 !py-2.5 text-sm"><PhoneCall className="h-4 w-4" /> Call back</a>
+        <Link href="/#hero-form" className="btn btn-primary !px-2 !py-2.5 text-sm"><PhoneCall className="h-4 w-4" /> Call back</Link>
       </div>
     </div>
   );
